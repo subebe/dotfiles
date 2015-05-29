@@ -224,12 +224,14 @@ if version >= 508 || !exists("did_html_syn_inits")
   if version < 508
     let did_html_syn_inits = 1
   endif
+  "modified
   "HtmlHiLink htmlTag                     Function
   "HtmlHiLink htmlEndTag                  Identifier
   HtmlHiLink htmlTag                     htmlStatement
   HtmlHiLink htmlEndTag                  htmlStatement
   "HtmlHiLink htmlArg                     Type
   HtmlHiLink htmlArg                     Constant
+  "/modified
   HtmlHiLink htmlTagName                 htmlStatement
   HtmlHiLink htmlSpecialTagName          Exception
   HtmlHiLink htmlValue                     String

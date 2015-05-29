@@ -1,43 +1,91 @@
 scriptencoding utf-8
+set encoding=utf-8
+set nocompatible
 
-"プラグイン関係
+if has('win64')
+  let $VIMFILES='~/vimfiles'
+else
+  let $VIMFILES='~/.vim'
+endif
+
+"プラグイン
 if has('vim_starting')
   set nocompatible
-  set runtimepath+=$HOME/vimfiles/bundle/neobundle.vim/
+  set runtimepath+=$VIMFILES/bundle/neobundle.vim/
 endif
-call neobundle#begin(expand('~/vimfiles/bundle/'))
-  NeoBundleFetch 'Shougo/neobundle.vim'
-  NeoBundle 'tpope/vim-surround'
-  "入力補完
-  NeoBundle 'Shougo/neocomplcache'
-  "コメント
-  NeoBundle 'The-NERD-Commenter'
-  "unite
-  NeoBundle 'Shougo/unite.vim'
-  "filer
-  NeoBundle 'Shougo/vimfiler'
-  "再起動プラグイン
-  NeoBundle 'tyru/restart.vim'
-  "カーソル移動
-  NeoBundle 'Lokaltog/vim-easymotion'
-  " テキストオブジェクトで置換
-  NeoBundle 'kana/vim-operator-replace'
-  NeoBundle 'kana/vim-operator-user'
-  "plugin repeat
-  NeoBundle 'tpope/vim-repeat'
-  "置換可視化
-  NeoBundle 'osyo-manga/vim-over'
-  "yank履歴
-  NeoBundle 'LeafCage/yankround.vim'
-  NeoBundle 'kien/ctrlp.vim'
+call neobundle#begin(expand('$VIMFILES/bundle/'))
+"NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+"filer
+NeoBundle 'Shougo/vimfiler'
+
+"unite
+NeoBundle 'Shougo/unite.vim'
+"unite最近開いたファイル
+NeoBundle 'Shougo/neomru.vim'
+
+"入力補完
+NeoBundle 'Shougo/neocomplcache'
+
+"囲み文字操作
+NeoBundle 'tpope/vim-surround'
+
+"再起動プラグイン
+NeoBundle 'tyru/restart.vim'
+
+" テキストオブジェクトで置換
+NeoBundle 'kana/vim-operator-replace'
+NeoBundle 'kana/vim-operator-user'
+
+"plugin repeat
+NeoBundle 'tpope/vim-repeat'
+
+"置換可視化
+NeoBundle 'osyo-manga/vim-over'
+
+"colorscheme
+"使用するのは基本的に$VIMFILES/colors/hybrid.vim
+NeoBundle 'w0ng/vim-hybrid'
+
+"vim-singleton
+NeoBundle 'thinca/vim-singleton'
+
+"f,t操作変更
+NeoBundle 'rhysd/clever-f.vim'
+
+"検索位置表示
+NeoBundle 'osyo-manga/vim-anzu'
+
+"recover-vim
+NeoBundle 'chrisbra/Recover.vim'
+
+"スタート画面
+NeoBundle 'mhinz/vim-startify'
+
+"括弧、タグ対応
+NeoBundle 'vimtaku/hl_matchit.vim.git'
+
+"-------- 未設定 --------
+"emmet
+"http://motw.mods.jp/Vim/emmet-vim.html
+NeoBundle 'mattn/emmet-vim'
+
+"markdown
+"http://qiita.com/uedatakeshi/items/31761b87ba8ecbaf2c1e
+NeoBundle 'plasticboy/vim-markdown'
+"markdown-preview
+NeoBundle 'kannokanno/previm'
+"ブラウザを開く
+NeoBundle 'tyru/open-browser.vim'
+
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 
-"vim-operator-replace
-map <S-r> <Plug>(operator-replace)
 
 "neocomplcache
+let g:neocomplcache_temporary_dir=expand($VIMFILES . '/cache/neocomplcache')
 "開始時に起動する
 let g:neocomplcache_enable_at_startup=1
 let g:neocomplcache_enable_smart_case=1
@@ -45,36 +93,65 @@ let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_min_syntax_length = 3
 
-"vim-easymotion
-nmap s <Plug>(easymotion-s2)
 
-" yankround.vim {{{
-"" キーマップ
-nmap p <Plug>(yankround-p)
-nmap P <Plug>(yankround-P)
-nmap <C-p> <Plug>(yankround-prev)
-nmap <C-n> <Plug>(yankround-next)
-"" 履歴取得数
-let g:yankround_max_history = 50
-""履歴一覧(kien/ctrlp.vim)
-nnoremap <silent>g<C-p> :<C-u>CtrlPYankRound<CR>
-" }}}
+"unite
+call unite#custom#default_action('directory' , 'vimfiler')
 
-"デフォルトプラグイン
-source $VIMRUNTIME/macros/matchit.vim
+
+"vimfiler
+let g:vimfiler_data_directory=expand($VIMFILES .'/cache/vimfiler')
+let g:vimfiler_enable_auto_cd=1
+
+
+"vim-operator-replace
+map _ <Plug>(operator-replace)
+
+
+"vim-repeat
+"下にも適用
+nmap <M-.> j.
+nmap <C-M-.> k.
+
+
+"restart
+let g:restart_sessionoptions='blank,buffers,curdir,folds,help,localoptions,tabpages'
+
+
+"vim-singleton
+call singleton#enable()
+
+"vim-anzu
+nmap n <Plug>(anzu-n)
+nmap N <Plug>(anzu-N)
+nmap * <Plug>(anzu-star)
+nmap # <Plug>(anzu-sharp)
+
+"clever-f & vim-anzu
+nmap <silent> <ESC><ESC> <Plug>(anzu-clear-search-status)<Plug>(clever-f-reset):nohlsearch<CR>
+
+"vim-startify
+let g:startify_custom_indices = ['f', 'd', 'g', 'h', 'l', 'a', 'r', 'u', 'y', 'w', 'o', 'm', 'n', 'c', 'x', 'z']
+let g:startify_bookmarks = ['~/vimfiles/vimrc', '~/Documents/Backup/data/todo.txt', '~/Documents/Backup/Report/週報.txt']
+
+
 
 "#表示関係
-"コマンドライン補完をわかりやすく
+"コマンドラインに候補を表示
 set wildmenu
 "ステータスライン
-set statusline=%-(%f%m%h%q%r%w%)%=%{&ff}\|%{&fenc}\ %y%l,%c\ %0P
+set statusline=%-(%f%m%q%r%w\ [\%{anzu#search_status()}]%)%=%{&ff}\ \|\ %{&fenc}\ %Y\ %l,%c\ 0x\%04.4B
 set laststatus=2
+"タブ
+"set tabline=%t
+set guitablabel=%N
 "タブを常に表示
 set showtabline=2
 "行番号表示
 set number
 "タイトルバーをファイル名に
 set title
+"256色
+set t_Co=256
 
 "ルーラ表示
 set ruler
@@ -91,6 +168,25 @@ set sidescroll=1
 "全角記号対応
 set ambiwidth=double
 
+"#gui設定
+set guioptions-=e
+"メニュー無効化
+set guioptions-=m
+set guioptions-=g
+"ツールバー無効化
+set guioptions-=T
+"スクロールバー無効化
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r
+set guioptions-=R
+set guioptions-=b
+set guioptions-=h
+"メニュー切り離し
+set guioptions-=t
+"ダイアログをコンソールで表示
+set guioptions+=c
+
 
 "cygwinカーソルの変更
 if &term !=# 'cygwin'
@@ -102,15 +198,12 @@ endif
 
 
 "#検索関係
-"検索時に大文字・小文字を区別しない
+"検索時に大文字・小文字を区別しない。
 set ignorecase
 "大文字が含まれる場合は区別する
 set smartcase
 "逐次検索
 set incsearch
-"Esc*2で検索ハイライト解除
-nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
-
 
 "タブ、インデント設定
 set expandtab
@@ -119,7 +212,7 @@ set tabstop=4
 set noautoindent
 set nosmartindent
 "自動インデント幅
-set shiftwidth=2
+set shiftwidth=4
 "タブ、バックスペースの空白移動幅
 set softtabstop=0
 
@@ -133,97 +226,160 @@ set hlsearch is
 "カーソル行のハイライト
 set cursorline
 "set cursorcolumn
-
+		
 "不可視文字
-"set conceallevel=2
-"set concealcursor=nvic
-"set list
-"let &listchars="tab:?\ ,eol:\u00b6"  "eolは¶を表示
-"syntax match Ignore / / containedin=ALL conceal cchar=･
-"syntax match Ignore /　/ containedin=ALL conceal cchar=□
+if has('conceal')
+    set concealcursor=nc
+    "空白表示
+    augroup viewable
+        autocmd!
+        autocmd BufNew,BufEnter * syntax match Ignore / / containedin=ALL conceal cchar=･
+        autocmd BufNew,BufEnter * syntax match Ignore /　/ containedin=ALL conceal cchar=□
+        autocmd * set conceallevel=2
+        autocmd FileType vimfiler set conceallevel=0
+    augroup END
+endif
+set list
+set listchars=tab:￫\ ,eol:⏎
+
 
 "#他
-".vimrc編集コマンド追加
-command! EVimrc :e $MYVIMRC
 "vimrcを保存したときに再読み込み
-augroup vimrc
-    autocmd!
-    autocmd BufWritePost *vimrc source $MYVIMRC
-augroup END
+"augroup vimrc
+"  autocmd!
+"  autocmd BufWritePost *vimrc source $MYVIMRC
+"augroup END
 
 "カレントディレクトリの設定
-cd $HOME
+"起動時ホームへ移動
+cd ~
+"カレントディレクトリ移動
 augroup set_crr
-    autocmd!
-    autocmd   BufEnter *   execute ":lcd " . expand("%:p:h")
+  autocmd!
+  autocmd BufEnter * execute ":lcd " . expand("%:p:h")
 augroup END
 
+
 "インクリメント、デクリメントを10進のみにする
-set nrformats="hex"
+set nrformats=hex
 "viminfoファイルのパスを変更
-set viminfo+=n$HOME/vimfiles/viminfo
+set viminfo+=n~/vimfiles/viminfo
 "バックアップファイル設定
 set backup
-set backupdir=$HOME/vimfiles/backup
+set backupdir=~/vimfiles/backup
 "スワップファイル設定
 set swapfile
-set directory=$HOME/vimfiles/swap
+set directory=~/vimfiles/swap
 "アンドゥファイル設定
-set undodir=$HOME/vimfiles/undo
-
+set undodir=~/vimfiles/undo
+"BSで削除許可
 set backspace=indent,eol,start
+"マウス使用
 set mouse=a
+"OSのクリップボード使用
 set clipboard+=unnamed
 
-set iminsert=0
-set imsearch=0
-
+"インサートモードを抜けるときにIMEをオフに
+inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 
 "ノーマルモードでの改行
-nnoremap <Space>j o<Esc>
-nnoremap <Space>k O<Esc>
-"行末先頭
-nnoremap <Space>h  ^
-vnoremap <Space>h  ^
-nnoremap <Space>l  $
-vnoremap <Space>l  $
+nnoremap <Space>j o<ESC>
+nnoremap <Space>k O<ESC>
+"行末、先頭移動
+noremap <Space>h ^
+noremap <Space>l $
+noremap! <C-Space><C-h> <HOME>
+noremap! <C-Space><C-l> <END>
 
-"全コピーコマンド
-nnoremap <silent> <C-y> :%y<CR>
-nnoremap <silent> <space>d :%d<CR>
-"半角スペース付けない行結合
+"行末までヤンク
+nnoremap Y y$
+"全ヤンク
+nnoremap <silent> <M-y> :%y<CR>
+command! YankAll %yank
+"全カット
+command! DeleteAll %delete
+nnoremap <M-d> ggdG
+"行結合入れ替え
 nnoremap J gJ
 nnoremap gJ J
 "すべて選択
-vnoremap v G$oggo
-"1行選択
-nnoremap V 0v$h
+vnoremap v ggoG$
 
+"コマンド補完の確定
+cnoremap <C-CR> <Space><BS><Right>
 
+"インサートモードでの移動
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 
-inoremap <C-p> <ESC>"*pi
+"ウィンドウサイズ調整
+nnoremap <silent> <S-Left> :wincmd <<CR>
+nnoremap <silent> <S-Right> :wincmd ><CR>
+nnoremap <silent> <S-Up> :wincmd -<CR>
+nnoremap <silent> <S-Down> :wincmd +<CR>
 
-if &term ==# 'cygwin'
-  nnoremap <silent> [1;5I :tabn<CR>
-  nnoremap <silent> [1;6I :tabp<CR>
-else
-  nnoremap <C-Tab> gt
-  nnoremap <C-S-Tab> gT
-  nnoremap <silent> <C-w> :q<CR>
-  nnoremap <silent> <C-s> :w<CR>
-  nnoremap <silent> <C-t> :tabnew<CR>
-endif
+"ウィンドウサイズ調整
+nnoremap <silent> <C-Left> wl
+nnoremap <silent> <C-Right> wh
+nnoremap <silent> <C-Up> wk
+nnoremap <silent> <C-Down> wj
 
-map <silent> <F1> :e $MYVIMRC<CR>
-map <silent> <F2> :se ft=html<CR>
+"タブ移動
+nnoremap gl gt
+nnoremap gh gT
 
+"上書き
+nnoremap <silent> <C-s> :w<CR>
+inoremap <silent> <C-s> <ESC>:w<CR>
+
+"画面移動
+nnoremap <Tab> <C-w><C-w>
+
+"vimrcの編集
+nnoremap <silent> <F1> :e $MYVIMRC<CR>
+nnoremap <silent> <S-F1> :tabedit $MYVIMRC<CR>
+nnoremap <silent> <F2> :e $MYGVIMRC<CR>
+nnoremap <silent> <S-F2> :tabedit $MYGVIMRC<CR>
+"ファイラ開く
+noremap <silent> <F3> :VimFilerExplorer -project<CR>
+
+"Qでバッファ削除
+nnoremap <silent> Q :bd<CR>
+
+"クリップボードの表示
+nnoremap <silent> y? :echo @*<CR>
+"g.でコマンドリピート
+nnoremap g. @:
+"relativenumberの切り替え
+nnoremap <silent> <S-ESC> :call ToggleNumber()<CR>
+function! ToggleNumber()
+  if &relativenumber
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunction
 
 "html補完
 augroup htmlcomp
   autocmd!
   autocmd FileType html inoremap <silent> <buffer> </ </<C-x><C-o>
 augroup END
+
+
+"C-v貼り付けモード
+command! PastModeOn nnoremap <lt>C-v> p
+command! PastModeOff nunmap <lt>C-v>
+
+"x削除はクリップボードに入れない
+nnoremap x "_x
+
+"Unite file_mru
+command! UMru Unite file_mru
+command! UFile Unite file
+command! UBuffer Unite buffer
+
+"explorer
+command! OSFileManager execute "!explorer /S" expand("%:p")

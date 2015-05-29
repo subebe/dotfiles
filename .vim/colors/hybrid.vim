@@ -282,10 +282,13 @@ endif
 " ----------------------------------------------------------------------------
 exe "hi! ColorColumn"   .s:fg_none        .s:bg_line        .s:fmt_none
 "		Conceal"
-"add
-exe "hi! Conceal"       .s:fg_selection   .s:bg_none        .s:fmt_none
 "		Cursor"
 "		CursorIM"
+"add start
+exe "hi! Conceal"       .s:fg_selection   .s:bg_none        .s:fmt_none
+exe "hi! Cursor"        .s:fg_foreground  .s:bg_red         .s:fmt_none
+exe "hi! CursorIM"      .s:fg_foreground  .s:bg_green       .s:fmt_none
+"add end
 exe "hi! CursorColumn"  .s:fg_none        .s:bg_line        .s:fmt_none
 exe "hi! CursorLine"    .s:fg_none        .s:bg_line        .s:fmt_none
 exe "hi! Directory"     .s:fg_blue        .s:bg_none        .s:fmt_none

@@ -688,8 +688,10 @@ if version >= 508 || !exists("did_php_syn_inits")
   HiLink   phpIntVar Identifier
   HiLink   phpEnvVar Identifier
   HiLink   phpOperator Operator
-  HiLink   phpVarSelector  Identifier
+  "modified
+  "HiLink   phpVarSelector  Identifier
   HiLink   phpVarSelector  Operator
+  "/modified
   HiLink   phpRelation Operator
   HiLink   phpIdentifier Identifier
   HiLink   phpIdentifierSimply Identifier
