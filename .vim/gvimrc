@@ -1,0 +1,31 @@
+scriptencoding utf-8
+
+colorscheme hybrid
+
+"window位置固定
+let g:save_window_file = expand('~/vimfiles/.vimwinpos')
+augroup SaveWindow
+  autocmd!
+  autocmd VimLeavePre * call s:save_window()
+  function! s:save_window()
+    let options = [
+      \ 'set columns=' . &columns,
+      \ 'set lines=' . &lines,
+      \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
+      \ ]
+    call writefile(options, g:save_window_file)
+  endfunction
+augroup END
+
+if filereadable(g:save_window_file)
+  execute 'source' g:save_window_file
+endif
+
+"D&D時タブで開く
+"autocmd VimEnter * tab all
+"autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
+
+"textwidthでの自動改行off
+set formatoptions-=t
+
+set guifont=Ricty_Diminished:h14:cSHIFTJIS
