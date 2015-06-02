@@ -97,6 +97,11 @@ let g:neocomplcache_min_syntax_length = 3
 "unite
 call unite#custom#default_action('directory' , 'vimfiler')
 
+"コマンド追加
+command! UMru Unite file_mru
+command! UFile Unite file
+command! UBuffer Unite buffer
+
 
 "vimfiler
 let g:vimfiler_data_directory=expand($VIMFILES .'/cache/vimfiler')
@@ -141,9 +146,6 @@ set wildmenu
 "ステータスライン
 set statusline=%-(%f%m%q%r%w\ [\%{anzu#search_status()}]%)%=\|\ %{&ff}\ \|\ \%{&fenc}\ \|\ %Y\ \|\ %l,%c(%p%%)\ \|\ 0x\%04.4B\ 
 set laststatus=2
-"タブ
-"set tabline=%t
-set guitablabel=%N
 "タブを常に表示
 set showtabline=2
 "行番号表示
@@ -157,36 +159,24 @@ set t_Co=256
 set ruler
 "折り返し無効
 set nowrap
-"スクロールのオフセット設定
-set scrolloff=10
 "行頭行末の左右移動で行をまたぐ
 set whichwrap=b,s,h,l,<,>,[,]
+"スクロールのオフセット設定
+set scrolloff=10
 "左右スクロールのオフセット
 set sidescrolloff=16
 "左右スクロール距離
 set sidescroll=1
-"全角記号対応
+"全角記号幅設定
 set ambiwidth=double
 
 "#gui設定
-set guioptions-=e
-"メニュー無効化
-set guioptions-=m
-set guioptions-=g
-"ツールバー無効化
-set guioptions-=T
-"スクロールバー無効化
-set guioptions-=l
-set guioptions-=L
-set guioptions-=r
-set guioptions-=R
-set guioptions-=b
-set guioptions-=h
-"メニュー切り離し
-set guioptions-=t
-"ダイアログをコンソールで表示
+"ツールバー、メニュー無効
+set guioptions-=e guioptions-=m guioptions-=T
+"スクロールバー無効
+set guioptions-=r guioptions-=R guioptions-=l guioptions-=L
+"コンソールダイアログを使う
 set guioptions+=c
-
 
 "カーソルの変更
 if &term !=# 'cygwin'
@@ -205,7 +195,7 @@ set smartcase
 "逐次検索
 set incsearch
 
-"タブ、インデント設定
+"#タブ、インデント設定
 set expandtab
 set ts=4
 set tabstop=4
@@ -222,7 +212,7 @@ syntax on
 "カラーテーマ
 colorscheme hybrid
 "検索結果のハイライト
-set hlsearch is
+set hlsearch
 "カーソル行のハイライト
 set cursorline
 
@@ -286,20 +276,17 @@ nnoremap <Space>k O<ESC>
 "行末、先頭移動
 noremap <Space>h ^
 noremap <Space>l $
-noremap! <C-Space><C-h> <HOME>
-noremap! <C-Space><C-l> <END>
 
 "行末までヤンク
 nnoremap Y y$
-"全ヤンク
-nnoremap <silent> <M-y> :%y<CR>
-command! YankAll %yank
-"全カット
-command! DeleteAll %delete
-nnoremap <M-d> ggdG
+"全ヤンク、デリート
+nnoremap <silent> <M-y> :%yank<CR>
+nnoremap <silent> <M-d> :%delete<CR>
+
 "行結合入れ替え
 nnoremap J gJ
 nnoremap gJ J
+
 "すべて選択
 vnoremap v ggoG$
 
@@ -348,8 +335,10 @@ nnoremap <silent> Q :bd<CR>
 
 "クリップボードの表示
 nnoremap <silent> y? :echo @*<CR>
-"g.でコマンドリピート
+
+"コマンドリピート
 nnoremap g. @:
+
 "relativenumberの切り替え
 nnoremap <silent> <S-ESC> :set invrelativenumber<CR>
 
@@ -366,9 +355,6 @@ command! PastModeOff nunmap <lt>C-v>
 
 "x削除はクリップボードに入れない
 nnoremap x "_x
+nnoremap X "_X
 
-"Unite file_mru
-command! UMru Unite file_mru
-command! UFile Unite file
-command! UBuffer Unite buffer
 
