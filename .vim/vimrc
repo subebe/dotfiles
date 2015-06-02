@@ -110,7 +110,7 @@ map _ <Plug>(operator-replace)
 "vim-repeat
 "下にも適用
 nmap <M-.> j.
-nmap <C-M-.> k.
+nmap <M-,> k.
 
 
 "restart
@@ -131,7 +131,7 @@ nmap <silent> <ESC><ESC> <Plug>(anzu-clear-search-status)<Plug>(clever-f-reset):
 
 "vim-startify
 let g:startify_custom_indices = ['f', 'd', 'g', 'h', 'l', 'a', 'r', 'u', 'y', 'w', 'o', 'm', 'n', 'c', 'x', 'z']
-let g:startify_bookmarks = ['~/vimfiles/vimrc', '~/Documents/Backup/data/todo.txt', '~/Documents/Backup/Report/週報.txt']
+let g:startify_bookmarks = [$MYVIMRC]
 
 
 
@@ -139,7 +139,7 @@ let g:startify_bookmarks = ['~/vimfiles/vimrc', '~/Documents/Backup/data/todo.tx
 "コマンドラインに候補を表示
 set wildmenu
 "ステータスライン
-set statusline=%-(%f%m%q%r%w\ [\%{anzu#search_status()}]%)%=%{&ff}\ \|\ %{&fenc}\ %Y\ %l,%c\ 0x\%04.4B
+set statusline=%-(%f%m%q%r%w\ [\%{anzu#search_status()}]%)%=\|\ %{&ff}\ \|\ \%{&fenc}\ \|\ %Y\ \|\ %l,%c(%p%%)\ \|\ 0x\%04.4B\ 
 set laststatus=2
 "タブ
 "set tabline=%t
@@ -188,7 +188,7 @@ set guioptions-=t
 set guioptions+=c
 
 
-"cygwinカーソルの変更
+"カーソルの変更
 if &term !=# 'cygwin'
   let &t_ti .= "\e[1 q"
   let &t_SI .= "\e[5 q"
@@ -225,18 +225,16 @@ colorscheme hybrid
 set hlsearch is
 "カーソル行のハイライト
 set cursorline
-"set cursorcolumn
-		
+
 "不可視文字
 if has('conceal')
-    set concealcursor=nc
     "空白表示
     augroup viewable
         autocmd!
         autocmd BufNew,BufEnter * syntax match Ignore / / containedin=ALL conceal cchar=･
         autocmd BufNew,BufEnter * syntax match Ignore /　/ containedin=ALL conceal cchar=□
-        autocmd * set conceallevel=2
-        autocmd FileType vimfiler set conceallevel=0
+        autocmd FileType * set conceallevel=2 concealcursor=nc
+        autocmd FileType vimfiler set conceallevel=0 concealcursor=nvc
     augroup END
 endif
 set list
@@ -317,14 +315,14 @@ inoremap <C-l> <Right>
 "ウィンドウサイズ調整
 nnoremap <silent> <S-Left> :wincmd <<CR>
 nnoremap <silent> <S-Right> :wincmd ><CR>
-nnoremap <silent> <S-Up> :wincmd -<CR>
-nnoremap <silent> <S-Down> :wincmd +<CR>
+nnoremap <silent> <S-Up> :wincmd +<CR>
+nnoremap <silent> <S-Down> :wincmd -<CR>
 
 "ウィンドウサイズ調整
-nnoremap <silent> <C-Left> wl
-nnoremap <silent> <C-Right> wh
-nnoremap <silent> <C-Up> wk
-nnoremap <silent> <C-Down> wj
+nnoremap <C-Left> <C-w>h
+nnoremap <C-Right> <C-w>l
+nnoremap <C-Up> <C-w>k
+nnoremap <C-Down> <C-w>j
 
 "タブ移動
 nnoremap gl gt
@@ -353,14 +351,7 @@ nnoremap <silent> y? :echo @*<CR>
 "g.でコマンドリピート
 nnoremap g. @:
 "relativenumberの切り替え
-nnoremap <silent> <S-ESC> :call ToggleNumber()<CR>
-function! ToggleNumber()
-  if &relativenumber
-    set norelativenumber
-  else
-    set relativenumber
-  endif
-endfunction
+nnoremap <silent> <S-ESC> :set invrelativenumber<CR>
 
 "html補完
 augroup htmlcomp
@@ -381,5 +372,3 @@ command! UMru Unite file_mru
 command! UFile Unite file
 command! UBuffer Unite buffer
 
-"explorer
-command! OSFileManager execute "!explorer /S" expand("%:p")
