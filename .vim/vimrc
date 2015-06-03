@@ -1,7 +1,7 @@
 scriptencoding utf-8
 set encoding=utf-8
 
-if has('win64')
+if has('win32') || has('win64')
   let $VIMFILES='~/vimfiles'
 else
   let $VIMFILES='~/.vim'
@@ -51,7 +51,9 @@ NeoBundle 'osyo-manga/vim-over'
 NeoBundle 'w0ng/vim-hybrid'
 
 "vim-singleton
-NeoBundle 'thinca/vim-singleton'
+if has('win32') || has('win64')
+  NeoBundle 'thinca/vim-singleton'
+endif
 
 "f,t操作変更
 NeoBundle 'rhysd/clever-f.vim'
@@ -125,7 +127,10 @@ let g:restart_sessionoptions='blank,buffers,curdir,folds,help,localoptions,tabpa
 
 
 "vim-singleton
-call singleton#enable()
+if has('win32') || has ('win64')
+  call singleton#enable()
+endif
+
 
 "vim-anzu
 nmap n <Plug>(anzu-n)
