@@ -1,6 +1,5 @@
 scriptencoding utf-8
 set encoding=utf-8
-set nocompatible
 
 if has('win64')
   let $VIMFILES='~/vimfiles'
@@ -10,7 +9,10 @@ endif
 
 "プラグイン
 if has('vim_starting')
-  set nocompatible
+  if &compatible
+    " Be iMproved
+    set nocompatible
+  endif
   set runtimepath+=$VIMFILES/bundle/neobundle.vim/
 endif
 call neobundle#begin(expand('$VIMFILES/bundle/'))
@@ -85,7 +87,7 @@ NeoBundleCheck
 
 
 "neocomplcache
-let g:neocomplcache_temporary_dir=expand($VIMFILES . '/cache/neocomplcache')
+let g:neocomplcache_temporary_dir=expand('$VIMFILES/cache/neocomplcache')
 "開始時に起動する
 let g:neocomplcache_enable_at_startup=1
 let g:neocomplcache_enable_smart_case=1
@@ -95,7 +97,7 @@ let g:neocomplcache_min_syntax_length = 3
 
 
 "unite
-call unite#custom#default_action('directory' , 'vimfiler')
+call unite#custom#default_action('directory', 'vimfiler')
 
 "コマンド追加
 command! UMru Unite file_mru
@@ -104,7 +106,7 @@ command! UBuffer Unite buffer
 
 
 "vimfiler
-let g:vimfiler_data_directory=expand($VIMFILES .'/cache/vimfiler')
+let g:vimfiler_data_directory=expand('$VIMFILES/cache/vimfiler')
 let g:vimfiler_enable_auto_cd=1
 
 
@@ -154,13 +156,15 @@ set number
 set title
 "256色
 set t_Co=256
+"windows環境でパス区切りにスラッシュを使用
+set shellslash
 
 "ルーラ表示
 set ruler
 "折り返し無効
 set nowrap
 "行頭行末の左右移動で行をまたぐ
-set whichwrap=b,s,h,l,<,>,[,]
+set whichwrap=b,s,h,l,<,>,~,[,]
 "スクロールのオフセット設定
 set scrolloff=10
 "左右スクロールのオフセット
@@ -180,10 +184,10 @@ set guioptions+=c
 
 "カーソルの変更
 if &term !=# 'cygwin'
-  let &t_ti .= "\e[1 q"
-  let &t_SI .= "\e[5 q"
-  let &t_EI .= "\e[1 q"
-  let &t_te .= "\e[0 q"
+  let &t_ti .= '\e[1 q'
+  let &t_SI .= '\e[5 q'
+  let &t_EI .= '\e[1 q'
+  let &t_te .= '\e[0 q'
 endif
 
 
@@ -244,22 +248,22 @@ cd ~
 "カレントディレクトリ移動
 augroup set_crr
   autocmd!
-  autocmd BufEnter * execute ":lcd " . expand("%:p:h")
+  autocmd BufEnter * execute ':lcd ' . expand('%:p:h')
 augroup END
 
 
 "インクリメント、デクリメントを10進のみにする
 set nrformats=hex
 "viminfoファイルのパスを変更
-set viminfo+=n~/vimfiles/viminfo
+execute 'set viminfo+=n'.expand('$VIMFILES/viminfo')
 "バックアップファイル設定
 set backup
-set backupdir=~/vimfiles/backup
+execute 'set backupdir='.expand('$VIMFILES/backup')
 "スワップファイル設定
 set swapfile
-set directory=~/vimfiles/swap
+execute 'set directory='.expand('$VIMFILES/swap')
 "アンドゥファイル設定
-set undodir=~/vimfiles/undo
+execute 'set undodir='.expand('$VIMFILES/undo')
 "BSで削除許可
 set backspace=indent,eol,start
 "マウス使用
