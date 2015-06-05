@@ -61,9 +61,6 @@ NeoBundle 'rhysd/clever-f.vim'
 "検索位置表示
 NeoBundle 'osyo-manga/vim-anzu'
 
-"recover-vim
-NeoBundle 'chrisbra/Recover.vim'
-
 "スタート画面
 NeoBundle 'mhinz/vim-startify'
 
@@ -340,7 +337,7 @@ nnoremap <silent> <S-F2> :tabedit $MYGVIMRC<CR>
 noremap <silent> <F3> :VimFilerExplorer -project<CR>
 
 "Qでバッファ削除
-nnoremap <silent> Q :bd<CR>
+nnoremap <silent> Q :bdelete<CR>
 
 "クリップボードの表示
 nnoremap <silent> y? :echo @*<CR>
