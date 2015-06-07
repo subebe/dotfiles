@@ -46,10 +46,6 @@ NeoBundle 'tpope/vim-repeat'
 "置換可視化
 NeoBundle 'osyo-manga/vim-over'
 
-"colorscheme
-"使用するのは基本的に$VIMFILES/colors/hybrid.vim
-NeoBundle 'w0ng/vim-hybrid'
-
 "vim-singleton
 if has('win32') || has('win64')
   NeoBundle 'thinca/vim-singleton'
@@ -66,6 +62,14 @@ NeoBundle 'mhinz/vim-startify'
 
 "括弧、タグ対応
 NeoBundle 'vimtaku/hl_matchit.vim.git'
+
+"git操作
+NeoBundle 'tpope/vim-fugitive'
+
+"git確認
+NeoBundle 'cohama/agit.vim'
+
+
 
 "-------- 未設定 --------
 "emmet
@@ -185,12 +189,12 @@ set guioptions-=r guioptions-=R guioptions-=l guioptions-=L
 set guioptions+=c
 
 "カーソルの変更
-if &term !=# 'cygwin'
-  let &t_ti .= '\e[1 q'
-  let &t_SI .= '\e[5 q'
-  let &t_EI .= '\e[1 q'
-  let &t_te .= '\e[0 q'
-endif
+"if &term !=# 'cygwin'
+"  let &t_ti .= '\e[1 q'
+"  let &t_SI .= '\e[5 q'
+"  let &t_EI .= '\e[1 q'
+"  let &t_te .= '\e[0 q'
+"endif
 
 
 "#検索関係
