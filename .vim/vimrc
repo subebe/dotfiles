@@ -88,6 +88,7 @@ call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 
+source $VIMRUNTIME/macros/matchit.vim
 
 "neocomplcache
 let g:neocomplcache_temporary_dir=expand('$VIMFILES/cache/neocomplcache')
@@ -146,6 +147,12 @@ nmap <silent> <ESC><ESC> <Plug>(anzu-clear-search-status)<Plug>(clever-f-reset):
 let g:startify_custom_indices = ['f', 'd', 'g', 'h', 'l', 'a', 'r', 'u', 'y', 'w', 'o', 'm', 'n', 'c', 'x', 'z']
 let g:startify_bookmarks = [$MYVIMRC]
 
+"hl_matchit.vim
+let g:hl_matchit_enable_on_vim_startup = 1
+let g:hl_matchit_hl_groupname = 'MatchParen'
+let g:hl_matchit_allow_ft = 'html,vim'
+let g:hl_matchit_hl_priority = 10
+let g:hl_matchit_speed_level = 2
 
 
 "#表示関係
@@ -236,9 +243,9 @@ if has('conceal')
         autocmd FileType * set conceallevel=2 concealcursor=nc
         autocmd FileType vimfiler set conceallevel=0 concealcursor=nvc
     augroup END
-endif
 set list
 set listchars=tab:￫\ ,eol:⏎
+endif
 
 
 "#他
