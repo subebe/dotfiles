@@ -243,17 +243,10 @@ if has('conceal')
         autocmd FileType * set conceallevel=2 concealcursor=nc
         autocmd FileType vimfiler set conceallevel=0 concealcursor=nvc
     augroup END
-set list
-set listchars=tab:￫\ ,eol:⏎
+    set list
+    set listchars=tab:￫\ ,eol:⏎
 endif
 
-
-"#他
-"vimrcを保存したときに再読み込み
-"augroup vimrc
-"  autocmd!
-"  autocmd BufWritePost *vimrc source $MYVIMRC
-"augroup END
 
 "カレントディレクトリの設定
 "起動時ホームへ移動
