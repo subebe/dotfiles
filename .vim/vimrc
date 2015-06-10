@@ -169,8 +169,10 @@ set number
 set title
 "256色
 set t_Co=256
-"windows環境でパス区切りにスラッシュを使用
-set shellslash
+if has('win32') || has('win64')
+  "windows環境でパス区切りにスラッシュを使用
+  set shellslash
+endif
 
 "ルーラ表示
 set ruler
