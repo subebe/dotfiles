@@ -21,11 +21,14 @@ if filereadable(g:save_window_file)
   execute 'source' g:save_window_file
 endif
 
-"D&D時タブで開く
-"autocmd VimEnter * tab all
-"autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
 
-"textwidthでの自動改行off
-set formatoptions-=t
+"#gui設定
+"ツールバー、メニュー無効
+set guioptions-=e guioptions-=m guioptions-=T
+"スクロールバー無効
+set guioptions-=r guioptions-=R guioptions-=l guioptions-=L
+"コンソールダイアログを使う
+set guioptions+=c
+
 
 set guifont=Ricty_Diminished:h14:cSHIFTJIS

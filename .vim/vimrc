@@ -189,14 +189,6 @@ set sidescroll=1
 "全角記号幅設定
 set ambiwidth=double
 
-"#gui設定
-"ツールバー、メニュー無効
-set guioptions-=e guioptions-=m guioptions-=T
-"スクロールバー無効
-set guioptions-=r guioptions-=R guioptions-=l guioptions-=L
-"コンソールダイアログを使う
-set guioptions+=c
-
 "カーソルの変更
 "if &term !=# 'cygwin'
 "  let &t_ti .= '\e[1 q'
@@ -278,6 +270,9 @@ set backspace=indent,eol,start
 set mouse=a
 "OSのクリップボード使用
 set clipboard+=unnamed
+
+"textwidthでの自動改行off
+set formatoptions-=t
 
 "インサートモードを抜けるときにIMEをオフに
 inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
