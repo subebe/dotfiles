@@ -1,10 +1,28 @@
 scriptencoding utf-8
 set encoding=utf-8
 
-if has('win32') || has('win64')
+function! IsWindows()
+    return has('win16') || has('win32') || has('win64')
+endfunction
+
+function! IsMac()
+    return has('mac')
+endfunction
+
+
+if IsWindows()
   let $VIMFILES='~/vimfiles'
 else
   let $VIMFILES='~/.vim'
+endif
+
+if IsMac()
+    "矢印キー有効
+    if !has('gui_running')
+        set notimeout
+        set ttimeout
+        set timeoutlen=100
+    endif
 endif
 
 "プラグイン
@@ -47,7 +65,7 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'osyo-manga/vim-over'
 
 "vim-singleton
-if has('win32') || has('win64')
+if IsWindows()
   NeoBundle 'thinca/vim-singleton'
 endif
 
@@ -129,7 +147,7 @@ let g:restart_sessionoptions='blank,buffers,curdir,folds,help,localoptions,tabpa
 
 
 "vim-singleton
-if has('win32') || has ('win64')
+if IsWindows()
   call singleton#enable()
 endif
 
@@ -160,6 +178,7 @@ let g:hl_matchit_speed_level = 2
 set wildmenu
 "ステータスライン
 set statusline=%-(%f%m%q%r%w\ [\%{anzu#search_status()}]%)%=\|\ %{&ff}\ \|\ \%{&fenc}\ \|\ %Y\ \|\ %l,%c(%p%%)\ \|\ 0x\%04.4B\ 
+set statusline=%-(%f%m%q%r%w\ [\%{anzu#search_status()}]%)%=\|\ %{&ff}\ \|\ \%{&fenc}\ \|\ %Y\ \|\ %l,%c(%p%%)\ \|\ 0x\%04.4B\ 
 set laststatus=2
 "タブを常に表示
 set showtabline=2
@@ -169,10 +188,8 @@ set number
 set title
 "256色
 set t_Co=256
-if has('win32') || has('win64')
-  "windows環境でパス区切りにスラッシュを使用
-  set shellslash
-endif
+"windows環境でパス区切りにスラッシュを使用
+set shellslash
 
 "ルーラ表示
 set ruler
