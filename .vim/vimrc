@@ -207,13 +207,19 @@ set sidescroll=1
 set ambiwidth=double
 
 "カーソルの変更
-"if &term !=# 'cygwin'
-"  let &t_ti .= '\e[1 q'
-"  let &t_SI .= '\e[5 q'
-"  let &t_EI .= '\e[1 q'
-"  let &t_te .= '\e[0 q'
-"endif
+if has('win32unix')
+    let &t_ti.="\e[1 q"
+    let &t_SI.="\e[5 q"
+    let &t_EI.="\e[1 q"
+    let &t_te.="\e[0 q"
+endif
 
+"矢印キー有効
+if !has('gui_running')
+    set notimeout
+    set ttimeout
+    set timeoutlen=100
+endif
 
 "#検索関係
 "検索時に大文字・小文字を区別しない。
@@ -292,7 +298,7 @@ set clipboard+=unnamed
 set formatoptions-=t
 
 "インサートモードを抜けるときにIMEをオフに
-inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
+"inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 
 "ノーマルモードでの改行
 nnoremap <Space>j o<ESC>
