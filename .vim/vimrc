@@ -378,6 +378,13 @@ augroup htmlcomp
   autocmd FileType html inoremap <silent> <buffer> </ </<C-x><C-o>
 augroup END
 
+"QuickFix
+augroup qfpreview
+    autocmd!
+    autocmd FileType qf nnoremap <buffer> <S-j> j<CR><C-w>p
+    autocmd FileType qf nnoremap <buffer> <S-k> k<CR><C-w>p
+    autocmd FileType qf nnoremap <buffer> v <CR><C-w>p
+augroup END
 
 "C-v貼り付けモード
 command! PastModeOn nnoremap <lt>C-v> p
