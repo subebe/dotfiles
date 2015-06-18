@@ -9,7 +9,7 @@ function! IsMac()
     return has('mac')
 endfunction
 
-
+"vimファイルディレクトリ
 if IsWindows()
   let $VIMFILES='~/vimfiles'
 else
@@ -177,8 +177,28 @@ let g:hl_matchit_speed_level = 2
 "コマンドラインに候補を表示
 set wildmenu
 "ステータスライン
-set statusline=%-(%f%m%q%r%w\ [\%{anzu#search_status()}]%)%=\|\ %{&ff}\ \|\ \%{&fenc}\ \|\ %Y\ \|\ %l,%c(%p%%)\ \|\ 0x\%04.4B\ 
-set statusline=%-(%f%m%q%r%w\ [\%{anzu#search_status()}]%)%=\|\ %{&ff}\ \|\ \%{&fenc}\ \|\ %Y\ \|\ %l,%c(%p%%)\ \|\ 0x\%04.4B\ 
+"検索位置を表示する時のみ[]で囲う
+function! GetAnzuSearchStatus()
+    if anzu#search_status() != ''
+        return '[ '.anzu#search_status().' ]'
+    endif
+    return ''
+endfunction
+set statusline=%F "フルパス
+set statusline+=%m "修正フラグ
+set statusline+=%r "読み取り専用フラグ
+set statusline+=\ 
+set statusline+=%{GetAnzuSearchStatus()} "検索位置
+set statusline+=
+set statusline+=%= "右寄せ
+set statusline+=\|\ 
+set statusline+=%{&fileformat},%{&fileencoding} "改行文字,文字コード
+set statusline+=\ \|\ 
+set statusline+=%Y "filetype
+set statusline+=\ \|\ 
+set statusline+=%l,%c(%p%%) "カーソル位置
+set statusline+=\ 
+
 set laststatus=2
 "タブを常に表示
 set showtabline=2
@@ -362,9 +382,6 @@ noremap <silent> <F3> :VimFilerExplorer -project<CR>
 
 "Qでバッファ削除
 nnoremap <silent> Q :bdelete<CR>
-
-"クリップボードの表示
-nnoremap <silent> y? :echo @*<CR>
 
 "コマンドリピート
 nnoremap g. @:
