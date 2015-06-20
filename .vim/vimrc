@@ -275,8 +275,8 @@ if has('conceal')
         autocmd!
         autocmd BufNew,BufEnter * syntax match Ignore / / containedin=ALL conceal cchar=･
         autocmd BufNew,BufEnter * syntax match Ignore /　/ containedin=ALL conceal cchar=□
-        autocmd FileType * set conceallevel=2 concealcursor=nc
-        autocmd FileType vimfiler set conceallevel=0 concealcursor=nvc
+        autocmd FileType,BufEnter * setlocal conceallevel=2 concealcursor=nc
+        autocmd FileType,BufEnter *vimfiler* setlocal conceallevel=0 concealcursor=nvc
     augroup END
     set list
     set listchars=tab:￫\ ,eol:⏎
