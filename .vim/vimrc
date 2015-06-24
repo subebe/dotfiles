@@ -130,6 +130,7 @@ command! UBuffer Unite buffer
 "vimfiler
 let g:vimfiler_data_directory=expand($VIMFILES.'/cache/vimfiler')
 let g:vimfiler_enable_auto_cd=1
+let g:vimfiler_as_default_explorer=1
 
 
 "vim-operator-replace
@@ -213,8 +214,8 @@ set shellslash
 
 "ルーラ表示
 set ruler
-"折り返し無効
-set nowrap
+"折り返し
+set wrap
 "行頭行末の左右移動で行をまたぐ
 set whichwrap=b,s,h,l,<,>,~,[,]
 "スクロールのオフセット設定
@@ -317,6 +318,12 @@ set formatoptions-=t
 
 "インサートモードを抜けるときにIMEをオフに
 "inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
+
+"折り返し移動入れ替え
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
 
 "ノーマルモードでの改行
 nnoremap <Space>j o<ESC>
