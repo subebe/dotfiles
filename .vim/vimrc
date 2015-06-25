@@ -216,6 +216,7 @@ set shellslash
 set ruler
 "折り返し
 set wrap
+set display=lastline
 "行頭行末の左右移動で行をまたぐ
 set whichwrap=b,s,h,l,<,>,~,[,]
 "スクロールのオフセット設定
