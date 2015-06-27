@@ -61,9 +61,6 @@ NeoBundle 'kana/vim-operator-user'
 "plugin repeat
 NeoBundle 'tpope/vim-repeat'
 
-"置換可視化
-NeoBundle 'osyo-manga/vim-over'
-
 "vim-singleton
 if IsWindows()
   NeoBundle 'thinca/vim-singleton'
