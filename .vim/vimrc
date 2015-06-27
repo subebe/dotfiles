@@ -251,17 +251,13 @@ set ignorecase
 set smartcase
 "逐次検索
 set incsearch
-
 "#タブ、インデント設定
-set expandtab
-set ts=4
-set tabstop=4
-set noautoindent
-set nosmartindent
-"自動インデント幅
-set shiftwidth=4
-"タブ、バックスペースの空白移動幅
-set softtabstop=0
+set expandtab "softtab
+set autoindent
+set smartindent
+set tabstop=4 "tab width
+set shiftwidth=2 "auto indent width
+set softtabstop=2 "tabkey space
 
 "#ハイライト
 "シンタックスハイライト
