@@ -87,9 +87,12 @@ NeoBundle 'tpope/vim-fugitive'
 "git確認
 NeoBundle 'cohama/agit.vim'
 
+"git確認
+NeoBundle 'cohama/agit.vim'
 
+"検索
+NeoBundle 'haya14busa/incsearch.vim'
 
-"-------- 未設定 --------
 "emmet
 "http://motw.mods.jp/Vim/emmet-vim.html
 NeoBundle 'mattn/emmet-vim'
@@ -153,12 +156,6 @@ if IsWindows()
 endif
 
 
-"vim-anzu
-nmap n <Plug>(anzu-n)
-nmap N <Plug>(anzu-N)
-nmap * <Plug>(anzu-star)
-nmap # <Plug>(anzu-sharp)
-
 "clever-f & vim-anzu
 nmap <silent> <ESC><ESC> <Plug>(anzu-clear-search-status)<Plug>(clever-f-reset):nohlsearch<CR>
 
@@ -172,6 +169,24 @@ let g:hl_matchit_hl_groupname = 'MatchParen'
 let g:hl_matchit_allow_ft = 'html,vim'
 let g:hl_matchit_hl_priority = 10
 let g:hl_matchit_speed_level = 2
+
+"incsearch
+let g:incsearch#auto_nohlsearch = 1
+"map n  <Plug>(incsearch-nohl-n)
+"map N  <Plug>(incsearch-nohl-N)
+"map *  <Plug>(incsearch-nohl-*)
+"map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+
+"vim-anzu
+nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n)
+nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N)
+nmap * <Plug>(incsearch-nohl)<Plug>(anzu-star)
+nmap # <Plug>(incsearch-nohl)<Plug>(anzu-sharp)
+
+
+
 
 
 "#表示関係
@@ -244,6 +259,7 @@ if !has('gui_running')
 endif
 
 "#検索関係
+set hlsearch
 "検索時に大文字・小文字を区別しない。
 set ignorecase
 "大文字が含まれる場合は区別する
