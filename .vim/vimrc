@@ -100,6 +100,9 @@ let g:neocomplcache_min_syntax_length = 3
 
 "unite
 call unite#custom#default_action('directory', 'vimfiler')
+"neomru
+let g:neomru#directory_mru_path=expand($VIMFILES.'/cache/neomru/directory')
+let g:neomru#file_mru_path=expand($VIMFILES.'/cache/neomru/file')
 
 "コマンド追加
 command! UMru Unite file_mru
