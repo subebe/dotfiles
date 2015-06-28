@@ -30,5 +30,8 @@ set guioptions-=r guioptions-=R guioptions-=l guioptions-=L
 "コンソールダイアログを使う
 set guioptions+=c
 
-
-set guifont=Ricty_Diminished:h14:cSHIFTJIS
+if IsWindows()
+  set guifont=Ricty_Diminished:h14:cSHIFTJIS
+elseif(IsMac())
+  set guifont=Ricty\ Regular:h14
+endif
