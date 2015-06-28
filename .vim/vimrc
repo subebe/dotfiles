@@ -82,14 +82,6 @@ NeoBundle 'haya14busa/incsearch.vim'
 "http://motw.mods.jp/Vim/emmet-vim.html
 NeoBundle 'mattn/emmet-vim'
 
-"markdown
-"http://qiita.com/uedatakeshi/items/31761b87ba8ecbaf2c1e
-NeoBundle 'plasticboy/vim-markdown'
-"markdown-preview
-NeoBundle 'kannokanno/previm'
-"ブラウザを開く
-NeoBundle 'tyru/open-browser.vim'
-
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
