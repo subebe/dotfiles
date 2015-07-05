@@ -82,6 +82,9 @@ NeoBundle 'haya14busa/incsearch.vim'
 "http://motw.mods.jp/Vim/emmet-vim.html
 NeoBundle 'mattn/emmet-vim'
 
+"日本語ヘルプ
+NeoBundle 'vim-jp/vimdoc-ja'
+
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
