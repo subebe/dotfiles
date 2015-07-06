@@ -107,11 +107,6 @@ call unite#custom#default_action('directory', 'vimfiler')
 let g:neomru#directory_mru_path=expand($VIMFILES.'/cache/neomru/directory')
 let g:neomru#file_mru_path=expand($VIMFILES.'/cache/neomru/file')
 
-"コマンド追加
-command! UMru Unite file_mru
-command! UFile Unite file
-command! UBuffer Unite buffer
-
 
 "vimfiler
 let g:vimfiler_data_directory=expand($VIMFILES.'/cache/vimfiler')
@@ -126,7 +121,6 @@ map _ <Plug>(operator-replace)
 "vim-repeat
 "下にも適用
 nmap <M-.> j.
-nmap <M-,> k.
 
 
 "restart
@@ -341,12 +335,6 @@ nnoremap <silent> <M-d> :%delete<CR>
 nnoremap J gJ
 nnoremap gJ J
 
-"すべて選択
-vnoremap v ggoG$
-
-"コマンド補完の確定
-cnoremap <C-CR> <Space><BS><Right>
-
 "インサートモードでの移動
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
@@ -386,12 +374,6 @@ noremap <silent> <F3> :VimFilerExplorer -project<CR>
 
 "Qでバッファ削除
 nnoremap <silent> Q :bdelete<CR>
-
-"コマンドリピート
-nnoremap g. @:
-
-"relativenumberの切り替え
-nnoremap <silent> <S-ESC> :set invrelativenumber<CR>
 
 "C-v貼り付けモード
 command! PastModeOn nnoremap <lt>C-v> p
