@@ -67,6 +67,7 @@ NeoBundle 'osyo-manga/vim-anzu'
 NeoBundle 'mhinz/vim-startify'
 
 "括弧、タグ対応
+NeoBundle 'matchit.zip'
 NeoBundle 'vimtaku/hl_matchit.vim.git'
 
 "git操作
@@ -88,8 +89,6 @@ NeoBundle 'vim-jp/vimdoc-ja'
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
-
-source $VIMRUNTIME/macros/matchit.vim
 
 "neocomplcache
 let g:neocomplcache_temporary_dir=expand($VIMFILES.'/cache/neocomplcache')
