@@ -359,7 +359,7 @@ nnoremap <silent> <S-Right> :wincmd ><CR>
 nnoremap <silent> <S-Up> :wincmd +<CR>
 nnoremap <silent> <S-Down> :wincmd -<CR>
 
-"ウィンドウサイズ調整
+"ウィンドウ移動
 nnoremap <C-Left> <C-w>h
 nnoremap <C-Right> <C-w>l
 nnoremap <C-Up> <C-w>k
