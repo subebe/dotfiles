@@ -275,11 +275,11 @@ if has('conceal')
         autocmd!
         autocmd BufNew,BufEnter * syntax match Ignore / / containedin=ALL conceal cchar=･
         autocmd BufNew,BufEnter * syntax match Ignore /　/ containedin=ALL conceal cchar=□
-        autocmd FileType,BufEnter * setlocal conceallevel=2 concealcursor=nc
-        autocmd FileType,BufEnter *vimfiler* setlocal conceallevel=0 concealcursor=nvc
     augroup END
     set list
     set listchars=tab:￫\ ,eol:⏎
+    set conceallevel=2
+    set concealcursor=nc
 endif
 
 
@@ -392,20 +392,6 @@ nnoremap g. @:
 
 "relativenumberの切り替え
 nnoremap <silent> <S-ESC> :set invrelativenumber<CR>
-
-"html補完
-augroup htmlcomp
-  autocmd!
-  autocmd FileType html inoremap <silent> <buffer> </ </<C-x><C-o>
-augroup END
-
-"QuickFix
-augroup qfpreview
-    autocmd!
-    autocmd FileType qf nnoremap <buffer> <S-j> j<CR><C-w>p
-    autocmd FileType qf nnoremap <buffer> <S-k> k<CR><C-w>p
-    autocmd FileType qf nnoremap <buffer> v <CR><C-w>p
-augroup END
 
 "C-v貼り付けモード
 command! PastModeOn nnoremap <lt>C-v> p
