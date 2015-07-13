@@ -367,6 +367,8 @@ command! PastModeOff nunmap <lt>C-v>
 nnoremap x "_x
 nnoremap X "_X
 
+"端末ごとの設定
+runtime 'local.vim'
 
 "CUI用
 if !has('gui_running')
