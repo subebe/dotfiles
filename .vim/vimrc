@@ -367,11 +367,6 @@ command! PastModeOff nunmap <lt>C-v>
 nnoremap x "_x
 nnoremap X "_X
 
-"mac(usキー)で;:入れ替え
-if IsMac()
-    noremap ; :
-    noremap : ;
-endif
 
 "CUI用
 if !has('gui_running')
