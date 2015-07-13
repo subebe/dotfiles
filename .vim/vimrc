@@ -368,9 +368,9 @@ nnoremap x "_x
 nnoremap X "_X
 
 "端末ごとの設定
-runtime 'local.vim'
+runtime rc/local.vim
 
 "CUI用
 if !has('gui_running')
-  runtime 'cui.vim'
+  runtime rc/cui.vim
 endif
