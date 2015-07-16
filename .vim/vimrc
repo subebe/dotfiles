@@ -87,7 +87,7 @@ NeoBundle 'mattn/emmet-vim'
 NeoBundle 'vim-jp/vimdoc-ja'
 
 "コメント
-NeoBundle "tyru/caw.vim.git"
+NeoBundle 'tomtom/tcomment_vim'
 
 call neobundle#end()
 filetype plugin indent on
@@ -166,12 +166,6 @@ nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n)
 nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N)
 nmap * <Plug>(incsearch-nohl)<Plug>(anzu-star)
 nmap # <Plug>(incsearch-nohl)<Plug>(anzu-sharp)
-
-
-"caw.vim
-nmap <C-Bslash> <Plug>(caw:i:toggle)
-vmap <C-Bslash> <Plug>(caw:i:toggle)
-
 
 
 "#表示関係
