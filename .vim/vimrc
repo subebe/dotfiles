@@ -36,6 +36,8 @@ NeoBundle 'Shougo/vimproc', {
       \    },
       \ }
 
+NeoBundle 'Shougo/vimshell.vim'
+
 "filer
 NeoBundle 'Shougo/vimfiler'
 
