@@ -144,6 +144,13 @@ nmap <silent> <ESC><ESC> <Plug>(anzu-clear-search-status)<Plug>(clever-f-reset):
 "vim-startify
 let g:startify_custom_indices = ['f', 'd', 'g', 'h', 'l', 'a', 'r', 'u', 'y', 'w', 'o', 'm', 'n', 'c', 'x', 'z']
 let g:startify_bookmarks = [$MYVIMRC]
+let g:startify_list_order = [
+  \ ['   Most recently used files:'],
+  \ 'files',
+  \ ['   My bookmarks:'],
+  \ 'bookmarks',
+  \ ]
+
 
 "hl_matchit.vim
 let g:hl_matchit_enable_on_vim_startup = 1
