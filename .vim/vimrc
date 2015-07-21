@@ -110,6 +110,7 @@ filetype plugin indent on
 NeoBundleCheck
 
 "unite
+let g:unite_data_directory=expand($VIMFILES.'/cache/unite')
 call unite#custom#default_action('directory', 'vimfiler')
 "neomru
 let g:neomru#directory_mru_path=expand($VIMFILES.'/cache/neomru/directory')
