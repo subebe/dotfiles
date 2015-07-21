@@ -124,6 +124,7 @@ let g:vimfiler_ignore_pattern = ''
 
 
 "neocomplete
+let g:neocomplete#data_directory=expand($VIMFILES.'/cache/neocomplete')
 let g:neocomplete#enable_at_startup = 1
 
 
