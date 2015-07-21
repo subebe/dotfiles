@@ -120,6 +120,7 @@ let g:neomru#file_mru_path=expand($VIMFILES.'/cache/neomru/file')
 let g:vimfiler_data_directory=expand($VIMFILES.'/cache/vimfiler')
 let g:vimfiler_enable_auto_cd=1
 let g:vimfiler_as_default_explorer=1
+let g:vimfiler_ignore_pattern = ''
 
 
 "neocomplete
