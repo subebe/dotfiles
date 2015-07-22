@@ -328,6 +328,8 @@ set backspace=indent,eol,start
 set mouse=a
 "OSのクリップボード使用
 set clipboard+=unnamed
+" tagsファイルの指定
+set tags+=tags;
 
 "textwidthでの自動改行off
 set formatoptions-=t
