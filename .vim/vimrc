@@ -111,6 +111,19 @@ NeoBundle 'majutsushi/tagbar'
 " quickrun
 NeoBundle "thinca/vim-quickrun"
 
+" quickrun拡張
+NeoBundle "osyo-manga/shabadou.vim"
+
+" quickfix highlight
+NeoBundle 'cohama/vim-hier'
+
+" quickfix statuslineに表示
+NeoBundle 'dannyob/quickfixstatus'
+
+" syntaxチェック
+NeoBundle "osyo-manga/vim-watchdogs"
+
+
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
@@ -215,6 +228,11 @@ nmap # <Plug>(incsearch-nohl)<Plug>(anzu-sharp)
 
 " tagbar
 nnoremap <F8> :TagbarToggle<CR>
+
+
+" vim-watchdogs
+let g:watchdogs_check_BufWritePost_enable=1
+
 
 "#表示関係
 "コマンドラインに候補を表示
