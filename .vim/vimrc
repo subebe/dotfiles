@@ -315,11 +315,11 @@ set cursorline
 "不可視文字
 if has('conceal')
     "空白表示
-    augroup viewable
-        autocmd!
-        autocmd BufNew,BufEnter * syntax match Ignore / / containedin=ALL conceal cchar=･
-        autocmd BufNew,BufEnter * syntax match Ignore /　/ containedin=ALL conceal cchar=□
-    augroup END
+    " augroup viewable
+        " autocmd!
+        " autocmd BufNew,BufEnter * syntax match Ignore / / containedin=ALL conceal cchar=･
+        " autocmd BufNew,BufEnter * syntax match Ignore /　/ containedin=ALL conceal cchar=□
+    " augroup END
     set list
     set listchars=tab:￫\ ,eol:⏎
     set conceallevel=2
