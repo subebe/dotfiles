@@ -369,9 +369,6 @@ set tags+=tags;
 "textwidthでの自動改行off
 set formatoptions-=t
 
-"インサートモードを抜けるときにIMEをオフに
-"inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
-
 "折り返し移動入れ替え
 nnoremap j gj
 nnoremap k gk
@@ -449,4 +446,14 @@ runtime rc/local.vim
 "CUI用
 if !has('gui_running')
   runtime rc/cui.vim
+endif
+
+" Windows用
+if IsWindows()
+  runtime rc/windows.vim
+endif
+
+" Mac用
+if IsMac()
+  runtime rc/mac.vim
 endif
