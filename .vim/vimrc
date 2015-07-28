@@ -26,102 +26,18 @@ if has('vim_starting')
 endif
 call neobundle#begin(expand($VIMFILES.'/bundle/'))
 "NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
+if neobundle#load_cache()
+  NeoBundleFetch 'Shougo/neobundle.vim'
+  call neobundle#load_toml(expand($VIMFILES.'/neobundle.toml'))
+  " call neobundle#load_toml(expand($VIMFILES.'/neobundlelazy.toml'),{'lazy' :1})
 
-NeoBundle 'Shougo/vimshell.vim'
+  " vim-singleton
+  if IsWindows()
+    NeoBundle 'thinca/vim-singleton'
+  endif
 
-"filer
-NeoBundle 'Shougo/vimfiler'
-
-"unite
-NeoBundle 'Shougo/unite.vim'
-"unite最近開いたファイル
-NeoBundle 'Shougo/neomru.vim'
-
-"入力補完
-NeoBundle 'Shougo/neocomplete.vim'
-
-"スニペット
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'honza/vim-snippets'
-
-
-"囲み文字操作
-NeoBundle 'tpope/vim-surround'
-
-"再起動プラグイン
-NeoBundle 'tyru/restart.vim'
-
-" テキストオブジェクトで置換
-NeoBundle 'kana/vim-operator-replace'
-NeoBundle 'kana/vim-operator-user'
-
-"plugin repeat
-NeoBundle 'tpope/vim-repeat'
-
-"vim-singleton
-if IsWindows()
-  NeoBundle 'thinca/vim-singleton'
+  NeoBundleSaveCache
 endif
-
-"f,t操作変更
-NeoBundle 'rhysd/clever-f.vim'
-
-"検索位置表示
-NeoBundle 'osyo-manga/vim-anzu'
-
-"スタート画面
-NeoBundle 'mhinz/vim-startify'
-
-"括弧、タグ対応
-NeoBundle 'matchit.zip'
-NeoBundle 'vimtaku/hl_matchit.vim.git'
-
-"git操作
-NeoBundle 'tpope/vim-fugitive'
-
-"git確認
-NeoBundle 'cohama/agit.vim'
-
-"検索
-NeoBundle 'haya14busa/incsearch.vim'
-
-"emmet
-"http://motw.mods.jp/Vim/emmet-vim.html
-NeoBundle 'mattn/emmet-vim'
-
-"日本語ヘルプ
-NeoBundle 'vim-jp/vimdoc-ja'
-
-"コメント
-NeoBundle 'tomtom/tcomment_vim'
-
-" タグリスト
-NeoBundle 'majutsushi/tagbar'
-
-" quickrun
-NeoBundle "thinca/vim-quickrun"
-
-" quickrun拡張
-NeoBundle "osyo-manga/shabadou.vim"
-
-" quickfix highlight
-NeoBundle 'cohama/vim-hier'
-
-" quickfix statuslineに表示
-NeoBundle 'dannyob/quickfixstatus'
-
-" syntaxチェック
-NeoBundle "osyo-manga/vim-watchdogs"
 
 
 call neobundle#end()
@@ -457,3 +373,4 @@ endif
 if IsMac()
   runtime rc/mac.vim
 endif
+

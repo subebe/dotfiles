@@ -1,0 +1,120 @@
+[[plugins]]
+repository = 'Shougo/vimproc'
+  [plugins.build]
+  windows = 'make -f make_mingw64.mak'
+  cygwin = 'make -f make_cygwin.mak'
+  mac = 'make -f make_mac.mak'
+  unix = 'make -f make_unix.mak'
+
+[[plugins]]
+repository = 'Shougo/vimshell.vim'
+
+# filer
+[[plugins]]
+repository = 'Shougo/vimfiler'
+
+# unite
+[[plugins]]
+repository = 'Shougo/unite.vim'
+# unite最近開いたファイル
+[[plugins]]
+repository = 'Shougo/neomru.vim'
+
+# 入力補完
+[[plugins]]
+repository = 'Shougo/neocomplete.vim'
+
+# スニペット
+[[plugins]]
+repository = 'Shougo/neosnippet'
+[[plugins]]
+repository = 'Shougo/neosnippet-snippets'
+[[plugins]]
+repository = 'honza/vim-snippets'
+
+
+# 囲み文字操作
+[[plugins]]
+repository = 'tpope/vim-surround'
+
+# 再起動プラグイン
+[[plugins]]
+repository = 'tyru/restart.vim'
+
+# テキストオブジェクトで置換
+[[plugins]]
+repository = 'kana/vim-operator-replace'
+[[plugins]]
+repository = 'kana/vim-operator-user'
+
+# plugin repeat
+[[plugins]]
+repository = 'tpope/vim-repeat'
+
+# f,t操作変更
+[[plugins]]
+repository = 'rhysd/clever-f.vim'
+
+# 検索位置表示
+[[plugins]]
+repository = 'osyo-manga/vim-anzu'
+
+# スタート画面
+[[plugins]]
+repository = 'mhinz/vim-startify'
+
+# 括弧、タグ対応
+[[plugins]]
+repository = 'matchit.zip'
+[[plugins]]
+repository = 'vimtaku/hl_matchit.vim.git'
+
+# git操作
+[[plugins]]
+repository = 'tpope/vim-fugitive'
+
+# git確認
+[[plugins]]
+repository = 'cohama/agit.vim'
+
+# 検索
+[[plugins]]
+repository = 'haya14busa/incsearch.vim'
+
+# emmet
+# http://motw.mods.jp/Vim/emmet-vim.html
+[[plugins]]
+repository = 'mattn/emmet-vim'
+
+# 日本語ヘルプ
+[[plugins]]
+repository = 'vim-jp/vimdoc-ja'
+
+# コメント
+[[plugins]]
+repository = 'tomtom/tcomment_vim'
+
+# タグリスト
+[[plugins]]
+repository = 'majutsushi/tagbar'
+
+# quickrun
+[[plugins]]
+repository = 'thinca/vim-quickrun'
+
+# quickrun拡張
+[[plugins]]
+repository = 'osyo-manga/shabadou.vim'
+
+# quickfix highlight
+[[plugins]]
+repository = 'cohama/vim-hier'
+
+# quickfix statuslineに表示
+[[plugins]]
+repository = 'dannyob/quickfixstatus'
+
+# syntaxチェック
+[[plugins]]
+repository = 'osyo-manga/vim-watchdogs'
+
