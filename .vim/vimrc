@@ -198,6 +198,7 @@ let g:startify_list_order = [
   \ ['   My bookmarks:'],
   \ 'bookmarks',
   \ ]
+noremap <F4> :Startify<CR>
 
 
 "hl_matchit.vim
