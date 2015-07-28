@@ -118,3 +118,7 @@ repository = 'dannyob/quickfixstatus'
 [[plugins]]
 repository = 'osyo-manga/vim-watchdogs'
 
+# switch.vim
+[[plugins]]
+repository = 'AndrewRadev/switch.vim'
+
