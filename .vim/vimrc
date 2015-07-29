@@ -115,6 +115,7 @@ let g:startify_list_order = [
   \ 'bookmarks',
   \ ]
 noremap <F4> :Startify<CR>
+noremap <S-F4> :tabedit<Bar>Startify<CR>
 
 
 "hl_matchit.vim
