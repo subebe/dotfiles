@@ -334,8 +334,7 @@ nnoremap gl gt
 nnoremap gh gT
 
 "上書き
-nnoremap <silent> <C-s> :w<CR>
-inoremap <silent> <C-s> <ESC>:w<CR>
+nnoremap  <Space>s :w<CR>
 
 "画面移動
 nnoremap <Tab> <C-w><C-w>
