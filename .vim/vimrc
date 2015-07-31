@@ -285,6 +285,9 @@ set clipboard+=unnamed
 " tagsファイルの指定
 set tags+=tags;
 
+" 候補メニューの数
+set pumheight=10
+
 "textwidthでの自動改行off
 set formatoptions-=t
 
