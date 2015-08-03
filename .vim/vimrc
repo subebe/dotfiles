@@ -11,9 +11,9 @@ endfunction
 
 " vimファイルディレクトリ
 if IsWindows()
-  let $VIMFILES='~/vimfiles'
+  let $VIMFILES = '~/vimfiles'
 else
-  let $VIMFILES='~/.vim'
+  let $VIMFILES = '~/.vim'
 endif
 
 " プラグイン
@@ -45,29 +45,29 @@ filetype plugin indent on
 NeoBundleCheck
 
 " unite
-let g:unite_data_directory=expand($VIMFILES . '/cache/unite')
+let g:unite_data_directory = expand($VIMFILES . '/cache/unite')
 call unite#custom#default_action('directory', 'vimfiler')
 " neomru
-let g:neomru#directory_mru_path=expand($VIMFILES . '/cache/neomru/directory')
-let g:neomru#file_mru_path=expand($VIMFILES . '/cache/neomru/file')
+let g:neomru#directory_mru_path = expand($VIMFILES . '/cache/neomru/directory')
+let g:neomru#file_mru_path = expand($VIMFILES . '/cache/neomru/file')
 
 nnoremap <F5> :Unite buffer<CR>
 
 " vimfiler
-let g:vimfiler_data_directory=expand($VIMFILES . '/cache/vimfiler')
-let g:vimfiler_enable_auto_cd=1
-let g:vimfiler_as_default_explorer=1
+let g:vimfiler_data_directory = expand($VIMFILES . '/cache/vimfiler')
+let g:vimfiler_enable_auto_cd = 1
+let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_ignore_pattern = ''
-let g:vimfiler_expand_jump_to_first_child=0
+let g:vimfiler_expand_jump_to_first_child = 0
 
 
 " neocomplete
-let g:neocomplete#data_directory=expand($VIMFILES . '/cache/neocomplete')
+let g:neocomplete#data_directory = expand($VIMFILES . '/cache/neocomplete')
 let g:neocomplete#enable_at_startup = 1
 
 
 " neosnippet
-let g:neosnippet#data_directory=expand($VIMFILES . '/cache/neosnippet')
+let g:neosnippet#data_directory = expand($VIMFILES . '/cache/neosnippet')
 " Plugin key-mappings.
 " imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 " smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -94,7 +94,7 @@ nmap <M-.> j.
 
 
 " restart
-let g:restart_sessionoptions='blank,buffers,curdir,folds,help,localoptions,tabpages'
+let g:restart_sessionoptions = 'blank,buffers,curdir,folds,help,localoptions,tabpages'
 
 
 " vim-singleton
@@ -157,7 +157,7 @@ let g:quickrun_config = {
 \}
 
 " vim-watchdogs
-let g:watchdogs_check_BufWritePost_enable=1
+let g:watchdogs_check_BufWritePost_enable = 1
 call watchdogs#setup(g:quickrun_config)
 
 
