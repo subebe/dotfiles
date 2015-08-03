@@ -1,3 +1,3 @@
-"ファイルタイプの設定
+" ファイルタイプの設定
 autocmd BufNewFile,BufRead *.tpl set filetype=php
 

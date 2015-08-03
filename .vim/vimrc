@@ -9,14 +9,14 @@ function! IsMac()
     return has('mac')
 endfunction
 
-"vimファイルディレクトリ
+" vimファイルディレクトリ
 if IsWindows()
   let $VIMFILES='~/vimfiles'
 else
   let $VIMFILES='~/.vim'
 endif
 
-"プラグイン
+" プラグイン
 if has('vim_starting')
   if &compatible
     " Be iMproved
@@ -25,7 +25,7 @@ if has('vim_starting')
   set runtimepath+=$VIMFILES/bundle/neobundle.vim/
 endif
 call neobundle#begin(expand($VIMFILES.'/bundle/'))
-"NeoBundle
+" NeoBundle
 if neobundle#load_cache()
   NeoBundleFetch 'Shougo/neobundle.vim'
   call neobundle#load_toml(expand($VIMFILES.'/neobundle.toml'))
@@ -44,16 +44,16 @@ call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 
-"unite
+" unite
 let g:unite_data_directory=expand($VIMFILES.'/cache/unite')
 call unite#custom#default_action('directory', 'vimfiler')
-"neomru
+" neomru
 let g:neomru#directory_mru_path=expand($VIMFILES.'/cache/neomru/directory')
 let g:neomru#file_mru_path=expand($VIMFILES.'/cache/neomru/file')
 
 nnoremap <F5> :Unite buffer<CR>
 
-"vimfiler
+" vimfiler
 let g:vimfiler_data_directory=expand($VIMFILES.'/cache/vimfiler')
 let g:vimfiler_enable_auto_cd=1
 let g:vimfiler_as_default_explorer=1
@@ -61,7 +61,7 @@ let g:vimfiler_ignore_pattern = ''
 let g:vimfiler_expand_jump_to_first_child=0
 
 
-"neocomplete
+" neocomplete
 let g:neocomplete#data_directory=expand($VIMFILES.'/cache/neocomplete')
 let g:neocomplete#enable_at_startup = 1
 
@@ -75,38 +75,38 @@ let g:neosnippet#data_directory=expand($VIMFILES.'/cache/neosnippet')
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
+\ '\<Plug>(neosnippet_expand_or_jump)'
+\: pumvisible() ? '\<C-n>' : '\<TAB>'
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
+\ '\<Plug>(neosnippet_expand_or_jump)'
+\: '\<TAB>'
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
 
 
-"vim-operator-replace
+" vim-operator-replace
 map _ <Plug>(operator-replace)
 
 
-"vim-repeat
-"下にも適用
+" vim-repeat
+" 下にも適用
 nmap <M-.> j.
 
 
-"restart
+" restart
 let g:restart_sessionoptions='blank,buffers,curdir,folds,help,localoptions,tabpages'
 
 
-"vim-singleton
+" vim-singleton
 if IsWindows()
   call singleton#enable()
 endif
 
 
-"clever-f & vim-anzu
+" clever-f & vim-anzu
 nmap <silent> <ESC><ESC> <Plug>(anzu-clear-search-status)<Plug>(clever-f-reset):nohlsearch<CR>
 
-"vim-startify
+" vim-startify
 let g:startify_custom_indices = ['f', 'd', 'g', 'h', 'l', 'a', 'r', 'u', 'y', 'w', 'o', 'm', 'n', 'c', 'x', 'z']
 let g:startify_bookmarks = [$MYVIMRC]
 let g:startify_list_order = [
@@ -119,26 +119,26 @@ noremap <F4> :Startify<CR>
 noremap <S-F4> :tabedit<Bar>Startify<CR>
 
 
-"hl_matchit.vim
+" hl_matchit.vim
 let g:hl_matchit_enable_on_vim_startup = 1
 let g:hl_matchit_hl_groupname = 'MatchParen'
 let g:hl_matchit_allow_ft = 'html,vim'
 let g:hl_matchit_hl_priority = 10
 let g:hl_matchit_speed_level = 2
 
-"incsearch
+" incsearch
 let g:incsearch#auto_nohlsearch = 1
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
-"map n  <Plug>(incsearch-nohl-n)
-"map N  <Plug>(incsearch-nohl-N)
-"map *  <Plug>(incsearch-nohl-*)
-"map #  <Plug>(incsearch-nohl-#)
+" map n  <Plug>(incsearch-nohl-n)
+" map N  <Plug>(incsearch-nohl-N)
+" map *  <Plug>(incsearch-nohl-*)
+" map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
-"vim-anzu
+" vim-anzu
 nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n)
 nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N)
 nmap * <Plug>(incsearch-nohl)<Plug>(anzu-star)
@@ -150,9 +150,9 @@ nnoremap <F8> :TagbarToggle<CR>
 
 " quickrun
 let g:quickrun_config = {
-\   "_" : {
-\       "runner" : "vimproc",
-\       "runner/vimproc/updatetime" : 60
+\   '_' : {
+\       'runner' : 'vimproc',
+\       'runner/vimproc/updatetime' : 60
 \   },
 \}
 
@@ -161,87 +161,87 @@ let g:watchdogs_check_BufWritePost_enable=1
 call watchdogs#setup(g:quickrun_config)
 
 
-"#表示関係
-"コマンドラインに候補を表示
+" 表示関係
+" コマンドラインに候補を表示
 set wildmenu
-"ステータスライン
-"検索位置を表示する時のみ[]で囲う
+" ステータスライン
+" 検索位置を表示する時のみ[]で囲う
 function! GetAnzuSearchStatus()
     if anzu#search_status() != ''
         return '[ '.anzu#search_status().' ]'
     endif
     return ''
 endfunction
-set statusline=%F "フルパス
-set statusline+=%m "修正フラグ
-set statusline+=%r "読み取り専用フラグ
+set statusline=%F " フルパス
+set statusline+=%m " 修正フラグ
+set statusline+=%r " 読み取り専用フラグ
 set statusline+=\ 
-set statusline+=%{GetAnzuSearchStatus()} "検索位置
+set statusline+=%{GetAnzuSearchStatus()} " 検索位置
 set statusline+=
-set statusline+=%= "右寄せ
+set statusline+=%= " 右寄せ
 set statusline+=\|\ 
-set statusline+=%{&fileformat},%{&fileencoding} "改行文字,文字コード
+set statusline+=%{&fileformat},%{&fileencoding} " 改行文字,文字コード
 set statusline+=\ \|\ 
-set statusline+=%Y "filetype
+set statusline+=%Y " filetype
 set statusline+=\ \|\ 
-set statusline+=%l,%c(%p%%) "カーソル位置
+set statusline+=%l,%c(%p%%) " カーソル位置
 set statusline+=\ 
 
 set laststatus=2
-"タブを常に表示
+" タブを常に表示
 set showtabline=2
-"行番号表示
+" 行番号表示
 set number
-"タイトルバーをファイル名に
+" タイトルバーをファイル名に
 set title
-"256色
+" 256色
 set t_Co=256
-"windows環境でパス区切りにスラッシュを使用
+" windows環境でパス区切りにスラッシュを使用
 set shellslash
 
-"ルーラ表示
+" ルーラ表示
 set ruler
-"折り返し
+" 折り返し
 set wrap
 set display=lastline
-"行頭行末の左右移動で行をまたぐ
+" 行頭行末の左右移動で行をまたぐ
 set whichwrap=b,s,h,l,<,>,~,[,]
-"スクロールのオフセット設定
+" スクロールのオフセット設定
 set scrolloff=10
-"左右スクロールのオフセット
+" 左右スクロールのオフセット
 set sidescrolloff=16
-"左右スクロール距離
+" 左右スクロール距離
 set sidescroll=1
-"全角記号幅設定
+" 全角記号幅設定
 set ambiwidth=double
 
-"#検索関係
+" 検索関係
 set hlsearch
-"検索時に大文字・小文字を区別しない。
+" 検索時に大文字・小文字を区別しない。
 set ignorecase
-"大文字が含まれる場合は区別する
+" 大文字が含まれる場合は区別する
 set smartcase
-"逐次検索
+" 逐次検索
 set incsearch
-"#タブ、インデント設定
-set expandtab "softtab
+" タブ、インデント設定
+set expandtab " softtab
 set autoindent
 set smartindent
-set tabstop=4 "tab width
-set shiftwidth=2 "auto indent width
-set softtabstop=2 "tabkey space
+set tabstop=4 " tab width
+set shiftwidth=2 " auto indent width
+set softtabstop=2 " tabkey space
 
-"#ハイライト
-"シンタックスハイライト
+" #ハイライト
+" シンタックスハイライト
 syntax on
-"カラーテーマ
+" カラーテーマ
 colorscheme hybrid
-"カーソル行のハイライト
+" カーソル行のハイライト
 set cursorline
 
-"不可視文字
+" 不可視文字
 if has('conceal')
-    "空白表示
+    " 空白表示
     " augroup viewable
         " autocmd!
         " autocmd BufNew,BufEnter * syntax match Ignore / / containedin=ALL conceal cchar=･
@@ -254,33 +254,33 @@ if has('conceal')
 endif
 
 
-"カレントディレクトリの設定
-"起動時ホームへ移動
+" カレントディレクトリの設定
+" 起動時ホームへ移動
 cd ~
-"カレントディレクトリ移動
+" カレントディレクトリ移動
 augroup set_crr
   autocmd!
   autocmd BufEnter * execute ':lcd ' . expand('%:p:h')
 augroup END
 
 
-"インクリメント、デクリメントを10進のみにする
+" インクリメント、デクリメントを10進のみにする
 set nrformats=hex
-"viminfoファイルのパスを変更
+" viminfoファイルのパスを変更
 execute 'set viminfo+=n'.expand($VIMFILES.'/viminfo')
-"バックアップファイル設定
+" バックアップファイル設定
 set backup
 execute 'set backupdir='.expand($VIMFILES.'/backup')
-"スワップファイル設定
+" スワップファイル設定
 set swapfile
 execute 'set directory='.expand($VIMFILES.'/swap')
-"アンドゥファイル設定
+" アンドゥファイル設定
 execute 'set undodir='.expand($VIMFILES.'/undo')
-"BSで削除許可
+" BSで削除許可
 set backspace=indent,eol,start
-"マウス使用
+" マウス使用
 set mouse=a
-"OSのクリップボード使用
+" OSのクリップボード使用
 set clipboard+=unnamed
 " tagsファイルの指定
 set tags+=tags;
@@ -288,83 +288,83 @@ set tags+=tags;
 " 候補メニューの数
 set pumheight=10
 
-"textwidthでの自動改行off
+" textwidthでの自動改行off
 set formatoptions-=t
 
-"折り返し移動入れ替え
+" 折り返し移動入れ替え
 nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
 
-"ノーマルモードでの改行
+" ノーマルモードでの改行
 nnoremap <Space>j o<ESC>
 nnoremap <Space>k O<ESC>
-"行末、先頭移動
+" 行末、先頭移動
 noremap <Space>h ^
 noremap <Space>l $
 
-"行末までヤンク
+" 行末までヤンク
 nnoremap Y y$
-"全ヤンク、デリート
+" 全ヤンク、デリート
 nnoremap <silent> <M-y> :%yank<CR>
 nnoremap <silent> <M-d> :%delete<CR>
 
-"行結合入れ替え
+" 行結合入れ替え
 nnoremap J gJ
 nnoremap gJ J
 
-"インサートモードでの移動
+" インサートモードでの移動
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 
-"ウィンドウサイズ調整
+" ウィンドウサイズ調整
 nnoremap <silent> <S-Left> :wincmd <<CR>
 nnoremap <silent> <S-Right> :wincmd ><CR>
 nnoremap <silent> <S-Up> :wincmd +<CR>
 nnoremap <silent> <S-Down> :wincmd -<CR>
 
-"ウィンドウ移動
+" ウィンドウ移動
 nnoremap <C-Left> <C-w>h
 nnoremap <C-Right> <C-w>l
 nnoremap <C-Up> <C-w>k
 nnoremap <C-Down> <C-w>j
 
-"タブ移動
+" タブ移動
 nnoremap gl gt
 nnoremap gh gT
 
-"上書き
+" 上書き
 nnoremap  <Space>s :w<CR>
 
-"画面移動
+" 画面移動
 nnoremap <Tab> <C-w><C-w>
 
-"vimrcの編集
+" vimrcの編集
 nnoremap <silent> <F1> :e $MYVIMRC<CR>
 nnoremap <silent> <S-F1> :tabedit $MYVIMRC<CR>
 nnoremap <silent> <F2> :e $MYGVIMRC<CR>
 nnoremap <silent> <S-F2> :tabedit $MYGVIMRC<CR>
-"ファイラ開く
+" ファイラ開く
 noremap <silent> <F3> :VimFilerExplorer -project<CR>
 
-"Qでバッファ削除
+" Qでバッファ削除
 nnoremap <silent> Q :bdelete<CR>
 
-"C-v貼り付けモード
+" C-v貼り付けモード
 command! PastModeOn nnoremap <lt>C-v> p
 command! PastModeOff nunmap <lt>C-v>
 
-"x削除はクリップボードに入れない
+" x削除はクリップボードに入れない
 nnoremap x "_x
 nnoremap X "_X
 
-"端末ごとの設定
+" 端末ごとの設定
 runtime rc/local.vim
 
-"CUI用
+" CUI用
 if !has('gui_running')
   runtime rc/cui.vim
 endif

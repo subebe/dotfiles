@@ -2,12 +2,11 @@ scriptencoding utf-8
 
 colorscheme hybrid
 
-"#gui設定
-"ツールバー、メニュー無効
+" ツールバー、メニュー無効
 set guioptions-=e guioptions-=m guioptions-=T
-"スクロールバー無効
+" スクロールバー無効
 set guioptions-=r guioptions-=R guioptions-=l guioptions-=L
-"コンソールダイアログを使う
+" コンソールダイアログを使う
 set guioptions+=c
 
 if IsWindows()
