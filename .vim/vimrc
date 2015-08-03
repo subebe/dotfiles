@@ -24,12 +24,12 @@ if has('vim_starting')
   endif
   set runtimepath+=$VIMFILES/bundle/neobundle.vim/
 endif
-call neobundle#begin(expand($VIMFILES.'/bundle/'))
+call neobundle#begin(expand($VIMFILES . '/bundle/'))
 " NeoBundle
 if neobundle#load_cache()
   NeoBundleFetch 'Shougo/neobundle.vim'
-  call neobundle#load_toml(expand($VIMFILES.'/neobundle.toml'))
-  " call neobundle#load_toml(expand($VIMFILES.'/neobundlelazy.toml'),{'lazy' :1})
+  call neobundle#load_toml(expand($VIMFILES . '/neobundle.toml'))
+  " call neobundle#load_toml(expand($VIMFILES . '/neobundlelazy.toml'),{'lazy' :1})
 
   " vim-singleton
   if IsWindows()
@@ -45,16 +45,16 @@ filetype plugin indent on
 NeoBundleCheck
 
 " unite
-let g:unite_data_directory=expand($VIMFILES.'/cache/unite')
+let g:unite_data_directory=expand($VIMFILES . '/cache/unite')
 call unite#custom#default_action('directory', 'vimfiler')
 " neomru
-let g:neomru#directory_mru_path=expand($VIMFILES.'/cache/neomru/directory')
-let g:neomru#file_mru_path=expand($VIMFILES.'/cache/neomru/file')
+let g:neomru#directory_mru_path=expand($VIMFILES . '/cache/neomru/directory')
+let g:neomru#file_mru_path=expand($VIMFILES . '/cache/neomru/file')
 
 nnoremap <F5> :Unite buffer<CR>
 
 " vimfiler
-let g:vimfiler_data_directory=expand($VIMFILES.'/cache/vimfiler')
+let g:vimfiler_data_directory=expand($VIMFILES . '/cache/vimfiler')
 let g:vimfiler_enable_auto_cd=1
 let g:vimfiler_as_default_explorer=1
 let g:vimfiler_ignore_pattern = ''
@@ -62,12 +62,12 @@ let g:vimfiler_expand_jump_to_first_child=0
 
 
 " neocomplete
-let g:neocomplete#data_directory=expand($VIMFILES.'/cache/neocomplete')
+let g:neocomplete#data_directory=expand($VIMFILES . '/cache/neocomplete')
 let g:neocomplete#enable_at_startup = 1
 
 
 " neosnippet
-let g:neosnippet#data_directory=expand($VIMFILES.'/cache/neosnippet')
+let g:neosnippet#data_directory=expand($VIMFILES . '/cache/neosnippet')
 " Plugin key-mappings.
 " imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 " smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -168,7 +168,7 @@ set wildmenu
 " 検索位置を表示する時のみ[]で囲う
 function! GetAnzuSearchStatus()
     if anzu#search_status() != ''
-        return '[ '.anzu#search_status().' ]'
+        return '[ ' . anzu#search_status() . ' ]'
     endif
     return ''
 endfunction
@@ -267,15 +267,15 @@ augroup END
 " インクリメント、デクリメントを10進のみにする
 set nrformats=hex
 " viminfoファイルのパスを変更
-execute 'set viminfo+=n'.expand($VIMFILES.'/viminfo')
+execute 'set viminfo+=n' . expand($VIMFILES . '/viminfo')
 " バックアップファイル設定
 set backup
-execute 'set backupdir='.expand($VIMFILES.'/backup')
+execute 'set backupdir=' . expand($VIMFILES . '/backup')
 " スワップファイル設定
 set swapfile
-execute 'set directory='.expand($VIMFILES.'/swap')
+execute 'set directory=' . expand($VIMFILES . '/swap')
 " アンドゥファイル設定
-execute 'set undodir='.expand($VIMFILES.'/undo')
+execute 'set undodir=' . expand($VIMFILES . '/undo')
 " BSで削除許可
 set backspace=indent,eol,start
 " マウス使用
