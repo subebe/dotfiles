@@ -75,11 +75,11 @@ let g:neosnippet#data_directory = expand($VIMFILES . '/cache/neosnippet')
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
+\   "\<Plug>(neosnippet_expand_or_jump)"
+\   : pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
+\   "\<Plug>(neosnippet_expand_or_jump)"
+\   : "\<TAB>"
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
 
@@ -110,11 +110,11 @@ nmap <silent> <ESC><ESC> <Plug>(anzu-clear-search-status)<Plug>(clever-f-reset):
 let g:startify_custom_indices = ['f', 'd', 'g', 'h', 'l', 'a', 'r', 'u', 'y', 'w', 'o', 'm', 'n', 'c', 'x', 'z']
 let g:startify_bookmarks = [$MYVIMRC]
 let g:startify_list_order = [
-  \ ['   Most recently used files:'],
-  \ 'files',
-  \ ['   My bookmarks:'],
-  \ 'bookmarks',
-  \ ]
+\   ['   Most recently used files:'],
+\   'files',
+\   ['   My bookmarks:'],
+\   'bookmarks',
+\]
 noremap <F4> :Startify<CR>
 noremap <S-F4> :tabedit<Bar>Startify<CR>
 
