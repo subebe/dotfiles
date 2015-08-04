@@ -125,3 +125,8 @@ repository = 'AndrewRadev/switch.vim'
 # markdown
 [[plugins]]
 repository = 'plasticboy/vim-markdown'
+
+# auto-pairs
+[[plugins]]
+repository = 'jiangmiao/auto-pairs'
+
