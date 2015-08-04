@@ -130,3 +130,7 @@ repository = 'plasticboy/vim-markdown'
 [[plugins]]
 repository = 'jiangmiao/auto-pairs'
 
+# indent
+[[plugins]]
+repository = 'Yggdroot/indentLine'
+
