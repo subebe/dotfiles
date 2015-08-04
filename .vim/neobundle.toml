@@ -122,3 +122,6 @@ repository = 'osyo-manga/vim-watchdogs'
 [[plugins]]
 repository = 'AndrewRadev/switch.vim'
 
+# markdown
+[[plugins]]
+repository = 'plasticboy/vim-markdown'

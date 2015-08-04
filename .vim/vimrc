@@ -160,6 +160,8 @@ let g:quickrun_config = {
 let g:watchdogs_check_BufWritePost_enable = 1
 call watchdogs#setup(g:quickrun_config)
 
+" markdown
+let g:vim_markdown_folding_disabled = 1
 
 " 表示関係
 " コマンドラインに候補を表示
