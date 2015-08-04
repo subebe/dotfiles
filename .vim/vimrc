@@ -167,6 +167,9 @@ inoremap <silent> <BS> <C-R>=AutoPairsDelete()<CR>
 " markdown
 let g:vim_markdown_folding_disabled = 1
 
+" vim-easy-align
+vmap <Enter> <Plug>(EasyAlign)
+
 " 表示関係
 " コマンドラインに候補を表示
 set wildmenu

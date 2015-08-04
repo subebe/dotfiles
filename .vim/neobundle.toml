@@ -134,3 +134,7 @@ repository = 'jiangmiao/auto-pairs'
 [[plugins]]
 repository = 'Yggdroot/indentLine'
 
+# align
+[[plugins]]
+repository = 'junegunn/vim-easy-align'
+
