@@ -138,3 +138,7 @@ repository = 'Yggdroot/indentLine'
 [[plugins]]
 repository = 'junegunn/vim-easy-align'
 
+# toml
+[[plugins]]
+repository = 'cespare/vim-toml'
+
