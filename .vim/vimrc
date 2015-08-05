@@ -357,7 +357,7 @@ nnoremap <silent> <S-F1> :tabedit $MYVIMRC<CR>
 nnoremap <silent> <F2> :e $MYGVIMRC<CR>
 nnoremap <silent> <S-F2> :tabedit $MYGVIMRC<CR>
 " ファイラ開く
-noremap <silent> <F3> :VimFilerExplorer -project<CR>
+noremap <silent> <F3> :VimFilerExplorer<CR>
 
 " Qでバッファ削除
 nnoremap <silent> Q :bdelete<CR>
