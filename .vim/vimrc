@@ -270,7 +270,7 @@ cd ~
 " カレントディレクトリ移動
 augroup set_crr
   autocmd!
-  autocmd BufEnter * execute ':lcd ' . expand('%:p:h')
+  autocmd BufEnter * execute ':silent! lcd ' . expand('%:p:h')
 augroup END
 
 
