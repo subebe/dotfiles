@@ -361,10 +361,6 @@ nnoremap <silent> <S-F2> :tabedit $MYGVIMRC<CR>
 " Qでバッファ削除
 nnoremap <silent> Q :bdelete<CR>
 
-" C-v貼り付けモード
-command! PastModeOn nnoremap <lt>C-v> p
-command! PastModeOff nunmap <lt>C-v>
-
 " x削除はクリップボードに入れない
 nnoremap x "_x
 nnoremap X "_X
