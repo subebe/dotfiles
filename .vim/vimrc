@@ -366,6 +366,12 @@ nnoremap <silent> Q :bdelete<CR>
 nnoremap x "_x
 nnoremap X "_X
 
+
+" インデント設定コマンド
+command! Indent2 :setlocal tabstop=2 shiftwidth=2
+command! Indent4 :setlocal tabstop=4 shiftwidth=4
+
+
 " 端末ごとの設定
 runtime rc/local.vim
 
