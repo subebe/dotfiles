@@ -285,6 +285,7 @@ execute 'set backupdir=' . expand($VIMFILES . '/backup')
 set swapfile
 execute 'set directory=' . expand($VIMFILES . '/swap')
 " アンドゥファイル設定
+set undofile
 execute 'set undodir=' . expand($VIMFILES . '/undo')
 " BSで削除許可
 set backspace=indent,eol,start
