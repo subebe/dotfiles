@@ -142,3 +142,6 @@ repository = 'junegunn/vim-easy-align'
 [[plugins]]
 repository = 'cespare/vim-toml'
 
+[[plugins]]
+repository = 'chrisbra/Recover.vim'
+
