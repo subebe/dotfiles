@@ -114,7 +114,7 @@ let g:startify_list_order = [
 \  ['   Most recently used files:'],
 \  'files',
 \  ['   My bookmarks:'],
-\  bookmarks',
+\  'bookmarks',
 \]
 noremap <F4> :Startify<CR>
 noremap <S-F4> :tabedit<Bar>Startify<CR>
@@ -171,10 +171,18 @@ let g:vim_markdown_folding_disabled = 1
 " vim-easy-align
 vmap <Enter> <Plug>(EasyAlign)
 
-" 表示関係
+
+"" タブライン設定
+" タブラインを常に表示
+set showtabline=2
+
+"" コマンドライン設定
 " コマンドラインに候補を表示
 set wildmenu
-" ステータスライン
+
+"" ステータスライン設定
+" ステータスライン表示
+set laststatus=2
 " 検索位置を表示する時のみ[]で囲う
 function! GetAnzuSearchStatus()
   if anzu#search_status() != ''
@@ -197,23 +205,13 @@ set statusline+=\ \|\
 set statusline+=%l,%c(%p%%) " カーソル位置
 set statusline+=\ 
 
-set laststatus=2
-" タブを常に表示
-set showtabline=2
+"" エディタの挙動
 " 行番号表示
 set number
 " タイトルバーをファイル名に
 set title
 " 256色
 set t_Co=256
-" windows環境でパス区切りにスラッシュを使用
-set shellslash
-
-" ルーラ表示
-set ruler
-" 折り返し
-set wrap
-set display=lastline
 " 行頭行末の左右移動で行をまたぐ
 set whichwrap=b,s,h,l,<,>,~,[,]
 " スクロールのオフセット設定
@@ -224,8 +222,29 @@ set sidescrolloff=16
 set sidescroll=1
 " 全角記号幅設定
 set ambiwidth=double
+" BSで削除許可
+set backspace=indent,eol,start
+" マウス使用
+set mouse=a
+" OSのクリップボード使用
+set clipboard+=unnamed
+" tagsファイルの指定
+set tags+=tags;
+" 候補メニューの数
+set pumheight=10
+" textwidthでの自動改行off
+set formatoptions-=t
+" インクリメント、デクリメントを10進のみにする
+set nrformats=hex
 
-" 検索関係
+"" 折り返し
+" 折り返す
+set wrap
+" 最後の行表示
+set display=lastline
+
+"" 検索関係
+" 検索文字をハイライト
 set hlsearch
 " 検索時に大文字・小文字を区別しない。
 set ignorecase
@@ -233,7 +252,8 @@ set ignorecase
 set smartcase
 " 逐次検索
 set incsearch
-" タブ、インデント設定
+
+"" タブ、インデント設定
 set expandtab " softtab
 set autoindent
 set smartindent
@@ -241,14 +261,13 @@ set tabstop=4 " tab width
 set shiftwidth=2 " auto indent width
 set softtabstop=2 " tabkey space
 
-" #ハイライト
+"" ハイライト
 " シンタックスハイライト
 syntax on
 " カラーテーマ
 colorscheme hybrid
 " カーソル行のハイライト
 set cursorline
-
 " 不可視文字
 if has('conceal')
   " 空白表示
@@ -263,7 +282,6 @@ if has('conceal')
   set concealcursor=nc
 endif
 
-
 " カレントディレクトリの設定
 " 起動時ホームへ移動
 cd ~
@@ -273,9 +291,6 @@ augroup set_crr
   autocmd BufEnter * execute ':silent! lcd ' . expand('%:p:h')
 augroup END
 
-
-" インクリメント、デクリメントを10進のみにする
-set nrformats=hex
 " viminfoファイルのパスを変更
 execute 'set viminfo+=n' . expand($VIMFILES . '/viminfo')
 " バックアップファイル設定
@@ -287,21 +302,9 @@ execute 'set directory=' . expand($VIMFILES . '/swap')
 " アンドゥファイル設定
 set undofile
 execute 'set undodir=' . expand($VIMFILES . '/undo')
-" BSで削除許可
-set backspace=indent,eol,start
-" マウス使用
-set mouse=a
-" OSのクリップボード使用
-set clipboard+=unnamed
-" tagsファイルの指定
-set tags+=tags;
 
-" 候補メニューの数
-set pumheight=10
 
-" textwidthでの自動改行off
-set formatoptions-=t
-
+"" キーマッピング
 " 折り返し移動入れ替え
 nnoremap j gj
 nnoremap k gk
@@ -367,11 +370,13 @@ nnoremap x "_x
 nnoremap X "_X
 
 
+"" コマンド
 " インデント設定コマンド
 command! Indent2 :setlocal tabstop=2 shiftwidth=2
 command! Indent4 :setlocal tabstop=4 shiftwidth=4
 
 
+"" ファイル読み込み
 " 端末ごとの設定
 runtime rc/local.vim
 
