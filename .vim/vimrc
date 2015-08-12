@@ -44,6 +44,9 @@ call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 
+" vimshell
+let g:vimshell_data_directory = expand($VIMFILES . '/cache/vimshell')
+
 " unite
 let g:unite_data_directory = expand($VIMFILES . '/cache/unite')
 call unite#custom#default_action('directory', 'vimfiler')
