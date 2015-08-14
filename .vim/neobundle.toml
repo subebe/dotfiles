@@ -145,3 +145,7 @@ repository = 'cespare/vim-toml'
 [[plugins]]
 repository = 'chrisbra/Recover.vim'
 
+# typescript
+[[plugins]]
+repository = 'leafgarland/typescript-vim'
+
