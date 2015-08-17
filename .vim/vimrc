@@ -61,6 +61,7 @@ let g:vimfiler_data_directory = expand($VIMFILES . '/cache/vimfiler')
 let g:vimfiler_enable_auto_cd = 1
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_expand_jump_to_first_child = 0
+let g:vimfiler_safe_mode_by_default = 0
 
 noremap <silent> <F3> :execute 'VimFilerExplorer ' . getcwd()<CR>
 
@@ -330,11 +331,12 @@ nnoremap <silent> <M-d> :%delete<CR>
 nnoremap J gJ
 nnoremap gJ J
 
-" インサートモードでの移動
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
+" emacs風マッピング
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+inoremap <C-e> <END>
+inoremap <C-a> <HOME>
+inoremap <C-d> <DEL>
 
 " ウィンドウサイズ調整
 nnoremap <silent> <S-Left> :wincmd <<CR>
