@@ -260,8 +260,8 @@ set expandtab " softtab
 set autoindent
 set smartindent
 set tabstop=4 " tab width
-set shiftwidth=2 " auto indent width
-set softtabstop=2 " tabkey space
+set shiftwidth=0 " auto indent width
+set softtabstop=-1 " tabkey space
 
 "" ハイライト
 " シンタックスハイライト
