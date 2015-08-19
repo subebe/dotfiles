@@ -164,6 +164,9 @@ let g:quickrun_config = {
 \    'hook/echo/enable' : 1,
 \    'hook/echo/output_success': '> No Errors Found.'
 \  },
+\  'watchdogs_checker/tsc' : {
+\    'exec' : '%c --noEmit %s:p',
+\  },
 \}
 
 " vim-watchdogs
