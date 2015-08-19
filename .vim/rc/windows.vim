@@ -1,4 +1,4 @@
 " インサートモードを抜けるときにIMEをオフに
-imap <silent> <ESC> <ESC>:set iminsert=0<CR><ESC>
+inoremap <silent> <ESC> <ESC><ESC>:set iminsert=0<CR>
 autocmd GUIEnter * set transparency=240
 
