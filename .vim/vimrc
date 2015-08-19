@@ -11,6 +11,8 @@ endfunction
 
 " vimファイルディレクトリ
 if IsWindows()
+  " パス区切りにスラッシュを使用
+  set shellslash
   let $VIMFILES = '~/vimfiles'
 else
   let $VIMFILES = '~/.vim'
