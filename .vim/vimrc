@@ -57,6 +57,7 @@ let g:neomru#directory_mru_path = expand($VIMFILES . '/cache/neomru/directory')
 let g:neomru#file_mru_path = expand($VIMFILES . '/cache/neomru/file')
 
 nnoremap <F5> :Unite buffer<CR>
+nnoremap <F6> :Unite file_mru<CR>
 
 " vimfiler
 let g:vimfiler_data_directory = expand($VIMFILES . '/cache/vimfiler')
