@@ -126,6 +126,12 @@ repository = 'AndrewRadev/switch.vim'
 [[plugins]]
 repository = 'plasticboy/vim-markdown'
 
+[[plugins]]
+repository = 'kannokanno/previm'
+
+[[plugins]]
+repository = 'tyru/open-browser.vim'
+
 # auto-pairs
 [[plugins]]
 repository = 'jiangmiao/auto-pairs'
