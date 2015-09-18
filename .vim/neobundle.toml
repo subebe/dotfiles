@@ -155,3 +155,7 @@ repository = 'chrisbra/Recover.vim'
 [[plugins]]
 repository = 'leafgarland/typescript-vim'
 
+# mark
+[[plugins]]
+repository = 'kshenoy/vim-signature'
+
