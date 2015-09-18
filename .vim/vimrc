@@ -347,6 +347,10 @@ augroup set_crr
   autocmd BufEnter * execute ':silent! lcd ' . expand('%:p:h')
 augroup END
 
+augroup quickfix_auto_open
+  autocmd QuickFixCmdPost *grep* cwindow
+augroup END
+
 " viminfoファイルのパスを変更
 execute 'set viminfo+=n' . expand($VIMFILES . '/viminfo')
 " バックアップファイル設定
