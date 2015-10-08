@@ -32,6 +32,9 @@ repository = 'Shougo/neosnippet-snippets'
 [[plugins]]
 repository = 'honza/vim-snippets'
 
+# binary
+[[plugins]]
+repository = 'Shougo/vinarise.vim'
 
 # 囲み文字操作
 [[plugins]]
