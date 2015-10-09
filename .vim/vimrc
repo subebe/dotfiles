@@ -442,8 +442,17 @@ nnoremap X "_X
 
 "" コマンド
 " インデント設定コマンド
-command! Indent2 :setlocal tabstop=2 shiftwidth=2
-command! Indent4 :setlocal tabstop=4 shiftwidth=4
+command! -nargs=? Indent call Indent(<f-args>)
+function! Indent(...)
+let l:indent = a:0 ? a:1 : ''
+  if l:indent
+    execute 'setlocal tabstop=' . l:indent
+    execute 'setlocal shiftwidth=' . l:indent
+  else
+    setlocal tabstop<
+    setlocal shiftwidth<
+  endif
+endfunction
 
 
 "" ファイル読み込み
