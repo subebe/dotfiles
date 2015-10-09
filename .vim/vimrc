@@ -122,6 +122,7 @@ let g:startify_list_order = [
 \  ['   My bookmarks:'],
 \  'bookmarks',
 \]
+autocmd User Startified setlocal cursorline
 noremap <F4> :Startify<CR>
 noremap <S-F4> :tabedit<Bar>Startify<CR>
 
