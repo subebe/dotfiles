@@ -392,6 +392,14 @@ inoremap <C-e> <END>
 inoremap <C-a> <HOME>
 inoremap <C-d> <DEL>
 
+" コマンドモード移動キー
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
 " insert mode上下移動
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
