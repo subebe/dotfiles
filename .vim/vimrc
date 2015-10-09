@@ -289,6 +289,8 @@ set pumheight=10
 set formatoptions-=t
 " インクリメント、デクリメントを10進のみにする
 set nrformats=hex
+" コマンド履歴数
+set history=10000
 
 "" 折り返し
 " 折り返す
