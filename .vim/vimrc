@@ -182,10 +182,6 @@ let g:netrw_nogx = 1 " disable netrw's gx mapping.
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 
-" auto-pairs
-let g:AutoPairsMapBS = 0
-inoremap <silent> <BS> <C-R>=AutoPairsDelete()<CR>
-
 " markdown
 let g:vim_markdown_folding_disabled = 1
 
