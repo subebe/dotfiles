@@ -448,6 +448,9 @@ nnoremap X "_X
 
 
 "" コマンド
+" vimscriptの書き込みと実行
+command! Wsource write|source %
+
 " インデント設定コマンド
 command! -nargs=? Indent call Indent(<f-args>)
 function! Indent(...)
