@@ -31,7 +31,7 @@ call neobundle#begin(expand($VIMFILES . '/bundle/'))
 if neobundle#load_cache()
   NeoBundleFetch 'Shougo/neobundle.vim'
   call neobundle#load_toml(expand($VIMFILES . '/neobundle.toml'))
-  " call neobundle#load_toml(expand($VIMFILES . '/neobundlelazy.toml'),{'lazy' :1})
+  call neobundle#load_toml(expand($VIMFILES . '/neobundlelazy.toml'),{'lazy' :1})
 
   " vim-singleton
   if IsWindows()

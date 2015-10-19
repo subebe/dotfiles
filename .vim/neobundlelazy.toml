@@ -1,1 +1,26 @@
-#
+# markdown
+[[plugins]]
+repository = 'plasticboy/vim-markdown'
+script_type = 'ftdetect'
+filetypes = ['markdown', 'md']
+
+[[plugins]]
+repository = 'kannokanno/previm'
+filetypes = ['markdown', 'md']
+
+[[plugins]]
+repository = 'tyru/open-browser.vim'
+filetypes = ['markdown', 'md']
+
+# toml
+[[plugins]]
+repository = 'cespare/vim-toml'
+script_type = 'ftdetect'
+filetypes = ['toml']
+
+# typescript
+[[plugins]]
+repository = 'leafgarland/typescript-vim'
+script_type = 'syntax'
+filetypes = 'typescript'
+

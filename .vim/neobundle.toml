@@ -125,16 +125,6 @@ repository = 'osyo-manga/vim-watchdogs'
 [[plugins]]
 repository = 'AndrewRadev/switch.vim'
 
-# markdown
-[[plugins]]
-repository = 'plasticboy/vim-markdown'
-
-[[plugins]]
-repository = 'kannokanno/previm'
-
-[[plugins]]
-repository = 'tyru/open-browser.vim'
-
 # auto-pairs
 [[plugins]]
 repository = 'jiangmiao/auto-pairs'
@@ -147,16 +137,8 @@ repository = 'Yggdroot/indentLine'
 [[plugins]]
 repository = 'junegunn/vim-easy-align'
 
-# toml
-[[plugins]]
-repository = 'cespare/vim-toml'
-
 [[plugins]]
 repository = 'chrisbra/Recover.vim'
-
-# typescript
-[[plugins]]
-repository = 'leafgarland/typescript-vim'
 
 # mark
 [[plugins]]
