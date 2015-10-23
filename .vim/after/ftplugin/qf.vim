@@ -7,3 +7,4 @@ nnoremap <buffer> v <CR><C-w>p
 nnoremap <buffer> j j
 nnoremap <buffer> k k
 
+setlocal nowrap
