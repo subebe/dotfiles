@@ -352,7 +352,7 @@ augroup END
 
 augroup quickfix_auto_open
   autocmd!
-  autocmd QuickFixCmdPre vimgrep setlocal wildignore=*.gif,*.png,*.jpg,*.swf,*.flv,*.mp4,*.pdf,*.mp3
+  autocmd QuickFixCmdPre vimgrep setlocal wildignore=*.gif,*.png,*.jpg,*.swf,*.flv,*.mp4,*.pdf,*.mp3,tags
   autocmd QuickFixCmdPost vimgrep setlocal wildignore<
   autocmd QuickFixCmdPost *grep* cwindow
 augroup END
