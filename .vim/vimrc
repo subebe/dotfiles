@@ -448,6 +448,9 @@ nnoremap <silent> Q :bdelete<CR>
 nnoremap x "_x
 nnoremap X "_X
 
+" タグジャンプ
+nnoremap <C-]> g<C-]>
+nnoremap g<C-]> :<C-u>tab stjump <C-R>=expand('<cword>')<CR><CR>
 
 "" コマンド
 " vimscriptの書き込みと実行
