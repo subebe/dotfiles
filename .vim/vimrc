@@ -149,6 +149,7 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 
 " vim-anzu
+let g:anzu_status_format = "[ %p(%i/%l) ]"
 nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n)
 nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N)
 nmap * <Plug>(incsearch-nohl)<Plug>(anzu-star)
@@ -239,18 +240,11 @@ set wildmenu
 " ステータスライン表示
 set laststatus=2
 " 検索位置を表示する時のみ[]で囲う
-function! GetAnzuSearchStatus()
-  if anzu#search_status() != ''
-    return '[ ' . anzu#search_status() . ' ]'
-  endif
-  return ''
-endfunction
 set statusline=%F " フルパス
 set statusline+=%m " 修正フラグ
 set statusline+=%r " 読み取り専用フラグ
 set statusline+=\ 
-set statusline+=%{GetAnzuSearchStatus()} " 検索位置
-set statusline+=
+set statusline+=%{anzu#search_status()} " 検索位置
 set statusline+=%= " 右寄せ
 set statusline+=\|\ 
 set statusline+=%{&fileformat},%{&fileencoding} " 改行文字,文字コード
