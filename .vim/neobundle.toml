@@ -144,3 +144,7 @@ repository = 'chrisbra/Recover.vim'
 [[plugins]]
 repository = 'kshenoy/vim-signature'
 
+# dirdiff
+[[plugins]]
+repository = 'DirDiff.vim'
+
