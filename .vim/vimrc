@@ -289,6 +289,8 @@ set nrformats=hex
 set matchtime=1
 " コマンド履歴数
 set history=10000
+" 改行コード
+set fileformats=dos,unix,mac
 
 "" 折り返し
 " 折り返す
