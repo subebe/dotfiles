@@ -428,9 +428,6 @@ nnoremap gh gT
 " 上書き
 nnoremap <Space>s :w<CR>
 
-" 画面移動
-nnoremap <Tab> <C-w><C-w>
-
 " vimrcの編集
 nnoremap <silent> <F1> :e $MYVIMRC<CR>
 nnoremap <silent> <S-F1> :tabedit $MYVIMRC<CR>
