@@ -150,10 +150,10 @@ map g# <Plug>(incsearch-nohl-g#)
 
 " vim-anzu
 let g:anzu_status_format = "[ %p(%i/%l) ]"
-nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n)
-nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N)
-nmap * <Plug>(incsearch-nohl)<Plug>(anzu-star)
-nmap # <Plug>(incsearch-nohl)<Plug>(anzu-sharp)
+nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n)zz
+nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N)zz
+nmap * <Plug>(incsearch-nohl)<Plug>(anzu-star)zz
+nmap # <Plug>(incsearch-nohl)<Plug>(anzu-sharp)zz
 
 
 " tagbar
