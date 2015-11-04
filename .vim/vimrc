@@ -191,6 +191,12 @@ let g:vim_markdown_folding_disabled = 1
 " vim-easy-align
 vmap <Enter> <Plug>(EasyAlign)
 
+" textobj-multiblock
+omap aa <Plug>(textobj-multiblock-a)
+omap ii <Plug>(textobj-multiblock-i)
+xmap aa <Plug>(textobj-multiblock-a)
+xmap ii <Plug>(textobj-multiblock-i)
+
 
 "" タブライン設定
 " タブラインを常に表示

@@ -148,3 +148,7 @@ repository = 'kshenoy/vim-signature'
 [[plugins]]
 repository = 'DirDiff.vim'
 
+[[plugins]]
+repository = 'osyo-manga/vim-textobj-multiblock'
+[[plugins]]
+repository = 'kana/vim-textobj-user'
