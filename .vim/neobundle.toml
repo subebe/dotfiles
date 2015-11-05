@@ -152,3 +152,8 @@ repository = 'DirDiff.vim'
 repository = 'osyo-manga/vim-textobj-multiblock'
 [[plugins]]
 repository = 'kana/vim-textobj-user'
+
+# capture
+[[plugins]]
+repository = 'tyru/capture.vim'
+
