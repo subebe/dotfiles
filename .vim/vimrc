@@ -428,8 +428,8 @@ nnoremap <C-Up> <C-w>k
 nnoremap <C-Down> <C-w>j
 
 " タブ移動
-nnoremap gl gt
-nnoremap gh gT
+noremap <C-n> :<C-u>tabnext<CR>
+noremap <C-p> :<C-u>tabprevious<CR>
 
 " 上書き
 nnoremap <Space>s :w<CR>
