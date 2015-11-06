@@ -48,6 +48,8 @@ NeoBundleCheck
 
 " vimshell
 let g:vimshell_data_directory = expand($VIMFILES . '/cache/vimshell')
+nnoremap ,v :<C-u>VimShellPop<CR>
+nnoremap ,V :<C-u>VimShellTab<CR>
 
 " unite
 let g:unite_data_directory = expand($VIMFILES . '/cache/unite')
