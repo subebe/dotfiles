@@ -148,6 +148,10 @@ repository = 'kshenoy/vim-signature'
 [[plugins]]
 repository = 'DirDiff.vim'
 
+# easymotion
+[[plugins]]
+repository = 'easymotion/vim-easymotion'
+
 [[plugins]]
 repository = 'osyo-manga/vim-textobj-multiblock'
 [[plugins]]
