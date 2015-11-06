@@ -141,6 +141,11 @@ let g:hl_matchit_speed_level = 2
 nnoremap ,g :<C-u>Gstatus<CR>
 
 
+" agit
+nnoremap ,a :<C-u>Agit<CR>
+nnoremap ,A :<C-u>AgitFile<CR>
+
+
 " incsearch
 let g:incsearch#magic = '\v'
 let g:incsearch#auto_nohlsearch = 1
