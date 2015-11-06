@@ -136,6 +136,11 @@ let g:hl_matchit_allow_ft = 'html,vim'
 let g:hl_matchit_hl_priority = 10
 let g:hl_matchit_speed_level = 2
 
+
+" fugitive
+nnoremap ,g :<C-u>Gstatus<CR>
+
+
 " incsearch
 let g:incsearch#magic = '\v'
 let g:incsearch#auto_nohlsearch = 1
