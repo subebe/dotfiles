@@ -277,11 +277,11 @@ set statusline+=\
 set statusline+=%{anzu#search_status()} " 検索位置
 set statusline+=%= " 右寄せ
 set statusline+=\|\ 
-set statusline+=%{&fileformat},%{&fileencoding} " 改行文字,文字コード
+set statusline+=%{&fileformat},%{&fileencoding}%{(&bomb?\"(bom)\":\"\")} " 改行文字,文字コード
 set statusline+=\ \|\ 
 set statusline+=%Y " filetype
 set statusline+=\ \|\ 
-set statusline+=%l,%c(%p%%) " カーソル位置
+set statusline+=%c,%l/%L " カーソル位置
 set statusline+=\ 
 
 "" エディタの挙動
