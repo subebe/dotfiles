@@ -452,8 +452,8 @@ nnoremap <C-Up> <C-w>k
 nnoremap <C-Down> <C-w>j
 
 " タブ移動
-noremap <C-n> :<C-u>tabnext<CR>
-noremap <C-p> :<C-u>tabprevious<CR>
+nnoremap <C-n> :<C-u>tabnext<CR>
+nnoremap <C-p> :<C-u>tabprevious<CR>
 
 " 上書き
 nnoremap <Space>s :w<CR>
@@ -470,6 +470,8 @@ nnoremap <silent> Q :bdelete<CR>
 " x削除はクリップボードに入れない
 nnoremap x "_x
 nnoremap X "_X
+vnoremap x "_x
+vnoremap X "_X
 
 " タグジャンプ
 nnoremap <C-]> g<C-]>
