@@ -161,3 +161,7 @@ repository = 'kana/vim-textobj-user'
 [[plugins]]
 repository = 'tyru/capture.vim'
 
+# aduio-junkie
+[[plugins]]
+repository = 'subebe/audio-junkie.vim'
+
