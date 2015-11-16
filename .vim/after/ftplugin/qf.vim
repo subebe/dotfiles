@@ -8,3 +8,4 @@ nnoremap <buffer> j j
 nnoremap <buffer> k k
 
 setlocal nowrap
+setlocal statusline=%t%{exists(\'w:quickfix_title\')?w:quickfix_title\ :\'\'}\ %=%-15(%l/%L,%c%V%)\ %P
