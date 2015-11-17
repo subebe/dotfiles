@@ -165,3 +165,6 @@ repository = 'tyru/capture.vim'
 [[plugins]]
 repository = 'subebe/audio-junkie.vim'
 
+# gitgutter
+[[plugins]]
+repository = 'airblade/vim-gitgutter'
