@@ -221,6 +221,8 @@ omap ii <Plug>(textobj-multiblock-i)
 xmap aa <Plug>(textobj-multiblock-a)
 xmap ii <Plug>(textobj-multiblock-i)
 
+" gitgutter
+let g:gitgutter_enabled = 0
 
 "" タブライン設定
 " タブラインを常に表示
