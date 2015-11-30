@@ -19,6 +19,9 @@ repository = 'Shougo/unite.vim'
 # unite最近開いたファイル
 [[plugins]]
 repository = 'Shougo/neomru.vim'
+# yank
+[[plugins]]
+repository = 'Shougo/neoyank.vim'
 
 # 入力補完
 [[plugins]]
