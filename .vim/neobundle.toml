@@ -175,3 +175,7 @@ repository = 'airblade/vim-gitgutter'
 # quickfix replace
 [[plugins]]
 repository = 'thinca/vim-qfreplace'
+
+# undo
+[[plugins]]
+repository = 'mbbill/undotree'
