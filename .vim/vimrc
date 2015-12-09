@@ -438,10 +438,6 @@ cnoremap <C-f> <Right>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
-" insert mode上下移動
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-
 " ウィンドウサイズ調整
 nnoremap <silent> <S-Left> :wincmd <<CR>
 nnoremap <silent> <S-Right> :wincmd ><CR>
