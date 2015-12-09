@@ -435,8 +435,9 @@ cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
+cnoremap <C-a> <C-b>
+cnoremap <M-b> <C-Left>
+cnoremap <M-f> <C-Right>
 
 " ウィンドウサイズ調整
 nnoremap <silent> <S-Left> :wincmd <<CR>
