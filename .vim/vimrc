@@ -228,39 +228,67 @@ let g:gitgutter_enabled = 0
 "" タブライン設定
 " タブラインを常に表示
 set showtabline=2
-function! s:tabpage_label(n)
-  " タブページ内のバッファのリスト
-  let bufnrs = tabpagebuflist(a:n)
 
-  " カレントタブページかどうかでハイライトを切り替える
-  let hi = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
-
-  " バッファが複数あったらバッファ数を表示
-  let no = len(bufnrs)
-  if no is 1
-    let no = ''
-  endif
-  " タブページ内に変更ありのバッファがあったら '+' を付ける
-  let mod = len(filter(copy(bufnrs), 'getbufvar(v:val, "&modified")')) ? '+' : ''
-  let sp = (no . mod) ==# '' ? '' : ' '  " 隙間空ける
- 
-  " カレントバッファ
-  let curbufnr = bufnrs[tabpagewinnr(a:n) - 1]  " tabpagewinnr() は 1 origin
-  let fname = fnamemodify(bufname(curbufnr), ':t')
-
-  let label = '[' . a:n . ']' . no . mod . sp . fname . ' '
-
-  let tnum = '%' . a:n . 'T'
-
-  return tnum . hi . label . '%T%#TabLineFill#'
-endfunction
+let s:tab_max_size = 18
+let s:tab_min_size = 4
 
 function! MakeTabLine()
-  let titles = map(range(1, tabpagenr('$')), 's:tabpage_label(v:val)')
-  let sep = '|'  " タブ間の区切り
-  let tabpages = join(titles, sep) . sep . '%#TabLineFill#%T'
   let info =  '[' . fnamemodify(getcwd(), ":~") . '] '
-  return tabpages . '%<%=' . info  " タブリストを左に、情報を右に表示
+  let split = '|'
+
+  let width = &columns
+  let infosize = strdisplaywidth(info)
+  let splitsize = strdisplaywidth(split) * tabpagenr('$')
+  let curtabpagesize = strdisplaywidth(s:real_label(s:tabpage_label(tabpagenr(), 0)))
+  let curtabpagesize = max([s:tab_max_size, curtabpagesize])
+  " let curtabpagesize = s:tab_max_size
+
+  let titles = []
+  let tabsize = (width - infosize - curtabpagesize - splitsize ) / (tabpagenr('$') - 1)
+  let tabsize = max([min([s:tab_max_size, tabsize]), s:tab_min_size])
+
+  for tabnr in range(1, tabpagenr('$'))
+    let size = tabnr == tabpagenr() ? curtabpagesize : tabsize
+    call add(titles, s:tabpage_label(tabnr, size))
+  endfor
+
+  let tabpages = join(titles, split) . split . '%#TabLineFill#%T'
+
+  return tabpages . '%<%=' . info
+endfunction
+
+function! s:tabpage_label(n, s)
+  let hilight = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
+  let tabnum = '%' . a:n . 'T'
+
+  let buflist = tabpagebuflist(a:n)
+  let bufcount = len(buflist)
+  let tabwinbuf = buflist[tabpagewinnr(a:n) - 1]
+  let tabwinbuffname = fnamemodify(bufname(tabwinbuf), ':t')
+  let tabwinbuffname = len(tabwinbuffname) ? tabwinbuffname : '[無題]'
+  let tabmod = len(filter(copy(buflist), 'getbufvar(v:val, "&modified")')) ? '+' : ''
+
+  let labbegin = tabnum . hilight
+  let labend = '%T%#TabLineFill#'
+
+  let labinfo = '[' . a:n . ']' . bufcount . tabmod
+  let label = labinfo . ' ' . tabwinbuffname . ' '
+  let label .= repeat(' ', a:s - strdisplaywidth(label))
+
+  if a:s
+    let splitlabel = split(label, '\zs')
+    let i = a:s
+    while strdisplaywidth(label) > a:s
+      let label = join(splitlabel[0:i], "") . '>'
+      let i -= 1
+    endwhile
+  endif
+
+  return labbegin . label . labend
+endfunction
+
+function! s:real_label(label)
+  return substitute(a:label, '%#TablineSel#\|%#TabLine#\|%\d\+T\|%T\|%#TabLineFill#', '', 'g')
 endfunction
 
 set tabline=%!MakeTabLine()
