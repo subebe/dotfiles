@@ -233,18 +233,20 @@ let s:tab_max_size = 18
 let s:tab_min_size = 4
 
 function! MakeTabLine()
+  let begin = ' '
   let info =  '[' . fnamemodify(getcwd(), ":~") . '] '
   let split = '|'
 
   let width = &columns
-  let infosize = strdisplaywidth(info)
+  let beginsize = strdisplaywidth(begin)
+  let infosize = strdisplaywidth(info) + 1
   let splitsize = strdisplaywidth(split) * tabpagenr('$')
   let curtabpagesize = strdisplaywidth(s:real_label(s:tabpage_label(tabpagenr(), 0)))
   let curtabpagesize = max([s:tab_max_size, curtabpagesize])
   " let curtabpagesize = s:tab_max_size
 
   let titles = []
-  let tabsize = (width - infosize - curtabpagesize - splitsize ) / (tabpagenr('$') - 1)
+  let tabsize = (width - infosize - curtabpagesize - splitsize - beginsize) / (tabpagenr('$') - 1)
   let tabsize = max([min([s:tab_max_size, tabsize]), s:tab_min_size])
 
   for tabnr in range(1, tabpagenr('$'))
@@ -254,7 +256,7 @@ function! MakeTabLine()
 
   let tabpages = join(titles, split) . split . '%#TabLineFill#%T'
 
-  return tabpages . '%<%=' . info
+  return begin . tabpages . ' %=%<' . info
 endfunction
 
 function! s:tabpage_label(n, s)
@@ -266,7 +268,8 @@ function! s:tabpage_label(n, s)
   let tabwinbuf = buflist[tabpagewinnr(a:n) - 1]
   let tabwinbuffname = fnamemodify(bufname(tabwinbuf), ':t')
   let tabwinbuffname = len(tabwinbuffname) ? tabwinbuffname : '[無題]'
-  let tabmod = len(filter(copy(buflist), 'getbufvar(v:val, "&modified")')) ? '+' : ''
+  let buftabmod = len(filter(copy(buflist), 'getbufvar(v:val, "&modified")')) ? '(+)' : ''
+  let tabmod = getbufvar(tabwinbuf, "&modified") ? '+' : buftabmod
 
   let labbegin = tabnum . hilight
   let labend = '%T%#TabLineFill#'
