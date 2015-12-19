@@ -525,23 +525,33 @@ let l:indent = a:0 ? a:1 : ''
   endif
 endfunction
 
+" Windows
+if IsWindows()
+  call extend(g:quickrun_config['watchdogs_checker/_'], {
+        \   'hook/output_encode/enable' : 1,
+        \   'hook/output_encode/encoding' : 'cp932',
+        \})
+  call watchdogs#setup(g:quickrun_config)
+endif
 
-"" ファイル読み込み
+" Mac
+if IsMac()
+endif
+
+" CUI
+if !has('gui_running')
+  " カーソルの変更
+  let &t_ti .= "\e[1 q"
+  let &t_SI .= "\e[5 q"
+  let &t_EI .= "\e[1 q"
+  let &t_te .= "\e[0 q"
+
+  " 矢印キー有効
+  set notimeout
+  set ttimeout
+  set timeoutlen=100
+endif
+
 " 端末ごとの設定
 runtime rc/local.vim
-
-" CUI用
-if !has('gui_running')
-  runtime rc/cui.vim
-endif
-
-" Windows用
-if IsWindows()
-  runtime rc/windows.vim
-endif
-
-" Mac用
-if IsMac()
-  runtime rc/mac.vim
-endif
 

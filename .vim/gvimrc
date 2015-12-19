@@ -11,6 +11,15 @@ set guioptions+=c
 
 if IsWindows()
   set guifont=Ricty_Diminished:h14:cSHIFTJIS
-elseif(IsMac())
+
+  " インサートモードを抜けるときにIMEをオフに
+  inoremap <silent> <ESC> <ESC><ESC>:set iminsert=0<CR>
+  autocmd GUIEnter * set transparency=240
+
+endif
+if IsMac()
   set guifont=Ricty\ Regular:h14
+
+  set macmeta
+  set transparency=10
 endif
