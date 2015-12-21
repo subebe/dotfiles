@@ -380,6 +380,9 @@ set tabstop=4 " tab width
 set shiftwidth=2 " auto indent width
 set softtabstop=2 " tabkey space
 
+" 印刷
+set printheader=%<%f%h%m%=%N
+
 "" ハイライト
 " シンタックスハイライト
 syntax on
