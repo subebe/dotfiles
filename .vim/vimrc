@@ -132,8 +132,8 @@ if neobundle#load_cache()
   " switch.vim
   NeoBundle 'AndrewRadev/switch.vim'
 
-  " auto-pairs
-  NeoBundle 'jiangmiao/auto-pairs'
+  " lexima.vim
+  NeoBundle 'cohama/lexima.vim'
 
   " indent
   NeoBundle 'Yggdroot/indentLine'
@@ -382,6 +382,10 @@ let g:quickrun_config['watchdogs_checker/tsc'] = {
 " vim-watchdogs
 let g:watchdogs_check_BufWritePost_enable = 1
 call watchdogs#setup(g:quickrun_config)
+
+" lexima.vim
+imap <C-h> <BS>
+" cmap <C-h> <BS>
 
 " open-browser
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
