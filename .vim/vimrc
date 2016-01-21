@@ -258,9 +258,9 @@ let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_expand_jump_to_first_child = 0
 let g:vimfiler_safe_mode_by_default = 0
 
-nnoremap ,, :execute 'VimFilerExplorer ' . getcwd()<CR>
-nnoremap ,f :VimFilerExplorer -project<CR>
-nnoremap ,F :VimFilerExplorer bookmark:<CR>
+nnoremap ,, :execute 'VimFilerExplorer -force-quit ' . getcwd()<CR>
+nnoremap ,f :VimFilerExplorer -project -force-quit<CR>
+nnoremap ,F :VimFilerExplorer -force-quit bookmark:<CR>
 
 " neocomplete
 let g:neocomplete#data_directory = expand($VIMFILES . '/cache/neocomplete')
