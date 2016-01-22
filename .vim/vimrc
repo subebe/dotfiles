@@ -103,7 +103,15 @@ if neobundle#load_cache()
 
   " emmet
   " http://motw.mods.jp/Vim/emmet-vim.html
-  NeoBundle 'mattn/emmet-vim'
+  NeoBundleLazy 'mattn/emmet-vim'
+  if neobundle#tap('emmet-vim')
+    call neobundle#config({
+          \   'autoload': {
+          \   'filetypes': ['html', 'css']
+          \   }
+          \ })
+    call neobundle#untap()
+  endif
 
   " 日本語ヘルプ
   NeoBundle 'vim-jp/vimdoc-ja'
@@ -127,13 +135,50 @@ if neobundle#load_cache()
   NeoBundle 'dannyob/quickfixstatus'
 
   " syntaxチェック
-  NeoBundle 'osyo-manga/vim-watchdogs'
+  NeoBundleLazy 'osyo-manga/vim-watchdogs'
+  if neobundle#tap('vim-watchdogs')
+    call neobundle#config({
+          \   'autoload': {
+          \     'filetypes': ['php']
+          \   }
+          \ })
+    function! neobundle#tapped.hooks.on_source(bundle) abort
+      let g:watchdogs_check_BufWritePost_enable = 1
+      let g:quickrun_config['watchdogs_checker/_'] = {
+            \    'hook/echo/enable' : 1,
+            \    'hook/echo/output_success': '> No Errors Found.',
+            \    'outputter/quickfix/open_cmd': ''
+            \}
+      let g:quickrun_config['watchdogs_checker/tsc'] = {
+            \    'exec' : '%c --noEmit %s:p',
+            \}
+
+      if IsWindows()
+        call extend(g:quickrun_config['watchdogs_checker/_'], {
+              \   'hook/output_encode/enable' : 1,
+              \   'hook/output_encode/encoding' : 'cp932',
+              \})
+      endif
+      call watchdogs#setup(g:quickrun_config)
+    endfunction
+    call neobundle#untap()
+  endif
 
   " switch.vim
   NeoBundle 'AndrewRadev/switch.vim'
 
   " lexima.vim
-  NeoBundle 'cohama/lexima.vim'
+  NeoBundleLazy 'cohama/lexima.vim'
+  if neobundle#tap('lexima.vim')
+    imap <C-h> <BS>
+    " cmap <C-h> <BS>
+    call neobundle#config({
+          \   'autoload': {
+          \     'insert': 1
+          \   }
+          \ })
+    call neobundle#untap()
+  endif
 
   " indent
   NeoBundle 'Yggdroot/indentLine'
@@ -162,7 +207,17 @@ if neobundle#load_cache()
   NeoBundle 'subebe/audio-junkie.vim'
 
   " gitgutter
-  NeoBundle 'airblade/vim-gitgutter'
+  NeoBundleLazy 'airblade/vim-gitgutter'
+  if neobundle#tap('vim-gitgutter')
+    call neobundle#config({
+          \   'autoload': {
+          \     'commands': [
+          \       'GitGutter',
+          \     ]
+          \   }
+          \ })
+    call neobundle#untap()
+  endif
 
   " quickfix replace
   NeoBundle 'thinca/vim-qfreplace'
@@ -370,22 +425,6 @@ let g:quickrun_config['_'] = {
 \    'runner' : 'vimproc',
 \    'runner/vimproc/updatetime' : 60
 \}
-let g:quickrun_config['watchdogs_checker/_'] = {
-\    'hook/echo/enable' : 1,
-\    'hook/echo/output_success': '> No Errors Found.',
-\    'outputter/quickfix/open_cmd': ''
-\}
-let g:quickrun_config['watchdogs_checker/tsc'] = {
-\    'exec' : '%c --noEmit %s:p',
-\}
-
-" vim-watchdogs
-let g:watchdogs_check_BufWritePost_enable = 1
-call watchdogs#setup(g:quickrun_config)
-
-" lexima.vim
-imap <C-h> <BS>
-" cmap <C-h> <BS>
 
 " open-browser
 let g:netrw_nogx = 1 " disable netrw's gx mapping.
@@ -417,8 +456,6 @@ omap ii <Plug>(textobj-multiblock-i)
 xmap aa <Plug>(textobj-multiblock-a)
 xmap ii <Plug>(textobj-multiblock-i)
 
-" gitgutter
-let g:gitgutter_enabled = 0
 
 "" タブライン設定
 " タブラインを常に表示
@@ -725,11 +762,6 @@ endfunction
 
 " Windows
 if IsWindows()
-  call extend(g:quickrun_config['watchdogs_checker/_'], {
-        \   'hook/output_encode/enable' : 1,
-        \   'hook/output_encode/encoding' : 'cp932',
-        \})
-  call watchdogs#setup(g:quickrun_config)
 endif
 
 " Mac
