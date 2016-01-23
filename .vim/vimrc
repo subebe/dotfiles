@@ -225,6 +225,9 @@ if neobundle#load_cache()
   " undo
   NeoBundle 'mbbill/undotree'
 
+  " yank
+  NeoBundle 'LeafCage/yankround.vim'
+
   " vim-singleton
   if IsWindows()
     NeoBundle 'thinca/vim-singleton'
@@ -455,6 +458,17 @@ omap aa <Plug>(textobj-multiblock-a)
 omap ii <Plug>(textobj-multiblock-i)
 xmap aa <Plug>(textobj-multiblock-a)
 xmap ii <Plug>(textobj-multiblock-i)
+
+" yankround
+let g:yankround_use_region_hl = 1
+nmap p <Plug>(yankround-p)
+xmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap gp <Plug>(yankround-gp)
+xmap gp <Plug>(yankround-gp)
+nmap gP <Plug>(yankround-gP)
+nmap <expr> <C-n> yankround#is_active() ? '<Plug>(yankround-next)' : ':<C-u>tabnext<CR>'
+nmap <expr> <C-p> yankround#is_active() ? '<Plug>(yankround-prev)' : ':<C-u>tabprevious<CR>'
 
 
 "" タブライン設定
@@ -718,8 +732,8 @@ nnoremap <C-Up> <C-w>k
 nnoremap <C-Down> <C-w>j
 
 " タブ移動
-nnoremap <C-n> :<C-u>tabnext<CR>
-nnoremap <C-p> :<C-u>tabprevious<CR>
+" nnoremap <C-n> :<C-u>tabnext<CR>
+" nnoremap <C-p> :<C-u>tabprevious<CR>
 
 " 上書き
 nnoremap <Space>s :w<CR>
