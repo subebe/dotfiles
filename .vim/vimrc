@@ -228,6 +228,28 @@ if neobundle#load_cache()
   " yank
   NeoBundle 'LeafCage/yankround.vim'
 
+  " vim-ref
+  NeoBundle 'thinca/vim-ref'
+  if neobundle#tap('vim-ref')
+    let g:ref_phpmanual_path = expand('~/.ref/php-chunked-xhtml/')
+
+    let g:ref_source_webdict_sites = {
+          \ 'ej' : {'url' : 'http://dictionary.infoseek.ne.jp/ejword/%s'},
+          \}
+    let g:ref_source_webdict_sites.default = 'ej'
+    function! g:ref_source_webdict_sites.ej.filter(output)
+      let l:idx = strridx(a:output, '(C) SHOGAKUKAN')
+      return join(split(a:output[: l:idx - 1], "\n")[26 :], "\n")
+    endfunction
+
+    nnoremap ,rp   :<C-u>Ref phpmanual<Space>
+    nnoremap ,re   :<C-u>Ref webdict ej<Space>
+    nnoremap ,k   :<C-u>execute 'Ref webdict ej ' . expand('<cword>')<CR>
+  endif
+
+  NeoBundle 'mattn/wwwrenderer-vim'
+  NeoBundle 'mattn/webapi-vim'
+
   " vim-singleton
   if IsWindows()
     NeoBundle 'thinca/vim-singleton'
