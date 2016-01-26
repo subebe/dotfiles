@@ -229,22 +229,31 @@ if neobundle#load_cache()
   NeoBundle 'LeafCage/yankround.vim'
 
   " vim-ref
-  NeoBundle 'thinca/vim-ref'
+  NeoBundleLazy 'thinca/vim-ref'
   if neobundle#tap('vim-ref')
-    let g:ref_phpmanual_path = expand('~/.ref/php-chunked-xhtml/')
-
-    let g:ref_source_webdict_sites = {
-          \ 'ej' : {'url' : 'http://dictionary.infoseek.ne.jp/ejword/%s'},
-          \}
-    let g:ref_source_webdict_sites.default = 'ej'
-    function! g:ref_source_webdict_sites.ej.filter(output)
-      let l:idx = strridx(a:output, '(C) SHOGAKUKAN')
-      return join(split(a:output[: l:idx - 1], "\n")[26 :], "\n")
-    endfunction
-
+    call neobundle#config({
+          \ 'autoload' : {
+          \   'commands':{'name': 'Ref', 'complete': 'customlist,ref#complete'},
+          \   'unite_sources' : ['ref'],
+          \ }
+          \})
     nnoremap ,rp   :<C-u>Ref phpmanual<Space>
     nnoremap ,re   :<C-u>Ref webdict ej<Space>
     nnoremap ,k   :<C-u>execute 'Ref webdict ej ' . expand('<cword>')<CR>
+
+    function! neobundle#tapped.hooks.on_source(bundle)
+      let g:ref_phpmanual_path = expand('~/.ref/php-chunked-xhtml/')
+
+      let g:ref_source_webdict_sites = {
+            \ 'ej' : {'url' : 'http://dictionary.infoseek.ne.jp/ejword/%s'},
+            \}
+      let g:ref_source_webdict_sites.default = 'ej'
+      function! g:ref_source_webdict_sites.ej.filter(output)
+        let l:idx = strridx(a:output, '(C) SHOGAKUKAN')
+        return join(split(a:output[: l:idx - 1], "\n")[26 :], "\n")
+      endfunction
+    endfunction
+    call neobundle#untap()
   endif
 
   NeoBundle 'mattn/wwwrenderer-vim'
