@@ -701,6 +701,14 @@ execute 'set directory=' . expand($VIMFILES . '/swap')
 " アンドゥファイル設定
 set undofile
 execute 'set undodir=' . expand($VIMFILES . '/undo')
+" ビューファイル設定
+set viewoptions-=options
+execute 'set viewdir=' . expand($VIMFILES . '/view')
+augroup view_fold
+  autocmd!
+  autocmd BufWritePost ?* if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
+  autocmd BufWinEnter ?* if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
+augroup END
 
 
 "" キーマッピング
