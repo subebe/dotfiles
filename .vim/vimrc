@@ -20,6 +20,8 @@ else
   let $VIMFILES = '~/.vim'
 endif
 
+command! -nargs=1 MyNeoBundle NeoBundle <args>, {'base': $VIMFILES . '/mybundle', 'type': 'nosync'}
+
 " プラグイン
 if has('vim_starting')
   if &compatible
@@ -204,7 +206,7 @@ if neobundle#load_cache()
   NeoBundle 'tyru/capture.vim'
 
   " aduio-junkie
-  NeoBundle 'subebe/audio-junkie.vim'
+  MyNeoBundle 'subebe/audio-junkie.vim'
 
   " gitgutter
   NeoBundleLazy 'airblade/vim-gitgutter'
