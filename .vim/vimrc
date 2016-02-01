@@ -793,7 +793,10 @@ nnoremap g<C-]> :<C-u>tab stjump <C-R>=expand('<cword>')<CR><CR>
 
 "" コマンド
 " vimscriptの書き込みと実行
-command! Wsource write|source %
+augroup Wsource
+  autocmd!
+  autocmd FileType vim command! -buffer Wsource write|source %
+augroup END 
 
 " インデント設定コマンド
 command! -nargs=? Indent call Indent(<f-args>)
