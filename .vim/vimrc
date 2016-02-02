@@ -319,6 +319,14 @@ if neobundle#load_cache()
     call neobundle#untap()
   endif
 
+  NeoBundleLazy 'koron/codic-vim'
+  if neobundle#tap('codic-vim')
+    call neobundle#config({
+          \     'commands': ['Codic']
+          \ })
+    call neobundle#untap()
+  endif
+
   NeoBundleSaveCache
 endif
 call neobundle#end()
