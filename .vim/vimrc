@@ -821,6 +821,24 @@ endfunction
 
 " Windows
 if IsWindows()
+  " OSのファイラを開く
+  nnoremap ,o :<C-u>LaunchFiler<CR>
+  command! LaunchFiler call LaunchFiler()
+  function! LaunchFiler()
+    let shellslash = &shellslash
+    setlocal noshellslash
+
+    let path = expand('%:p')
+    if findfile(path, '.') == ''
+      silent ! start .
+    else
+      execute 'silent !start explorer /SELECT,' . path
+    endif
+
+    if shellslash
+      setlocal shellslash
+    endif
+  endfunction
 endif
 
 " Mac
