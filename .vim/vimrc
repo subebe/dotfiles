@@ -839,6 +839,24 @@ if IsWindows()
       setlocal shellslash
     endif
   endfunction
+
+  " Cygwin起動
+  command! Cygwin call Cygwin()
+  function! Cygwin()
+    let delete_env = ['HOME', 'VIM', 'LANG', 'MYGVIMRC', 'MYVIMRC', 'VIMFILES', 'VIMRUNTIME']
+    for name in delete_env
+      execute 'let ' . name . ' = $' . name
+      execute 'let $' . name . ' = ""'
+    endfor
+
+    let $HOME = 'C:\cygwin64\home\' . $USERNAME
+    !start C:\cygwin64\bin\mintty.exe -i /Cygwin-Terminal.ico -
+
+    for name in delete_env
+      execute 'let $' . name . ' = ' . name
+    endfor
+  endfunction
+
 endif
 
 " Mac
