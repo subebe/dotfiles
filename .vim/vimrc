@@ -172,8 +172,6 @@ if neobundle#load_cache()
   " lexima.vim
   NeoBundleLazy 'cohama/lexima.vim'
   if neobundle#tap('lexima.vim')
-    imap <C-h> <BS>
-    " cmap <C-h> <BS>
     call neobundle#config({
           \   'autoload': {
           \     'insert': 1
@@ -239,22 +237,6 @@ if neobundle#load_cache()
           \   'unite_sources' : ['ref'],
           \ }
           \})
-    nnoremap ,rp   :<C-u>Ref phpmanual<Space>
-    nnoremap ,re   :<C-u>Ref webdict ej<Space>
-    nnoremap ,k   :<C-u>execute 'Ref webdict ej ' . expand('<cword>')<CR>
-
-    function! neobundle#tapped.hooks.on_source(bundle)
-      let g:ref_phpmanual_path = expand('~/.ref/php-chunked-xhtml/')
-
-      let g:ref_source_webdict_sites = {
-            \ 'ej' : {'url' : 'http://dictionary.infoseek.ne.jp/ejword/%s'},
-            \}
-      let g:ref_source_webdict_sites.default = 'ej'
-      function! g:ref_source_webdict_sites.ej.filter(output)
-        let l:idx = strridx(a:output, '(C) SHOGAKUKAN')
-        return join(split(a:output[: l:idx - 1], "\n")[26 :], "\n")
-      endfunction
-    endfunction
     call neobundle#untap()
   endif
 
@@ -333,6 +315,32 @@ call neobundle#end()
 filetype plugin indent on
 
 NeoBundleCheck
+
+if neobundle#tap('lexima.vim')
+    imap <C-h> <BS>
+    " cmap <C-h> <BS>
+  call neobundle#untap()
+endif
+
+if neobundle#tap('vim-ref')
+  nnoremap ,rp   :<C-u>Ref phpmanual<Space>
+  nnoremap ,re   :<C-u>Ref webdict ej<Space>
+  nnoremap ,k   :<C-u>execute 'Ref webdict ej ' . expand('<cword>')<CR>
+
+  function! neobundle#tapped.hooks.on_source(bundle)
+    let g:ref_phpmanual_path = expand('~/.ref/php-chunked-xhtml/')
+
+    let g:ref_source_webdict_sites = {
+          \ 'ej' : {'url' : 'http://dictionary.infoseek.ne.jp/ejword/%s'},
+          \}
+    let g:ref_source_webdict_sites.default = 'ej'
+    function! g:ref_source_webdict_sites.ej.filter(output)
+      let l:idx = strridx(a:output, '(C) SHOGAKUKAN')
+      return join(split(a:output[: l:idx - 1], "\n")[26 :], "\n")
+    endfunction
+  endfunction
+  call neobundle#untap()
+endif
 
 " vimshell
 nnoremap ,v :<C-u>VimShellPop<CR>
