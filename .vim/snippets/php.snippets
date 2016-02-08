@@ -2,3 +2,8 @@ snippet error
 	error_reporting(E_ALL);
 	ini_set('display_errors','on');
 
+snippet debug
+    echo '<pre>';
+    var_dump(${1:TARGET});
+    echo '</pre>';
+    exit;
