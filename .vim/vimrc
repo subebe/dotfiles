@@ -211,9 +211,7 @@ if neobundle#load_cache()
   if neobundle#tap('vim-gitgutter')
     call neobundle#config({
           \   'autoload': {
-          \     'commands': [
-          \       'GitGutter',
-          \     ]
+          \     'commands': ['GitGutter']
           \   }
           \ })
     call neobundle#untap()
