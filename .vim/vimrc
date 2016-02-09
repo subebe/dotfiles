@@ -32,145 +32,137 @@ endif
 
 call neobundle#begin(expand($VIMFILES . '/bundle/'))
 if neobundle#load_cache()
+  " Integration
   NeoBundleFetch 'Shougo/neobundle.vim'
-
-  " vimproc
   NeoBundle 'Shougo/vimproc', {
-\  'build': {
-\    'windows': 'make -f make_mingw64.mak',
-\    'cygwin': 'make -f make_cygwin.mak',
-\    'mac': 'make -f make_mac.mak',
-\    'unix': 'make -f make_unix.mak',
-\  }
-\}
+        \ 'build': {
+        \   'windows': 'make -f make_mingw64.mak',
+        \   'cygwin': 'make -f make_cygwin.mak',
+        \   'mac': 'make -f make_mac.mak',
+        \   'unix': 'make -f make_unix.mak',
+        \ }
+        \}
+  NeoBundleLazy 'osyo-manga/vim-watchdogs'
 
-  " vimshell
-  NeoBundle 'Shougo/vimshell.vim'
-
-  " filer
+  " Interface
   NeoBundle 'Shougo/vimfiler'
+  NeoBundle 'Shougo/vimshell.vim'
+  NeoBundle 'mhinz/vim-startify'
+  NeoBundle 'mbbill/undotree'
+  NeoBundle 'majutsushi/tagbar'
+  NeoBundle 'Shougo/vinarise.vim'
+  NeoBundle 'DirDiff.vim'
 
-  " unite
+  " Unite
   NeoBundle 'Shougo/unite.vim'
-  " unite最近開いたファイル
   NeoBundle 'Shougo/neomru.vim'
-  " yank
   NeoBundle 'Shougo/neoyank.vim'
+  NeoBundle 'tsukkee/unite-tag'
 
-  " 入力補完
+  " Improve
+  NeoBundle 'tpope/vim-repeat'
+  NeoBundle 'tyru/capture.vim'
+  NeoBundle 'LeafCage/yankround.vim'
+  NeoBundle 'tyru/restart.vim'
+  NeoBundle 'chrisbra/Recover.vim'
+  if IsWindows()
+    NeoBundle 'thinca/vim-singleton'
+  endif
+
+  " Completion
   NeoBundle 'Shougo/neocomplete.vim'
-
-  " スニペット
   NeoBundle 'Shougo/neosnippet'
   NeoBundle 'Shougo/neosnippet-snippets'
   NeoBundle 'honza/vim-snippets'
 
-  " binary
-  NeoBundle 'Shougo/vinarise.vim'
-
-  " 囲み文字操作
-  NeoBundle 'tpope/vim-surround'
-
-  " 再起動プラグイン
-  NeoBundle 'tyru/restart.vim'
-
-  " テキストオブジェクトで置換
-  NeoBundle 'kana/vim-operator-replace'
-  NeoBundle 'kana/vim-operator-user'
-
-  " plugin repeat
-  NeoBundle 'tpope/vim-repeat'
-
-  " f,t操作変更
-  NeoBundle 'rhysd/clever-f.vim'
-
-  " 検索位置表示
+  " Search
   NeoBundle 'osyo-manga/vim-anzu'
-
-  " スタート画面
-  NeoBundle 'mhinz/vim-startify'
-
-  " 括弧、タグ対応
-  NeoBundle 'matchit.zip'
-  NeoBundle 'vimtaku/hl_matchit.vim.git'
-
-  " git操作
-  NeoBundle 'tpope/vim-fugitive'
-
-  " git確認
-  NeoBundle 'cohama/agit.vim'
-
-  " 検索
   NeoBundle 'haya14busa/incsearch.vim'
 
-  " emmet
-  " http://motw.mods.jp/Vim/emmet-vim.html
-  NeoBundleLazy 'mattn/emmet-vim'
-  if neobundle#tap('emmet-vim')
-    call neobundle#config({
-          \   'autoload': {
-          \   'filetypes': ['html', 'css']
-          \   }
-          \ })
-    call neobundle#untap()
-  endif
+  " View
+  NeoBundle 'kshenoy/vim-signature'
+  NeoBundle 'Yggdroot/indentLine'
 
-  " 日本語ヘルプ
-  NeoBundle 'vim-jp/vimdoc-ja'
+  " Edit
+  NeoBundle 'junegunn/vim-easy-align'
+  NeoBundle 'AndrewRadev/switch.vim'
+  NeoBundleLazy 'cohama/lexima.vim'
 
-  " コメント
+  " Move
+  NeoBundle 'rhysd/clever-f.vim'
+  NeoBundle 'easymotion/vim-easymotion'
+  NeoBundle 'matchit.zip'
+  NeoBundle 'vimtaku/hl_matchit.vim'
+
+  " text-object / operator
+  NeoBundle 'kana/vim-operator-user'
+  NeoBundle 'kana/vim-operator-replace'
+  NeoBundle 'kana/vim-textobj-user'
+  NeoBundle 'osyo-manga/vim-textobj-multiblock'
+  NeoBundle 'tpope/vim-surround'
   NeoBundle 'tomtom/tcomment_vim'
 
-  " タグリスト
-  NeoBundle 'majutsushi/tagbar'
-
-  " quickrun
+  " Quick fix
   NeoBundle 'thinca/vim-quickrun'
-
-  " quickrun拡張
   NeoBundle 'osyo-manga/shabadou.vim'
-
-  " quickfix highlight
   NeoBundle 'cohama/vim-hier'
-
-  " quickfix statuslineに表示
   NeoBundle 'dannyob/quickfixstatus'
+  NeoBundle 'thinca/vim-qfreplace'
 
-  " syntaxチェック
-  NeoBundleLazy 'osyo-manga/vim-watchdogs'
+  " VCS
+  NeoBundle 'tpope/vim-fugitive'
+  NeoBundle 'cohama/agit.vim'
+  NeoBundleLazy 'airblade/vim-gitgutter'
+
+  " Reference
+  NeoBundle 'vim-jp/vimdoc-ja'
+  NeoBundleLazy 'thinca/vim-ref'
+  NeoBundleLazy 'koron/codic-vim'
+
+  " Api
+  NeoBundle 'mattn/wwwrenderer-vim'
+  NeoBundle 'mattn/webapi-vim'
+
+  " File Type
+  "" markdown
+  NeoBundleLazy 'plasticboy/vim-markdown'
+  NeoBundleLazy 'kannokanno/previm'
+  "" toml
+  NeoBundleLazy 'cespare/vim-toml'
+  "" typescript
+  NeoBundleLazy 'leafgarland/typescript-vim'
+  "" html,css
+  NeoBundleLazy 'mattn/emmet-vim'
+
+  " My
+  MyNeoBundle 'subebe/audio-junkie.vim'
+
+  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " NeoBundle Config
+  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+  " Integration
   if neobundle#tap('vim-watchdogs')
     call neobundle#config({
           \   'autoload': {
           \     'filetypes': ['php']
           \   }
           \ })
-    function! neobundle#tapped.hooks.on_source(bundle) abort
-      let g:watchdogs_check_BufWritePost_enable = 1
-      let g:quickrun_config['watchdogs_checker/_'] = {
-            \    'hook/echo/enable' : 1,
-            \    'hook/echo/output_success': '> No Errors Found.',
-            \    'outputter/quickfix/open_cmd': ''
-            \}
-      let g:quickrun_config['watchdogs_checker/tsc'] = {
-            \    'exec' : '%c --noEmit %s:p',
-            \}
-
-      if IsWindows()
-        call extend(g:quickrun_config['watchdogs_checker/_'], {
-              \   'hook/output_encode/enable' : 1,
-              \   'hook/output_encode/encoding' : 'cp932',
-              \})
-      endif
-      call watchdogs#setup(g:quickrun_config)
-    endfunction
     call neobundle#untap()
   endif
 
-  " switch.vim
-  NeoBundle 'AndrewRadev/switch.vim'
+  " Interface
 
-  " lexima.vim
-  NeoBundleLazy 'cohama/lexima.vim'
+  " Unite
+
+  " Improve
+
+  " Completion
+
+  " Search
+
+  " View
+
+  " Edit
   if neobundle#tap('lexima.vim')
     call neobundle#config({
           \   'autoload': {
@@ -180,34 +172,13 @@ if neobundle#load_cache()
     call neobundle#untap()
   endif
 
-  " indent
-  NeoBundle 'Yggdroot/indentLine'
+  " Move
 
-  " align
-  NeoBundle 'junegunn/vim-easy-align'
+  " text-object / operator
 
-  NeoBundle 'chrisbra/Recover.vim'
+  " Quick fix
 
-  " mark
-  NeoBundle 'kshenoy/vim-signature'
-
-  " dirdiff
-  NeoBundle 'DirDiff.vim'
-
-  " easymotion
-  NeoBundle 'easymotion/vim-easymotion'
-
-  NeoBundle 'osyo-manga/vim-textobj-multiblock'
-  NeoBundle 'kana/vim-textobj-user'
-
-  " capture
-  NeoBundle 'tyru/capture.vim'
-
-  " aduio-junkie
-  MyNeoBundle 'subebe/audio-junkie.vim'
-
-  " gitgutter
-  NeoBundleLazy 'airblade/vim-gitgutter'
+  " VCS
   if neobundle#tap('vim-gitgutter')
     call neobundle#config({
           \   'autoload': {
@@ -217,17 +188,7 @@ if neobundle#load_cache()
     call neobundle#untap()
   endif
 
-  " quickfix replace
-  NeoBundle 'thinca/vim-qfreplace'
-
-  " undo
-  NeoBundle 'mbbill/undotree'
-
-  " yank
-  NeoBundle 'LeafCage/yankround.vim'
-
-  " vim-ref
-  NeoBundleLazy 'thinca/vim-ref'
+  " Reference
   if neobundle#tap('vim-ref')
     call neobundle#config({
           \ 'autoload' : {
@@ -237,17 +198,16 @@ if neobundle#load_cache()
           \})
     call neobundle#untap()
   endif
-
-  NeoBundle 'mattn/wwwrenderer-vim'
-  NeoBundle 'mattn/webapi-vim'
-
-  " vim-singleton
-  if IsWindows()
-    NeoBundle 'thinca/vim-singleton'
+  if neobundle#tap('codic-vim')
+    call neobundle#config({
+          \     'commands': ['Codic']
+          \ })
+    call neobundle#untap()
   endif
 
-  " markdown
-  NeoBundleLazy 'plasticboy/vim-markdown'
+  " Api
+
+  " File Type
   if neobundle#tap('vim-markdown')
     call neobundle#config({
           \   'autoload': {
@@ -256,8 +216,6 @@ if neobundle#load_cache()
           \ })
     call neobundle#untap()
   endif
-
-  NeoBundleLazy 'kannokanno/previm'
   if neobundle#tap('previm')
     call neobundle#config({
           \   'autoload': {
@@ -266,7 +224,6 @@ if neobundle#load_cache()
           \ })
     call neobundle#untap()
   endif
-
   NeoBundleLazy 'tyru/open-browser.vim'
   if neobundle#tap('open-browser.vim')
     call neobundle#config({
@@ -276,9 +233,6 @@ if neobundle#load_cache()
           \ })
     call neobundle#untap()
   endif
-
-  " toml
-  NeoBundleLazy 'cespare/vim-toml'
   if neobundle#tap('vim-toml')
     call neobundle#config({
           \   'autoload': {
@@ -287,9 +241,6 @@ if neobundle#load_cache()
           \ })
     call neobundle#untap()
   endif
-
-  " typescript
-  NeoBundleLazy 'leafgarland/typescript-vim'
   if neobundle#tap('typescript-vim')
     call neobundle#config({
           \   'autoload': {
@@ -298,28 +249,78 @@ if neobundle#load_cache()
           \ })
     call neobundle#untap()
   endif
-
-  NeoBundleLazy 'koron/codic-vim'
-  if neobundle#tap('codic-vim')
+  if neobundle#tap('emmet-vim')
     call neobundle#config({
-          \     'commands': ['Codic']
+          \   'autoload': {
+          \   'filetypes': ['html', 'css']
+          \   }
           \ })
     call neobundle#untap()
   endif
 
+  " My
+
   NeoBundleSaveCache
 endif
+
 call neobundle#end()
 filetype plugin indent on
 
 NeoBundleCheck
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Config
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Integration
+if neobundle#tap('vim-watchdogs')
+  function! neobundle#tapped.hooks.on_source(bundle) abort
+    let g:watchdogs_check_BufWritePost_enable = 1
+    let g:quickrun_config['watchdogs_checker/_'] = {
+          \    'hook/echo/enable' : 1,
+          \    'hook/echo/output_success': '> No Errors Found.',
+          \    'outputter/quickfix/open_cmd': ''
+          \}
+    let g:quickrun_config['watchdogs_checker/tsc'] = {
+          \    'exec' : '%c --noEmit %s:p',
+          \}
+
+    if IsWindows()
+      call extend(g:quickrun_config['watchdogs_checker/_'], {
+            \   'hook/output_encode/enable' : 1,
+            \   'hook/output_encode/encoding' : 'cp932',
+            \})
+    endif
+    call watchdogs#setup(g:quickrun_config)
+  endfunction
+  call neobundle#untap()
+endif
+
+" Interface
+
+" Unite
+
+" Improve
+
+" Completion
+
+" Search
+
+" View
+
+" Edit
 if neobundle#tap('lexima.vim')
     imap <C-h> <BS>
     " cmap <C-h> <BS>
   call neobundle#untap()
 endif
 
+" Move
+
+" text-object / operator
+
+" Quick fix
+
+" VCS
 if neobundle#tap('vim-ref')
   nnoremap ,rp   :<C-u>Ref phpmanual<Space>
   nnoremap ,re   :<C-u>Ref webdict ej<Space>
@@ -340,14 +341,20 @@ if neobundle#tap('vim-ref')
   call neobundle#untap()
 endif
 
+" Reference
+
+" Api
+
+" File Type
+
+" My
+
 " vimshell
 nnoremap ,v :<C-u>VimShellPop<CR>
 nnoremap ,V :<C-u>VimShellTab<CR>
 
 " unite
 call unite#custom#default_action('directory', 'vimfiler')
-" neomru
-
 nnoremap ,u :Unite buffer<CR>
 nnoremap ,U :Unite file_mru<CR>
 nnoremap ,y :Unite history/yank<CR>
