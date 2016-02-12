@@ -135,7 +135,6 @@ if neobundle#load_cache()
   NeoBundleLazy 'mattn/emmet-vim'
 
   " My
-  MyNeoBundle 'subebe/audio-junkie.vim'
 
   """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
   " NeoBundle Config
