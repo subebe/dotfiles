@@ -1,894 +1,440 @@
-"if 0 | endif
-
+if 0 | endif
 set encoding=utf-8
 scriptencoding utf-8
 
-function! IsWindows()
-  return has('win16') || has('win32') || has('win64')
-endfunction
+if &compatible
+  set nocompatible
+endif
 
-function! IsMac()
-  return has('mac')
-endfunction
+let s:is_windows = has('win16') || has('win32') || has('win64')
+let s:is_mac = has('mac')
 
-" vimファイルディレクトリ
-if IsWindows()
-  " パス区切りにスラッシュを使用
+if s:is_windows
   set shellslash
-  let $VIMFILES = '~/vimfiles'
+  let s:vimfiles = expand('~/vimfiles')
 else
-  let $VIMFILES = '~/.vim'
+  let s:vimfiles = expand('~/.vim')
 endif
 
-command! -nargs=1 MyNeoBundle NeoBundle <args>, {'base': $VIMFILES . '/mybundle', 'type': 'nosync'}
+let s:viminfo    = s:vimfiles.'/viminfo'
+let s:backup_dir = s:vimfiles.'/backup'
+let s:swap_dir   = s:vimfiles.'/swap'
+let s:undo_dir   = s:vimfiles.'/undo'
+let s:view_dir   = s:vimfiles.'/view'
 
-" プラグイン
-if has('vim_starting')
-  if &compatible
-    set nocompatible
+let s:dein_dir   = s:vimfiles.'/dein.vim'
+
+function! s:make_dir(dir) abort
+  if !isdirectory(a:dir)
+    call mkdir(a:dir)
   endif
-  set runtimepath+=$VIMFILES/bundle/neobundle.vim/
+endfunction
+call s:make_dir(s:backup_dir)
+call s:make_dir(s:swap_dir)
+call s:make_dir(s:undo_dir)
+call s:make_dir(s:view_dir)
+
+if !isdirectory(s:dein_dir)
+  echomsg 'dein.vim does not exists.'
+  if executable('git')
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
+  else
+    echomsg 'git does not exists.'
+  endif
 endif
 
-call neobundle#begin(expand($VIMFILES . '/bundle/'))
-if neobundle#load_cache()
-  " Integration
-  NeoBundleFetch 'Shougo/neobundle.vim'
-  NeoBundle 'Shougo/vimproc', {
-        \ 'build': {
-        \   'windows': 'make -f make_mingw64.mak',
-        \   'cygwin': 'make -f make_cygwin.mak',
-        \   'mac': 'make -f make_mac.mak',
-        \   'unix': 'make -f make_unix.mak',
-        \ }
-        \}
-  NeoBundleLazy 'osyo-manga/vim-watchdogs'
+let mapleader = ','
 
-  " Interface
-  NeoBundle 'Shougo/vimfiler'
-  NeoBundle 'Shougo/vimshell.vim'
-  NeoBundle 'mhinz/vim-startify'
-  NeoBundle 'mbbill/undotree'
-  NeoBundle 'majutsushi/tagbar'
-  NeoBundle 'Shougo/vinarise.vim'
-  NeoBundle 'DirDiff.vim'
+if has('gui_running')
+  set guioptions-=a guioptions-=i 
+  set guioptions-=r guioptions-=L
+  set guioptions-=e guioptions-=m guioptions-=t guioptions-=T guioptions-=g 
+  set guioptions+=c
 
-  " Unite
-  NeoBundle 'Shougo/unite.vim'
-  NeoBundle 'Shougo/neomru.vim'
-  NeoBundle 'Shougo/neoyank.vim'
-  NeoBundle 'tsukkee/unite-tag'
-
-  " Improve
-  NeoBundle 'tpope/vim-repeat'
-  NeoBundle 'tyru/capture.vim'
-  NeoBundle 'LeafCage/yankround.vim'
-  NeoBundle 'tyru/restart.vim'
-  NeoBundle 'chrisbra/Recover.vim'
-  if IsWindows()
-    NeoBundle 'thinca/vim-singleton'
+  if s:is_windows
+    set guifont=Ricty_Diminished:h13.5:cSHIFTJIS
+    set renderoptions=type:directx,renmode:5
+    augroup MyTransparency
+      autocmd!
+      autocmd GUIEnter * set transparency=240
+    augroup END
+  elseif s:is_mac
+    set guifont=Ricty\ Regular:h17
+    set macmeta
+    set transparency=10
   endif
+else
+  let &t_ti .= "\e[1 q"
+  let &t_SI .= "\e[5 q"
+  let &t_EI .= "\e[1 q"
+  let &t_te .= "\e[0 q"
+endif
 
-  " Completion
-  NeoBundle 'Shougo/neocomplete.vim'
-  NeoBundle 'Shougo/neosnippet'
-  NeoBundle 'Shougo/neosnippet-snippets'
-  NeoBundle 'honza/vim-snippets'
 
-  " Search
-  NeoBundle 'osyo-manga/vim-anzu'
-  NeoBundle 'haya14busa/incsearch.vim'
-
-  " View
-  NeoBundle 'kshenoy/vim-signature'
-  NeoBundle 'Yggdroot/indentLine'
-
-  " Edit
-  NeoBundle 'junegunn/vim-easy-align'
-  NeoBundle 'AndrewRadev/switch.vim'
-  NeoBundleLazy 'cohama/lexima.vim'
-
-  " Move
-  NeoBundle 'rhysd/clever-f.vim'
-  NeoBundle 'easymotion/vim-easymotion'
-  NeoBundle 'matchit.zip'
-  NeoBundle 'vimtaku/hl_matchit.vim'
-
-  " text-object / operator
-  NeoBundle 'kana/vim-operator-user'
-  NeoBundle 'kana/vim-operator-replace'
-  NeoBundle 'kana/vim-textobj-user'
-  NeoBundle 'osyo-manga/vim-textobj-multiblock'
-  NeoBundle 'tpope/vim-surround'
-  NeoBundle 'tomtom/tcomment_vim'
-
-  " Quick fix
-  NeoBundle 'thinca/vim-quickrun'
-  NeoBundle 'osyo-manga/shabadou.vim'
-  NeoBundle 'cohama/vim-hier'
-  NeoBundle 'dannyob/quickfixstatus'
-  NeoBundle 'thinca/vim-qfreplace'
-
-  " VCS
-  NeoBundle 'tpope/vim-fugitive'
-  NeoBundle 'cohama/agit.vim'
-  NeoBundleLazy 'airblade/vim-gitgutter'
-
-  " Reference
-  NeoBundle 'vim-jp/vimdoc-ja'
-  NeoBundleLazy 'thinca/vim-ref'
-  NeoBundleLazy 'koron/codic-vim'
-
-  " Api
-  NeoBundle 'mattn/wwwrenderer-vim'
-  NeoBundle 'mattn/webapi-vim'
-
-  " File Type
-  "" markdown
-  NeoBundleLazy 'plasticboy/vim-markdown'
-  NeoBundleLazy 'kannokanno/previm'
-  "" toml
-  NeoBundleLazy 'cespare/vim-toml'
-  "" typescript
-  NeoBundleLazy 'leafgarland/typescript-vim'
-  "" html,css
-  NeoBundleLazy 'mattn/emmet-vim'
-
-  " My
-
-  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-  " NeoBundle Config
-  """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-  " Integration
-  if neobundle#tap('vim-watchdogs')
-    call neobundle#config({
-          \   'autoload': {
-          \     'filetypes': ['php']
-          \   }
-          \ })
-    call neobundle#untap()
+if isdirectory(s:dein_dir)
+  let g:dein#install_process_timeout = 600
+  if has('vim_starting')
+    execute 'set runtimepath^='.s:dein_dir
   endif
+  if dein#load_state(s:dein_dir)
+    call dein#begin(expand('~/.cache/dein'))
 
-  " Interface
+    " Basic
+    call dein#add('w0ng/vim-hybrid')
+    call dein#add('vim-jp/vimdoc-ja')
 
-  " Unite
-
-  " Improve
-
-  " Completion
-
-  " Search
-
-  " View
-
-  " Edit
-  if neobundle#tap('lexima.vim')
-    call neobundle#config({
-          \   'autoload': {
-          \     'insert': 1
-          \   }
-          \ })
-    call neobundle#untap()
-  endif
-
-  " Move
-
-  " text-object / operator
-
-  " Quick fix
-
-  " VCS
-  if neobundle#tap('vim-gitgutter')
-    call neobundle#config({
-          \   'autoload': {
-          \     'commands': ['GitGutter']
-          \   }
-          \ })
-    call neobundle#untap()
-  endif
-
-  " Reference
-  if neobundle#tap('vim-ref')
-    call neobundle#config({
-          \ 'autoload' : {
-          \   'commands':{'name': 'Ref', 'complete': 'customlist,ref#complete'},
-          \   'unite_sources' : ['ref'],
-          \ }
+    " Integration
+    call dein#add(s:dein_dir)
+    " call dein#add(s:dein_dir, {'rtp': ''})
+    call dein#add('Shougo/vimproc', {
+          \  'build': 'make',
           \})
-    call neobundle#untap()
+    call dein#add('thinca/vim-singleton', {
+          \  'if': has('clientserver')
+          \})
+
+    " Interface
+    call dein#add('Shougo/neomru.vim', {
+          \  'on_path': '.*',
+          \})
+    call dein#add('Shougo/unite.vim', {
+          \  'depends': ['neomru.vim', 'unite-dein.vim'],
+          \  'on_cmd': ['Unite'],
+          \  'hook_add': join([
+          \    'nnoremap <Leader>u :<C-u>Unite buffer<CR>',
+          \    'nnoremap <Leader>U :<C-u>Unite file_mru<CR>',
+          \    'nnoremap <Leader>d :<C-u>Unite dein<CR>',
+          \  ], "\n"),
+          \})
+    call dein#add('Shougo/vimfiler', {
+          \  'depends': 'unite.vim',
+          \  'on_cmd': ['VimFiler', 'VimFilerExplorer'],
+          \  'on_path': '.*',
+          \  'hook_add': join([
+          \    'nnoremap <Leader><Leader> :<C-u>VimFilerCurrentDir -explorer<CR>',
+          \  ], "\n"),
+          \  'hook_source': join([
+          \    'let g:vimfiler_as_default_explorer = 1',
+          \  ], "\n"),
+          \  'hook_post_source': join([
+          \    'call vimfiler#custom#profile("default", "context", {"safe": 0, "force_quit": 1, "auto_cd": 1})',
+          \  ], "\n"),
+          \})
+    call dein#add('thinca/vim-quickrun', {
+          \  'on_cmd': 'QuickRun',
+          \  'on_map': '<Plug>',
+          \  'hook_add': join([
+          \    'nmap <Leader>r <Plug>(quickrun)',
+          \  ], "\n"),
+          \})
+
+    " Edit
+    call dein#add('cohama/lexima.vim', {
+          \  'on_i': 1,
+          \  'hook_add': join([
+          \    'imap <C-h> <BS>',
+          \    'cmap <C-h> <BS>',
+          \  ], "\n"),
+          \})
+    call dein#add('tpope/vim-repeat', {
+          \  'lazy': 1,
+          \})
+    call dein#add('tpope/vim-surround', {
+          \  'depends': 'vim-repeat',
+          \  'on_map': [
+          \    ['n', '<Plug>Dsurround', '<Plug>Csurround', '<Plug>CSurround', '<Plug>Ysurround', '<Plug>YSurround', '<Plug>Yssurround', '<Plug>YSsurround'],
+          \    ['x', '<Plug>VSurround', '<Plug>VgSurround'],
+          \  ],
+          \  'hook_add': join([
+          \    'nmap ds  <Plug>Dsurround',
+          \    'nmap cs  <Plug>Csurround',
+          \    'nmap cS  <Plug>CSurround',
+          \    'nmap ys  <Plug>Ysurround',
+          \    'nmap yS  <Plug>YSurround',
+          \    'nmap yss <Plug>Yssurround',
+          \    'nmap ySs <Plug>YSsurround',
+          \    'nmap ySS <Plug>YSsurround',
+          \    'xmap S   <Plug>VSurround',
+          \    'xmap gS  <Plug>VgSurround',
+          \  ], "\n"),
+          \})
+    call dein#add('osyo-manga/vim-anzu', {
+          \  'on_map': '<Plug>',
+          \  'hook_add': join([
+          \    'nmap n <Plug>(anzu-n-with-echo)',
+          \    'nmap N <Plug>(anzu-N-with-echo)',
+          \  ], "\n"),
+          \})
+    call dein#add('kana/vim-operator-user', {
+          \  'lazy': 1,
+          \})
+    call dein#add('kana/vim-operator-replace', {
+          \  'depends': 'vim-operator-user',
+          \  'on_map': '<Plug>',
+          \  'hook_add': join([
+          \    'map _ <Plug>(operator-replace)',
+          \  ], "\n"),
+          \})
+    call dein#add('junegunn/vim-easy-align', {
+          \  'on_map': [
+          \    ['v', '<Plug>(EasyAlign)'],
+          \  ],
+          \  'hook_add': join([
+          \    'vmap <Enter> <Plug>(EasyAlign)'
+          \  ], "\n"),
+          \})
+    call dein#add('matchit.zip')
+
+    " Command
+    call dein#add('tyru/capture.vim', {
+          \  'on_cmd': 'Capture'
+          \})
+
+    " commentout
+    call dein#add('tyru/caw.vim')
+    " call dein#add('Shougo/context_filetype.vim')
+
+    " call dein#add('lambdalisue/vim-gita', {
+    "       \ 'on_cmd': 'Gita',
+    "       \})
+
+    call dein#local(s:vimfiles.'/bundle', {'lazy': 1}, ['unite-dein.vim'])
+
+    call dein#end()
+    call dein#save_state()
   endif
-  if neobundle#tap('codic-vim')
-    call neobundle#config({
-          \     'commands': ['Codic']
-          \ })
-    call neobundle#untap()
+  if dein#check_install()
+    call dein#install()
+  endif
+  " if dein#check_update()
+  "   call dein#update()
+  " endif
+
+  if dein#is_sourced('vim-singleton')
+    call singleton#enable()
   endif
 
-  " Api
-
-  " File Type
-  if neobundle#tap('vim-markdown')
-    call neobundle#config({
-          \   'autoload': {
-          \     'filetypes': ['markdown', 'md']
-          \   }
-          \ })
-    call neobundle#untap()
+  if dein#is_sourced('vim-hybrid')
+    augroup MyColorScheme
+      autocmd!
+      autocmd VimEnter * colorscheme hybrid | set background=dark
+    augroup END
+    colorscheme hybrid
   endif
-  if neobundle#tap('previm')
-    call neobundle#config({
-          \   'autoload': {
-          \     'filetypes': ['markdown', 'md']
-          \   }
-          \ })
-    call neobundle#untap()
-  endif
-  NeoBundleLazy 'tyru/open-browser.vim'
-  if neobundle#tap('open-browser.vim')
-    call neobundle#config({
-          \   'autoload': {
-          \     'filetypes': ['markdown', 'md']
-          \   }
-          \ })
-    call neobundle#untap()
-  endif
-  if neobundle#tap('vim-toml')
-    call neobundle#config({
-          \   'autoload': {
-          \     'filetypes': ['toml']
-          \   }
-          \ })
-    call neobundle#untap()
-  endif
-  if neobundle#tap('typescript-vim')
-    call neobundle#config({
-          \   'autoload': {
-          \     'filetypes': ['typescript']
-          \   }
-          \ })
-    call neobundle#untap()
-  endif
-  if neobundle#tap('emmet-vim')
-    call neobundle#config({
-          \   'autoload': {
-          \   'filetypes': ['html', 'css']
-          \   }
-          \ })
-    call neobundle#untap()
-  endif
-
-  " My
-
-  NeoBundleSaveCache
+else
+  colorscheme desert
 endif
-
-call neobundle#end()
 filetype plugin indent on
 
-NeoBundleCheck
+syntax enable
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Config
+" Options
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Integration
-if neobundle#tap('vim-watchdogs')
-  function! neobundle#tapped.hooks.on_source(bundle) abort
-    let g:watchdogs_check_BufWritePost_enable = 1
-    let g:quickrun_config['watchdogs_checker/_'] = {
-          \    'hook/echo/enable' : 1,
-          \    'hook/echo/output_success': '> No Errors Found.',
-          \    'outputter/quickfix/open_cmd': ''
-          \}
-    let g:quickrun_config['watchdogs_checker/tsc'] = {
-          \    'exec' : '%c --noEmit %s:p',
-          \}
+" important
 
-    if IsWindows()
-      call extend(g:quickrun_config['watchdogs_checker/_'], {
-            \   'hook/output_encode/enable' : 1,
-            \   'hook/output_encode/encoding' : 'cp932',
-            \})
-    endif
-    call watchdogs#setup(g:quickrun_config)
-  endfunction
-  call neobundle#untap()
-endif
+" moving around, searching and patterns
+set whichwrap+=h,l
+set incsearch
+set ignorecase
+set smartcase
 
-" Interface
+" tags
+set tags+=tags;
 
-" Unite
+" displaying text
+set scrolloff=5
+set display+=lastline
+set redrawtime=500
+set list
+set listchars=tab:￫\ ,eol:⏎
+set number
+set conceallevel=2
+set concealcursor=nc
 
-" Improve
+" syntax, highlighting and spelling
+set hlsearch
+nohlsearch
 
-" Completion
+" multiple windows
+set laststatus=2
+set statusline=%F%m%r
+set statusline+=%=
+set statusline+=\|\ %{&fileformat},%{&fileencoding}%{(&bomb?\"(bom)\":\"\")}
+set statusline+=\ \|\ %Y
+set statusline+=\ \|\ %l/%L,%c
+" set noequalalways
+set splitright
 
-" Search
-
-" View
-
-" Edit
-if neobundle#tap('lexima.vim')
-    imap <C-h> <BS>
-    " cmap <C-h> <BS>
-  call neobundle#untap()
-endif
-
-" Move
-
-" text-object / operator
-
-" Quick fix
-
-" VCS
-if neobundle#tap('vim-ref')
-  nnoremap ,rp   :<C-u>Ref phpmanual<Space>
-  nnoremap ,re   :<C-u>Ref webdict ej<Space>
-  nnoremap ,k   :<C-u>execute 'Ref webdict ej ' . expand('<cword>')<CR>
-
-  function! neobundle#tapped.hooks.on_source(bundle)
-    let g:ref_phpmanual_path = expand('~/.ref/php-chunked-xhtml/')
-
-    let g:ref_source_webdict_sites = {
-          \ 'ej' : {'url' : 'http://dictionary.infoseek.ne.jp/ejword/%s'},
-          \}
-    let g:ref_source_webdict_sites.default = 'ej'
-    function! g:ref_source_webdict_sites.ej.filter(output)
-      let l:idx = strridx(a:output, '(C) SHOGAKUKAN')
-      return join(split(a:output[: l:idx - 1], "\n")[26 :], "\n")
-    endfunction
-  endfunction
-  call neobundle#untap()
-endif
-
-" Reference
-
-" Api
-
-" File Type
-
-" My
-
-" vimshell
-nnoremap ,v :<C-u>VimShellPop<CR>
-nnoremap ,V :<C-u>VimShellTab<CR>
-
-" unite
-call unite#custom#default_action('directory', 'vimfiler')
-nnoremap ,u :Unite buffer<CR>
-nnoremap ,U :Unite file_mru<CR>
-nnoremap ,y :Unite history/yank<CR>
-
-" vimfiler
-let g:vimfiler_enable_auto_cd = 1
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_expand_jump_to_first_child = 0
-let g:vimfiler_safe_mode_by_default = 0
-
-nnoremap ,, :execute 'VimFilerExplorer -force-quit ' . getcwd()<CR>
-nnoremap ,f :VimFilerExplorer -project -force-quit<CR>
-nnoremap ,F :VimFilerExplorer -force-quit bookmark:<CR>
-
-" neocomplete
-let g:neocomplete#enable_at_startup = 1
-
-
-" neosnippet
-" Plugin key-mappings.
-" imap <C-k> <Plug>(neosnippet_expand_or_jump)
-" smap <C-k> <Plug>(neosnippet_expand_or_jump)
-" xmap <C-k> <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\  "\<Plug>(neosnippet_expand_or_jump)"
-\  : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\  "\<Plug>(neosnippet_expand_or_jump)"
-\  : "\<TAB>"
-" Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
-
-
-" vim-operator-replace
-map _ <Plug>(operator-replace)
-
-
-" vim-repeat
-" 下にも適用
-nmap <M-.> j.
-
-
-" restart
-let g:restart_sessionoptions = 'blank,buffers,curdir,folds,help,localoptions,tabpages'
-
-
-" vim-singleton
-if IsWindows()
-  call singleton#enable()
-endif
-
-
-" clever-f & vim-anzu
-nmap <silent> <ESC><ESC> <Plug>(anzu-clear-search-status)<Plug>(clever-f-reset):nohlsearch<CR>
-
-" vim-startify
-let g:startify_custom_indices = ['f', 'd', 'g', 'h', 'l', 'a', 'r', 'u', 'y', 'w', 'o', 'm', 'n', 'c', 'x', 'z']
-let g:startify_bookmarks = [$MYVIMRC]
-let g:startify_list_order = [
-\  ['   Most recently used files:'],
-\  'files',
-\  ['   My bookmarks:'],
-\  'bookmarks',
-\]
-autocmd User Startified setlocal cursorline nowrap
-nnoremap ,s :Startify<CR>
-nnoremap ,S :tabedit<Bar>Startify<CR>
-
-
-" hl_matchit.vim
-let g:hl_matchit_enable_on_vim_startup = 1
-let g:hl_matchit_hl_groupname = 'MatchParen'
-let g:hl_matchit_allow_ft = 'html,vim'
-let g:hl_matchit_hl_priority = 10
-let g:hl_matchit_speed_level = 2
-
-
-" fugitive
-nnoremap ,g :<C-u>Gstatus<CR>
-
-
-" agit
-nnoremap ,a :<C-u>Agit<CR>
-nnoremap ,A :<C-u>AgitFile<CR>
-
-
-" incsearch
-let g:incsearch#magic = '\v'
-let g:incsearch#auto_nohlsearch = 1
-map / <Plug>(incsearch-forward)
-map ? <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-" map n <Plug>(incsearch-nohl-n)
-" map N <Plug>(incsearch-nohl-N)
-" map * <Plug>(incsearch-nohl-*)
-" map # <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
-
-" vim-anzu
-let g:anzu_status_format = "[ %p(%i/%l) ]"
-nmap n <Plug>(incsearch-nohl)<Plug>(anzu-n)zz
-nmap N <Plug>(incsearch-nohl)<Plug>(anzu-N)zz
-nmap * <Plug>(incsearch-nohl)<Plug>(anzu-star)zz
-nmap # <Plug>(incsearch-nohl)<Plug>(anzu-sharp)zz
-
-
-" tagbar
-nnoremap ,t :TagbarToggle<CR>
-
-" quickrun
-if !exists("g:quickrun_config")
-    let g:quickrun_config = {}
-endif
-let g:quickrun_config['_'] = {
-\    'runner' : 'vimproc',
-\    'runner/vimproc/updatetime' : 60
-\}
-
-" open-browser
-let g:netrw_nogx = 1 " disable netrw's gx mapping.
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
-
-" markdown
-let g:vim_markdown_folding_disabled = 1
-
-" vim-easy-align
-vmap <Enter> <Plug>(EasyAlign)
-
-
-" easy-motion
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_space_jump_first = 1
-let g:EasyMotion_cursor_highlight = 1
-let g:EasyMotion_startofline = 0
-nmap s <Plug>(easymotion-s2)
-vmap s <Plug>(easymotion-s2)
-omap z <Plug>(easymotion-s2)
-map ;j <Plug>(easymotion-j)
-map ;k <Plug>(easymotion-k)
-
-" textobj-multiblock
-omap aa <Plug>(textobj-multiblock-a)
-omap ii <Plug>(textobj-multiblock-i)
-xmap aa <Plug>(textobj-multiblock-a)
-xmap ii <Plug>(textobj-multiblock-i)
-
-" yankround
-let g:yankround_use_region_hl = 1
-nmap p <Plug>(yankround-p)
-xmap p <Plug>(yankround-p)
-nmap P <Plug>(yankround-P)
-nmap gp <Plug>(yankround-gp)
-xmap gp <Plug>(yankround-gp)
-nmap gP <Plug>(yankround-gP)
-nmap <expr> <C-n> yankround#is_active() ? '<Plug>(yankround-next)' : ':<C-u>tabnext<CR>'
-nmap <expr> <C-p> yankround#is_active() ? '<Plug>(yankround-prev)' : ':<C-u>tabprevious<CR>'
-
-
-"" タブライン設定
-" タブラインを常に表示
+" multiple tab pages
 set showtabline=2
 
-let s:tab_max_size = 18
-let s:tab_min_size = 4
-
-function! MakeTabLine()
-  let begin = ' '
-  let info =  '[' . fnamemodify(getcwd(), ":~") . '] '
-  let split = '|'
-
-  let width = &columns
-  let beginsize = strdisplaywidth(begin)
-  let infosize = strdisplaywidth(info) + 1
-  let splitsize = strdisplaywidth(split) * tabpagenr('$')
-  let curtabpagesize = strdisplaywidth(s:real_label(s:tabpage_label(tabpagenr(), 0)))
-  let curtabpagesize = max([s:tab_max_size, curtabpagesize])
-  " let curtabpagesize = s:tab_max_size
-
-  let titles = []
-  let tabsize = (width - infosize - curtabpagesize - splitsize - beginsize) / (tabpagenr('$') - 1)
-  let tabsize = max([min([s:tab_max_size, tabsize]), s:tab_min_size])
-
-  for tabnr in range(1, tabpagenr('$'))
-    let size = tabnr == tabpagenr() ? curtabpagesize : tabsize
-    call add(titles, s:tabpage_label(tabnr, size))
-  endfor
-
-  let tabpages = join(titles, split) . split . '%#TabLineFill#%T'
-
-  return begin . tabpages . ' %=%<' . info
-endfunction
-
-function! s:tabpage_label(n, s)
-  let hilight = a:n is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
-  let tabnum = '%' . a:n . 'T'
-
-  let buflist = tabpagebuflist(a:n)
-  let bufcount = len(buflist)
-  let tabwinbuf = buflist[tabpagewinnr(a:n) - 1]
-  let tabwinbuffname = fnamemodify(bufname(tabwinbuf), ':t')
-  let tabwinbuffname = len(tabwinbuffname) ? tabwinbuffname : '[無題]'
-  let buftabmod = len(filter(copy(buflist), 'getbufvar(v:val, "&modified")')) ? '(+)' : ''
-  let tabmod = getbufvar(tabwinbuf, "&modified") ? '+' : buftabmod
-
-  let labbegin = tabnum . hilight
-  let labend = '%T%#TabLineFill#'
-
-  let labinfo = '[' . a:n . ']' . bufcount . tabmod
-  let label = labinfo . ' ' . tabwinbuffname . ' '
-  let label .= repeat(' ', a:s - strdisplaywidth(label))
-
-  if a:s
-    let splitlabel = split(label, '\zs')
-    let i = a:s
-    while strdisplaywidth(label) > a:s
-      let label = join(splitlabel[0:i], "") . '>'
-      let i -= 1
-    endwhile
-  endif
-
-  return labbegin . label . labend
-endfunction
-
-function! s:real_label(label)
-  return substitute(a:label, '%#TablineSel#\|%#TabLine#\|%\d\+T\|%T\|%#TabLineFill#', '', 'g')
-endfunction
-
-set tabline=%!MakeTabLine()
-
-"" コマンドライン設定
-" コマンドラインに候補を表示
-set wildmenu
-
-"" ステータスライン設定
-" ステータスライン表示
-set laststatus=2
-" 検索位置を表示する時のみ[]で囲う
-set statusline=%F " フルパス
-set statusline+=%m " 修正フラグ
-set statusline+=%r " 読み取り専用フラグ
-set statusline+=\ 
-set statusline+=%{anzu#search_status()} " 検索位置
-set statusline+=%= " 右寄せ
-set statusline+=\|\ 
-set statusline+=%{&fileformat},%{&fileencoding}%{(&bomb?\"(bom)\":\"\")} " 改行文字,文字コード
-set statusline+=\ \|\ 
-set statusline+=%Y " filetype
-set statusline+=\ \|\ 
-set statusline+=%c,%l/%L " カーソル位置
-set statusline+=\ 
-
-"" エディタの挙動
-" 行番号表示
-set number
-" タイトルバーをファイル名に
-set title
-" 256色
-set t_Co=256
-" 行頭行末の左右移動で行をまたぐ
-set whichwrap=b,s,h,l,<,>,~,[,]
-" スクロールのオフセット設定
-set scrolloff=10
-" 左右スクロールのオフセット
-set sidescrolloff=16
-" 左右スクロール距離
-set sidescroll=1
-" 全角記号幅設定
-set ambiwidth=double
-" BSで削除許可
-set backspace=indent,eol,start
-" マウス使用
+" terminal
+" using the mouse
 set mouse=a
-" OSのクリップボード使用
+
+" GUI
+" printing
+set printheader=%<%f%h%m%=%N
+
+" messages and info
+set visualbell
+set noerrorbells
+set showcmd
+set helplang=ja,en
+
+" selecting text
 set clipboard+=unnamed
-" tagsファイルの指定
-set tags+=tags;
-" 候補メニューの数
+
+" editing text
 set pumheight=10
-" textwidthでの自動改行off
-set formatoptions-=t
-" インクリメント、デクリメントを10進のみにする
-set nrformats=hex
-" 対応する括弧の表示時間
 set matchtime=1
-" コマンド履歴数
-set history=10000
-" 改行コード
-set fileformats=dos,unix,mac
+set nrformats=hex
 
-"" 折り返し
-" 折り返す
-set wrap
-" 最後の行表示
-set display=lastline
-
-"" 検索関係
-" 検索文字をハイライト
-set hlsearch
-" 検索時に大文字・小文字を区別しない。
-set ignorecase
-" 大文字が含まれる場合は区別する
-set smartcase
-" 逐次検索
-set incsearch
-
-"" タブ、インデント設定
-set expandtab " softtab
-set autoindent
-set smartindent
+" tabs and indenting
 set tabstop=4 " tab width
 set shiftwidth=2 " auto indent width
 set softtabstop=2 " tabkey space
+set expandtab " softtab
+set autoindent
+set smartindent
 
-" 印刷
-set printheader=%<%f%h%m%=%N
+" folding
+" diff mode
+" mapping
+" reading and writing files
+set backup
+execute 'set backupdir='.s:backup_dir
 
-"" ハイライト
-" シンタックスハイライト
-syntax on
-" カラーテーマ
-colorscheme hybrid
-" カーソル行のハイライト
-set cursorline
-" 不可視文字
-if has('conceal')
-  " 空白表示
-  " augroup viewable
-  "   autocmd!
-  "   autocmd BufNew,BufEnter * syntax match Ignore / / containedin=ALL conceal cchar=･
-  "   autocmd BufNew,BufEnter * syntax match Ignore /　/ containedin=ALL conceal cchar=□
-  " augroup END
-  set list
-  set listchars=tab:￫\ ,eol:⏎
-  set conceallevel=2
-  set concealcursor=nc
-endif
+" the swap file
+execute 'set directory='.s:swap_dir
+set swapfile
 
-" カレントディレクトリの設定
-" 起動時ホームへ移動
-cd ~
-" カレントディレクトリ移動
-augroup set_crr
+" command line editing
+set history=10000
+set wildmenu
+set undofile
+execute 'set undodir='.s:undo_dir
+
+" executing external commands
+set keywordprg=:help
+
+" running make and jumping to errors
+" system specific
+" language specific
+" multi-byte characters
+set fileencodings=guess,iso-2022-jp-3,cp932,euc-jisx0213,euc-jp,utf-8,ucs-bom,ucs-2le,ucs-2
+set ambiwidth=double
+
+" various
+set viewoptions-=options
+execute 'set viewdir='.s:view_dir
+execute 'set viminfo+=n'.s:viminfo
+
+set t_vb=
+set t_Co=256
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" AutoCommands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+augroup MyViewFold
   autocmd!
-  autocmd BufEnter * execute ':silent! lcd ' . expand('%:p:h')
+  autocmd BufWritePost ?* if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
+  autocmd BufWinEnter ?* if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
 augroup END
 
-augroup quickfix_auto_open
+" set autochdir
+augroup MyAutoCd
+  autocmd!
+  autocmd BufEnter * execute ':lcd '.expand('%:h')
+augroup END
+
+augroup MyAutoJump
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
+augroup END
+
+augroup MyQuickFix
   autocmd!
   autocmd QuickFixCmdPre vimgrep setlocal wildignore=*.gif,*.png,*.jpg,*.swf,*.flv,*.mp4,*.pdf,*.mp3,tags
   autocmd QuickFixCmdPost vimgrep setlocal wildignore<
   autocmd QuickFixCmdPost *grep* cwindow
 augroup END
 
-" viminfoファイルのパスを変更
-execute 'set viminfo+=n' . expand($VIMFILES . '/viminfo')
-" バックアップファイル設定
-set backup
-execute 'set backupdir=' . expand($VIMFILES . '/backup')
-" スワップファイル設定
-set swapfile
-execute 'set directory=' . expand($VIMFILES . '/swap')
-" アンドゥファイル設定
-set undofile
-execute 'set undodir=' . expand($VIMFILES . '/undo')
-" ビューファイル設定
-set viewoptions-=options
-execute 'set viewdir=' . expand($VIMFILES . '/view')
-augroup view_fold
+augroup MyFTPlugin
   autocmd!
-  autocmd BufWritePost ?* if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
-  autocmd BufWinEnter ?* if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
+  autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
+  autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
+  autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
 augroup END
 
+augroup MyFTDetect
+  autocmd!
+  autocmd BufNewFile,BufRead *.tpl set filetype=php
+augroup END
 
-"" キーマッピング
-" 折り返し移動入れ替え
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
+" Commands
+if exists('$MYVIMRC')
+  command! EditMyVimrc edit $MYVIMRC
+endif
+command! Wsource write | source %
+command! CdCurrent cd %:p:h
+command! Scratch new | setlocal buftype=nofile noswapfile
+command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 
-" ノーマルモードでの改行
-nnoremap <Space>j o<ESC>
-nnoremap <Space>k O<ESC>
-" 行末、先頭移動
-noremap <Space>h ^
-noremap <Space>l $
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <ESC><ESC> :<C-u>nohlsearch<CR><ESC>
 
-" 行末までヤンク
 nnoremap Y y$
-" 全ヤンク、デリート
-nnoremap <silent> <M-y> :%yank<CR>
-nnoremap <silent> <M-d> :%delete<CR>
-
-" 行結合入れ替え
-nnoremap J gJ
-nnoremap gJ J
-
-" emacs風マッピング
-inoremap <C-f> <Right>
-inoremap <C-b> <Left>
-inoremap <C-e> <END>
-inoremap <C-a> <HOME>
-inoremap <C-d> <DEL>
-
-" コマンドモード移動キー
+nnoremap x "_x
+vnoremap x "_x
+nnoremap X "_X
+vnoremap X "_X
+nnoremap s <Nop>
+vnoremap s <Nop>
+nnoremap S <Nop>
+vnoremap S <Nop>
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
-cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
-cnoremap <C-a> <C-b>
-cnoremap <M-b> <C-Left>
-cnoremap <M-f> <C-Right>
+nnoremap <C-n> :<C-u>tabnext<CR>
+nnoremap <C-p> :<C-u>tabprevious<CR>
 
-" ウィンドウサイズ調整
-nnoremap <silent> <S-Left> :wincmd <<CR>
-nnoremap <silent> <S-Right> :wincmd ><CR>
-nnoremap <silent> <S-Up> :wincmd +<CR>
-nnoremap <silent> <S-Down> :wincmd -<CR>
+nnoremap <Space> <Nop>
+nnoremap <Space>j o<ESC>
+nnoremap <Space>k O<ESC>
+nnoremap <Space>w :<C-u>write<CR>
+nnoremap <Space>q :<C-u>quit<CR>
+nnoremap <Space>bd :<C-u>bdelete<CR>
+nnoremap <Space><Space> %
+nnoremap <Space>* *N
+nnoremap <Space>g* g*N
+nnoremap <Space>n :<C-u>tabnext<CR>
+nnoremap <Space>p :<C-u>tabprevious<CR>
+nnoremap <Space>t :<C-u>tabedit<CR>
 
-" ウィンドウ移動
-nnoremap <C-Left> <C-w>h
-nnoremap <C-Right> <C-w>l
-nnoremap <C-Up> <C-w>k
-nnoremap <C-Down> <C-w>j
+nnoremap - <Nop>
+nnoremap -fh :<C-u>setfiletype html<CR>
+nnoremap -fj :<C-u>setfiletype javascript<CR>
+nnoremap -fp :<C-u>setfiletype php<CR>
+nnoremap -fv :<C-u>setfiletype vim<CR>
+nnoremap -fm :<C-u>setfiletype markdown<CR>
+nnoremap -w :<C-u>setlocal wrap!<CR>
+nnoremap -c :<C-u>setlocal cursorline!<CR>
+nnoremap -n :<C-u>setlocal number!<CR>
+nnoremap -e :<C-u>setlocal expandtab!<CR>
+nnoremap -i :<C-u>setlocal ignorecase!<CR>
+nnoremap -h :<C-u>setlocal hlsearch<CR>
+nnoremap -t :<C-u>setlocal expandtab!<CR>
 
-" タブ移動
-" nnoremap <C-n> :<C-u>tabnext<CR>
-" nnoremap <C-p> :<C-u>tabprevious<CR>
+nmap + j.
 
-" 上書き
-nnoremap <Space>s :w<CR>
+map Q gq
+inoremap <C-U> <C-G>u<C-U>
 
-" vimrcの編集
-nnoremap <silent> <F1> :e $MYVIMRC<CR>
-nnoremap <silent> <S-F1> :tabedit $MYVIMRC<CR>
-nnoremap <silent> <F2> :e $MYGVIMRC<CR>
-nnoremap <silent> <S-F2> :tabedit $MYGVIMRC<CR>
-
-" Qでバッファ削除
-nnoremap <silent> Q :bdelete<CR>
-
-" x削除はクリップボードに入れない
-nnoremap x "_x
-nnoremap X "_X
-vnoremap x "_x
-vnoremap X "_X
-
-" タグジャンプ
-nnoremap <C-]> g<C-]>
-nnoremap g<C-]> :<C-u>tab stjump <C-R>=expand('<cword>')<CR><CR>
-
-"" コマンド
-" vimscriptの書き込みと実行
-augroup Wsource
-  autocmd!
-  autocmd FileType vim command! -buffer Wsource write|source %
-augroup END 
-
-" インデント設定コマンド
-command! -nargs=? Indent call Indent(<f-args>)
-function! Indent(...)
-let l:indent = a:0 ? a:1 : ''
-  if l:indent
-    execute 'setlocal tabstop=' . l:indent
-    execute 'setlocal shiftwidth=' . l:indent
-  else
-    setlocal tabstop<
-    setlocal shiftwidth<
-  endif
-endfunction
-
-" Windows
-if IsWindows()
-  " OSのファイラを開く
-  nnoremap ,o :<C-u>LaunchFiler<CR>
-  command! LaunchFiler call LaunchFiler()
-  function! LaunchFiler()
-    let shellslash = &shellslash
-    setlocal noshellslash
-
-    let path = expand('%:p')
-    if findfile(path, '.') == ''
-      silent ! start .
-    else
-      execute 'silent !start explorer /SELECT,' . path
-    endif
-
-    if shellslash
-      setlocal shellslash
-    endif
-  endfunction
-
-  " Cygwin起動
-  command! Cygwin call Cygwin()
-  function! Cygwin()
-    let delete_env = ['HOME', 'VIM', 'LANG', 'MYGVIMRC', 'MYVIMRC', 'VIMFILES', 'VIMRUNTIME']
-    for name in delete_env
-      execute 'let ' . name . ' = $' . name
-      execute 'let $' . name . ' = ""'
-    endfor
-
-    let $HOME = 'C:\cygwin64\home\' . $USERNAME
-    !start C:\cygwin64\bin\mintty.exe -i /Cygwin-Terminal.ico -
-
-    for name in delete_env
-      execute 'let $' . name . ' = ' . name
-    endfor
-  endfunction
-
+if exists('$MYVIMRC')
+  nnoremap <F1> :<C-u>e $MYVIMRC<CR>
+  nnoremap <S-F1> :<C-u>tabe $MYVIMRC<CR>
 endif
 
-" Mac
-if IsMac()
-endif
-
-" CUI
-if !has('gui_running')
-  " カーソルの変更
-  let &t_ti .= "\e[1 q"
-  let &t_SI .= "\e[5 q"
-  let &t_EI .= "\e[1 q"
-  let &t_te .= "\e[0 q"
-
-  " 矢印キー有効
-  set notimeout
-  set ttimeout
-  set timeoutlen=100
-endif
-
-" 端末ごとの設定
-runtime rc/local.vim
-
+runtime local.vim
