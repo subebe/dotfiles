@@ -401,22 +401,24 @@ nnoremap x "_x
 vnoremap x "_x
 nnoremap X "_X
 vnoremap X "_X
+
 nnoremap s <Nop>
 vnoremap s <Nop>
 nnoremap S <Nop>
-vnoremap S <Nop>
+" vnoremap S <Nop>
+
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 nnoremap <C-n> :<C-u>tabnext<CR>
 nnoremap <C-p> :<C-u>tabprevious<CR>
 
-nnoremap <Space> <Nop>
+noremap <Space> <Nop>
 nnoremap <Space>j o<ESC>
 nnoremap <Space>k O<ESC>
 nnoremap <Space>w :<C-u>write<CR>
 nnoremap <Space>q :<C-u>quit<CR>
 nnoremap <Space>bd :<C-u>bdelete<CR>
-nnoremap <Space><Space> %
+map <Space><Space> %
 nnoremap <Space>* *N
 nnoremap <Space>g* g*N
 nnoremap <Space>n :<C-u>tabnext<CR>
