@@ -86,17 +86,11 @@ if isdirectory(s:dein_dir)
     " Integration
     call dein#add(s:dein_dir)
     " call dein#add(s:dein_dir, {'rtp': ''})
-    call dein#add('Shougo/vimproc', {
-          \  'build': 'make',
-          \})
-    call dein#add('thinca/vim-singleton', {
-          \  'if': has('clientserver')
-          \})
+    call dein#add('Shougo/vimproc', {'build': 'make'})
+    call dein#add('thinca/vim-singleton', {'if': has('clientserver')})
 
     " Interface
-    call dein#add('Shougo/neomru.vim', {
-          \  'on_path': '.*',
-          \})
+    call dein#add('Shougo/neomru.vim', {'on_path': '.*',})
     call dein#add('Shougo/unite.vim', {
           \  'depends': ['neomru.vim', 'unite-dein.vim'],
           \  'on_cmd': ['Unite'],
@@ -136,9 +130,7 @@ if isdirectory(s:dein_dir)
           \    'cmap <C-h> <BS>',
           \  ], "\n"),
           \})
-    call dein#add('tpope/vim-repeat', {
-          \  'lazy': 1,
-          \})
+    call dein#add('tpope/vim-repeat', {'lazy': 1})
     call dein#add('tpope/vim-surround', {
           \  'depends': 'vim-repeat',
           \  'on_map': [
@@ -165,9 +157,7 @@ if isdirectory(s:dein_dir)
           \    'nmap N <Plug>(anzu-N-with-echo)',
           \  ], "\n"),
           \})
-    call dein#add('kana/vim-operator-user', {
-          \  'lazy': 1,
-          \})
+    call dein#add('kana/vim-operator-user', {'lazy': 1,})
     call dein#add('kana/vim-operator-replace', {
           \  'depends': 'vim-operator-user',
           \  'on_map': '<Plug>',
@@ -183,12 +173,11 @@ if isdirectory(s:dein_dir)
           \    'vmap <Enter> <Plug>(EasyAlign)'
           \  ], "\n"),
           \})
-    call dein#add('matchit.zip')
+    call dein#add('matchit.zip', {'lazy': 1})
+    call dein#add('vimtaku/hl_matchit.vim', {'depends': 'matchit.zip'})
 
     " Command
-    call dein#add('tyru/capture.vim', {
-          \  'on_cmd': 'Capture'
-          \})
+    call dein#add('tyru/capture.vim', {'on_cmd': 'Capture'})
 
     " commentout
     call dein#add('tyru/caw.vim')
