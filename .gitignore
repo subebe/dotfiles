@@ -1,7 +1,8 @@
 .vim/backup/
 .vim/bundle/
+.vim/dein.vim
 .vim/cache/
-.vim/rc/local.vim
+.vim/local.vim
 .vim/swap/
 .vim/undo/
 .vim/viminfo

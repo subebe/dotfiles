@@ -52,11 +52,10 @@ if has('gui_running')
   set guioptions+=c
 
   if s:is_windows
-    set guifont=Ricty_Diminished:h13.5:cSHIFTJIS
     set renderoptions=type:directx,renmode:5
     augroup MyTransparency
       autocmd!
-      autocmd GUIEnter * set transparency=240
+      autocmd GUIEnter * set guifont=Ricty_Diminished:h13.5:cSHIFTJIS transparency=240
     augroup END
   elseif s:is_mac
     set guifont=Ricty\ Regular:h17
@@ -299,6 +298,7 @@ set clipboard+=unnamed
 " editing text
 set pumheight=10
 set matchtime=1
+set matchpairs+=<:>
 set nrformats=hex
 
 " tabs and indenting
@@ -394,7 +394,7 @@ augroup END
 if exists('$MYVIMRC')
   command! EditMyVimrc edit $MYVIMRC
 endif
-command! Wsource write | source %
+command! Wsource if &filetype == 'vim' | write | source % | else | echo 'this is not vimfile.' | endif
 command! CdCurrent cd %:p:h
 command! Scratch new | setlocal buftype=nofile noswapfile
 command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
