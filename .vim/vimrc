@@ -397,6 +397,7 @@ endif
 command! Wsource if &filetype == 'vim' | write | source % | else | echo 'this is not vimfile.' | endif
 command! CdCurrent cd %:p:h
 command! Scratch new | setlocal buftype=nofile noswapfile
+command! ScratchTab tabe | setlocal buftype=nofile noswapfile
 command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
