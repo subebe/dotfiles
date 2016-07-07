@@ -397,6 +397,29 @@ command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincm
 nnoremap <ESC><ESC> :<C-u>nohlsearch<CR><ESC>
 
 nnoremap Y y$
+
+nnoremap gj j
+nnoremap gk k
+nnoremap g$ $
+nnoremap g0 0
+nnoremap g^ ^
+nnoremap j gj
+nnoremap k gk
+nnoremap $ g$
+nnoremap 0 g0
+nnoremap ^ g^
+
+vnoremap gj j
+vnoremap gk k
+vnoremap g$ $
+vnoremap g0 0
+vnoremap g^ ^
+vnoremap j gj
+vnoremap k gk
+vnoremap $ g$
+vnoremap 0 g0
+vnoremap ^ g^
+
 nnoremap x "_x
 vnoremap x "_x
 nnoremap X "_X
