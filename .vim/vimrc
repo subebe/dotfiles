@@ -114,12 +114,25 @@ if isdirectory(s:dein_dir)
           \    'call vimfiler#custom#profile("default", "context", {"safe": 0, "force_quit": 1, "auto_cd": 1})',
           \  ], "\n"),
           \})
+
+    " Quickfix
+    call dein#add('cohama/vim-hier', {'on_event': 'QuickFixCmdPre'})
+    call dein#add('osyo-manga/shabadou.vim', {'lazy': 1, 'depends': 'vim-quickrun'})
+    call dein#add('thinca/vim-qfreplace', {'on_cmd': 'Qfreplace'})
     call dein#add('thinca/vim-quickrun', {
           \  'on_cmd': 'QuickRun',
           \  'on_map': '<Plug>',
           \  'hook_add': join([
           \    'nmap <Leader>r <Plug>(quickrun)',
           \  ], "\n"),
+          \  'hook_post_source': join([
+          \    'if !exists("g:quickrun_config") | let g:quickrun_config = {} | endif',
+          \    'let g:quickrun_config["_"] = {"runner" : "vimproc", "runner/vimproc/updatetime" : 60}',
+          \  ], "\n"),
+          \})
+    call dein#add('osyo-manga/vim-watchdogs', {
+          \  'on_cmd': 'WatchdogsRun',
+          \  'depends': ['vim-quickrun', 'shabadou.vim', 'vim-hier']
           \})
 
     " Edit
@@ -354,7 +367,15 @@ augroup MyFTPlugin
   autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
   autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
   autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
+  autocmd FileType qf call s:MyFTPluginQuickfix()
 augroup END
+
+function! s:MyFTPluginQuickfix() abort
+  setlocal statusline=%t%{exists('w:quickfix_title')?\ '\ '.w:quickfix_title\ :\ ''}\ %=%l/%L
+  noremap <buffer> <C-p> <CR><C-w>p
+  noremap <buffer> <C-J> j<CR><C-w>p
+  noremap <buffer> <C-K> k<CR><C-w>p
+endfunction
 
 augroup MyFTDetect
   autocmd!
