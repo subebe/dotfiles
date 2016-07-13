@@ -407,27 +407,27 @@ nnoremap <ESC><ESC> :<C-u>nohlsearch<CR><ESC>
 
 nnoremap Y y$
 
-nnoremap gj j
-nnoremap gk k
-nnoremap g$ $
-nnoremap g0 0
-nnoremap g^ ^
-nnoremap j gj
-nnoremap k gk
-nnoremap $ g$
-nnoremap 0 g0
-nnoremap ^ g^
+nnoremap <expr> gj &wrap ? 'j' : 'gj'
+nnoremap <expr> gk &wrap ? 'k' : 'gk'
+nnoremap <expr> g$ &wrap ? '$' : 'g$'
+nnoremap <expr> g0 &wrap ? '0' : 'g0'
+nnoremap <expr> g^ &wrap ? '^' : 'g^'
+nnoremap <expr> j &wrap ? 'gj' : 'j'
+nnoremap <expr> k &wrap ? 'gk' : 'k'
+nnoremap <expr> $ &wrap ? 'g$' : '$'
+nnoremap <expr> 0 &wrap ? 'g0' : '0'
+nnoremap <expr> ^ &wrap ? 'g^' : '^'
 
-vnoremap gj j
-vnoremap gk k
-vnoremap g$ $
-vnoremap g0 0
-vnoremap g^ ^
-vnoremap j gj
-vnoremap k gk
-vnoremap $ g$
-vnoremap 0 g0
-vnoremap ^ g^
+vnoremap <expr> gj &wrap ? 'j' : 'gj'
+vnoremap <expr> gk &wrap ? 'k' : 'gk'
+vnoremap <expr> g$ &wrap ? '$' : 'g$'
+vnoremap <expr> g0 &wrap ? '0' : 'g0'
+vnoremap <expr> g^ &wrap ? '^' : 'g^'
+vnoremap <expr> j &wrap ? 'gj' : 'j'
+vnoremap <expr> k &wrap ? 'gk' : 'k'
+vnoremap <expr> $ &wrap ? 'g$' : '$'
+vnoremap <expr> 0 &wrap ? 'g0' : '0'
+vnoremap <expr> ^ &wrap ? 'g^' : '^'
 
 nnoremap x "_x
 vnoremap x "_x
