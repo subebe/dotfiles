@@ -376,6 +376,7 @@ augroup MyFTPlugin
   autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
   autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
   autocmd FileType qf call s:MyFTPluginQuickfix()
+  autocmd FileType vimfiler nnoremap <silent><buffer><expr> <C-t> vimfiler#do_action('tabopen')
 augroup END
 
 function! s:MyFTPluginQuickfix() abort
