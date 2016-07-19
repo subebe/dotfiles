@@ -230,14 +230,6 @@ filetype plugin indent on
 syntax enable
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Syntax
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has('multi_byte_ime') || has('xim')
-  highlight CursorIM guibg=Purple guifg=NONE
-endif
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Options
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " important
@@ -389,6 +381,11 @@ endfunction
 augroup MyFTDetect
   autocmd!
   autocmd BufNewFile,BufRead *.tpl set filetype=php
+augroup END
+
+augroup MySyntax
+  autocmd!
+  autocmd VimEnter,ColorScheme * if has('multi_byte_ime') || has('xim') | highlight CursorIM guibg=Purple guifg=NONE | endif
 augroup END
 
 " Commands
