@@ -456,18 +456,17 @@ nnoremap <Space>p :<C-u>tabprevious<CR>
 nnoremap <Space>t :<C-u>tabedit<CR>
 
 nnoremap - <Nop>
-nnoremap -fh :<C-u>setfiletype html<CR>
-nnoremap -fj :<C-u>setfiletype javascript<CR>
-nnoremap -fp :<C-u>setfiletype php<CR>
-nnoremap -fv :<C-u>setfiletype vim<CR>
-nnoremap -fm :<C-u>setfiletype markdown<CR>
-nnoremap -w :<C-u>setlocal wrap!<CR>
-nnoremap -c :<C-u>setlocal cursorline!<CR>
-nnoremap -n :<C-u>setlocal number!<CR>
-nnoremap -e :<C-u>setlocal expandtab!<CR>
-nnoremap -i :<C-u>setlocal ignorecase!<CR>
-nnoremap -h :<C-u>setlocal hlsearch<CR>
-nnoremap -t :<C-u>setlocal expandtab!<CR>
+nnoremap -fh :<C-u>setfiletype html <Bar> set filetype?<CR>
+nnoremap -fj :<C-u>setfiletype javascript <Bar> set filetype?<CR>
+nnoremap -fp :<C-u>setfiletype php <Bar> set filetype?<CR>
+nnoremap -fv :<C-u>setfiletype vim <Bar> set filetype?<CR>
+nnoremap -fm :<C-u>setfiletype markdown <Bar> set filetype?<CR>
+nnoremap -w :<C-u>setlocal wrap! wrap?<CR>
+nnoremap -c :<C-u>setlocal cursorline! cursorline?<CR>
+nnoremap -n :<C-u>setlocal number! number?<CR>
+nnoremap -t :<C-u>setlocal expandtab! expandtab?<CR>
+nnoremap -i :<C-u>setlocal ignorecase! ignorecase?<CR>
+nnoremap -h :<C-u>setlocal hlsearch hlsearch?<CR>
 
 nmap + j.
 
