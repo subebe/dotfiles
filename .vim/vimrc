@@ -261,7 +261,7 @@ nohlsearch
 set laststatus=2
 set statusline=%F%m%r
 set statusline+=%=
-set statusline+=\|\ %{&fileformat},%{&fileencoding}%{(&bomb?\"(bom)\":\"\")}
+set statusline+=\ \|\ %{&fileformat},%{&fileencoding}%{(&bomb?\"(bom)\":\"\")}
 set statusline+=\ \|\ %Y
 set statusline+=\ \|\ %l/%L,%c
 " set noequalalways
@@ -352,7 +352,8 @@ augroup MyAutoCd
 augroup END
 
 augroup MyAutoJump
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif
+  autocmd!
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | execute 'normal! g`"' | endif
 augroup END
 
 augroup MyQuickFix
@@ -388,7 +389,9 @@ augroup MySyntax
   autocmd VimEnter,ColorScheme * if has('multi_byte_ime') || has('xim') | highlight CursorIM guibg=Purple guifg=NONE | endif
 augroup END
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Commands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if exists('$MYVIMRC')
   command! EditMyVimrc edit $MYVIMRC
 endif
