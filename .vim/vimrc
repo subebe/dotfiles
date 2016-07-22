@@ -195,9 +195,10 @@ if isdirectory(s:dein_dir)
     call dein#add('tyru/caw.vim')
     " call dein#add('Shougo/context_filetype.vim')
 
-    " call dein#add('lambdalisue/vim-gita', {
-    "       \ 'on_cmd': 'Gita',
-    "       \})
+    " VCS
+    call dein#add('lambdalisue/vim-gita', {'on_cmd': 'Gita',})
+    call dein#add('cohama/agit.vim', {'on_cmd': ['Agit', 'AgitFile']})
+    call dein#add('airblade/vim-gitgutter', {'on_cmd': 'GitGutter'})
 
     call dein#local(s:vimfiles.'/bundle', {'lazy': 1}, ['unite-dein.vim'])
 
