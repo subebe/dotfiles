@@ -456,8 +456,11 @@ nnoremap - <Nop>
 nnoremap -fh :<C-u>setfiletype html <Bar> set filetype?<CR>
 nnoremap -fj :<C-u>setfiletype javascript <Bar> set filetype?<CR>
 nnoremap -fp :<C-u>setfiletype php <Bar> set filetype?<CR>
+nnoremap -fs :<C-u>setfiletype sql <Bar> set filetype?<CR>
 nnoremap -fv :<C-u>setfiletype vim <Bar> set filetype?<CR>
 nnoremap -fm :<C-u>setfiletype markdown <Bar> set filetype?<CR>
+nnoremap -eu :<C-u>setlocal fileencoding=utf8 fileencoding?<CR>
+nnoremap -es :<C-u>setlocal fileencoding=sjis fileencoding?<CR>
 nnoremap -w :<C-u>setlocal wrap! wrap?<CR>
 nnoremap -c :<C-u>setlocal cursorline! cursorline?<CR>
 nnoremap -n :<C-u>setlocal number! number?<CR>
