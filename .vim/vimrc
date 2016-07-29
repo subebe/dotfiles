@@ -9,6 +9,10 @@ endif
 let s:is_windows = has('win16') || has('win32') || has('win64')
 let s:is_mac = has('mac')
 
+augroup MyAugroup
+  autocmd!
+augroup END
+
 if s:is_windows
   set shellslash
   let s:vimfiles = expand('~/vimfiles')
@@ -53,8 +57,7 @@ if has('gui_running')
 
   if s:is_windows
     set renderoptions=type:directx,renmode:5
-    augroup MyTransparency
-      autocmd!
+    augroup MyAugroup
       autocmd GUIEnter * set guifont=Ricty_Diminished:h13.5:cSHIFTJIS transparency=240
     augroup END
   elseif s:is_mac
@@ -217,8 +220,7 @@ if isdirectory(s:dein_dir)
   endif
 
   if dein#is_sourced('vim-hybrid')
-    augroup MyColorScheme
-      autocmd!
+    augroup MyAugroup
       autocmd VimEnter * colorscheme hybrid | set background=dark
     augroup END
     colorscheme hybrid
@@ -343,37 +345,35 @@ set t_Co=256
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AutoCommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup MyViewFold
-  autocmd!
+augroup MyAugroup
+  " view
   autocmd BufWritePost ?* if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
   autocmd BufWinEnter ?* if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
-augroup END
 
-" set autochdir
-augroup MyAutoCd
-  autocmd!
+  " set autochdir
   autocmd BufEnter * execute ':lcd '.expand('%:h')
-augroup END
 
-augroup MyAutoJump
-  autocmd!
+  " auto jump
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | execute 'normal! g`"' | endif
-augroup END
 
-augroup MyQuickFix
-  autocmd!
+  " quickfix
   autocmd QuickFixCmdPre vimgrep setlocal wildignore=*.gif,*.png,*.jpg,*.swf,*.flv,*.mp4,*.pdf,*.mp3,tags
   autocmd QuickFixCmdPost vimgrep setlocal wildignore<
   autocmd QuickFixCmdPost *grep* cwindow
-augroup END
 
-augroup MyFTPlugin
-  autocmd!
+  " ftplugin
   autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
   autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
   autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
   autocmd FileType qf call s:MyFTPluginQuickfix()
   autocmd FileType vimfiler nnoremap <silent><buffer><expr> <C-t> vimfiler#do_action('tabopen')
+
+  " ftdetect
+  autocmd BufNewFile,BufRead *.tpl set filetype=php
+
+  " syntax
+  autocmd VimEnter,ColorScheme * if has('multi_byte_ime') || has('xim') | highlight CursorIM guibg=Purple guifg=NONE | endif
+
 augroup END
 
 function! s:MyFTPluginQuickfix() abort
@@ -382,16 +382,6 @@ function! s:MyFTPluginQuickfix() abort
   noremap <buffer> <C-J> j<CR><C-w>p
   noremap <buffer> <C-K> k<CR><C-w>p
 endfunction
-
-augroup MyFTDetect
-  autocmd!
-  autocmd BufNewFile,BufRead *.tpl set filetype=php
-augroup END
-
-augroup MySyntax
-  autocmd!
-  autocmd VimEnter,ColorScheme * if has('multi_byte_ime') || has('xim') | highlight CursorIM guibg=Purple guifg=NONE | endif
-augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Commands
