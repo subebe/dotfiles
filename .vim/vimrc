@@ -279,7 +279,7 @@ set mouse=a
 
 " GUI
 " printing
-set printheader=%<%f%h%m%=%N
+set printheader=%<%t%h%m%=%N
 
 " messages and info
 set visualbell
