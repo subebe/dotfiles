@@ -2,7 +2,7 @@
 .vim/bundle/
 .vim/dein.vim
 .vim/cache/
-.vim/local.vim
+.vim/local.vimrc
 .vim/swap/
 .vim/undo/
 .vim/viminfo

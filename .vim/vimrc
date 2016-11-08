@@ -20,13 +20,15 @@ else
   let s:vimfiles = expand('~/.vim')
 endif
 
-let s:viminfo    = s:vimfiles.'/viminfo'
-let s:backup_dir = s:vimfiles.'/backup'
-let s:swap_dir   = s:vimfiles.'/swap'
-let s:undo_dir   = s:vimfiles.'/undo'
-let s:view_dir   = s:vimfiles.'/view'
+let s:viminfo     = s:vimfiles.'/viminfo'
+let s:backup_dir  = s:vimfiles.'/backup'
+let s:swap_dir    = s:vimfiles.'/swap'
+let s:undo_dir    = s:vimfiles.'/undo'
+let s:view_dir    = s:vimfiles.'/view'
 
-let s:dein_dir   = s:vimfiles.'/dein.vim'
+let s:local_vimrc = s:vimfiles.'/local.vimrc'
+
+let s:dein_dir    = s:vimfiles.'/dein.vim'
 
 function! s:make_dir(dir) abort
   if !isdirectory(a:dir)
@@ -476,6 +478,8 @@ inoremap <C-U> <C-G>u<C-U>
 if exists('$MYVIMRC')
   nnoremap <F1> :<C-u>e $MYVIMRC<CR>
   nnoremap <S-F1> :<C-u>tabe $MYVIMRC<CR>
+  execute 'nnoremap <F2> :<C-u>edit '.s:local_vimrc.'<CR>'
+  execute 'nnoremap <S-F2> :<C-u>tabedit '.s:local_vimrc.'<CR>'
 endif
 
-runtime local.vim
+execute 'silent! source' s:local_vimrc
