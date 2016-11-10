@@ -59,9 +59,7 @@ if has('gui_running')
 
   if s:is_windows
     set renderoptions=type:directx,renmode:5
-    augroup MyAugroup
-      autocmd GUIEnter * set guifont=Ricty_Diminished:h13.5:cSHIFTJIS transparency=240
-    augroup END
+    set guifont=Ricty_Diminished:h13.5:cSHIFTJIS,MS_Gothic:h13
   elseif s:is_mac
     set guifont=Ricty\ Regular:h17
     set macmeta
@@ -75,7 +73,7 @@ else
 endif
 
 
-if isdirectory(s:dein_dir)
+if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || executable('xcopy'))
   let g:dein#install_process_timeout = 600
   if has('vim_starting')
     execute 'set runtimepath^='.s:dein_dir
@@ -110,6 +108,7 @@ if isdirectory(s:dein_dir)
           \  'on_path': '.*',
           \  'hook_add': join([
           \    'nnoremap <Leader><Leader> :<C-u>VimFilerCurrentDir -explorer<CR>',
+          \    'nnoremap <Leader>f :<C-u>VimFilerCurrentDir -explorer -no-force-quit<CR>',
           \  ], "\n"),
           \  'hook_source': join([
           \    'let g:vimfiler_as_default_explorer = 1',
@@ -223,11 +222,14 @@ if isdirectory(s:dein_dir)
 
   if dein#is_sourced('vim-hybrid')
     augroup MyAugroup
-      autocmd VimEnter * colorscheme hybrid | set background=dark
+      autocmd VimEnter * set background=dark
+      autocmd VimEnter * colorscheme hybrid
     augroup END
+    set background=dark
     colorscheme hybrid
   endif
 else
+  set background=dark
   colorscheme desert
 endif
 filetype plugin indent on
@@ -421,6 +423,7 @@ set helplang=ja,en
 set clipboard+=unnamed
 
 " editing text
+set backspace=indent,eol,start
 set pumheight=10
 set matchtime=1
 set matchpairs+=<:>
@@ -461,7 +464,7 @@ set iminsert=0
 set imsearch=0
 
 " multi-byte characters
-set fileencodings=guess,iso-2022-jp-3,cp932,euc-jisx0213,euc-jp,utf-8,ucs-bom,ucs-2le,ucs-2
+set fileencodings=utf8,cp932
 set ambiwidth=double
 
 " various
@@ -481,13 +484,13 @@ augroup MyAugroup
   autocmd BufWinEnter ?* if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
 
   " set autochdir
-  autocmd BufEnter * execute ':lcd '.expand('%:h')
+  autocmd BufEnter * execute 'silent! lcd '.expand('%:h')
 
   " auto jump
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | execute 'normal! g`"' | endif
 
   " quickfix
-  autocmd QuickFixCmdPre vimgrep setlocal wildignore=*.gif,*.png,*.jpg,*.swf,*.flv,*.mp4,*.pdf,*.mp3,tags
+  autocmd QuickFixCmdPre vimgrep setlocal wildignore=*.gif,*.png,*.jpg,*.swf,*.flv,*.mp4,*.pdf,*.ttf,*.mp3,*.wav,tags
   autocmd QuickFixCmdPost vimgrep setlocal wildignore<
   autocmd QuickFixCmdPost *grep* cwindow
 
@@ -504,10 +507,15 @@ augroup MyAugroup
   " syntax
   autocmd VimEnter,ColorScheme * if has('multi_byte_ime') || has('xim') | highlight CursorIM guibg=Purple guifg=NONE | endif
 
+  " startup
+  autocmd VimEnter * set t_vb= t_Co=256
+
 augroup END
 
 function! s:MyFTPluginQuickfix() abort
   setlocal statusline=%t%{exists('w:quickfix_title')?\ '\ '.w:quickfix_title\ :\ ''}\ %=%l/%L
+  setlocal nowrap
+  setlocal cursorline
   noremap <buffer> <C-p> <CR><C-w>p
   noremap <buffer> <C-J> j<CR><C-w>p
   noremap <buffer> <C-K> k<CR><C-w>p
@@ -523,7 +531,9 @@ command! Wsource if &filetype == 'vim' | write | source % | else | echo 'this is
 command! CdCurrent cd %:p:h
 command! Scratch new | setlocal buftype=nofile noswapfile
 command! ScratchTab tabe | setlocal buftype=nofile noswapfile
-command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
+command! DiffOrig vert new | set buftype=nofile | read ++edit # | 0delete_ | diffthis | wincmd p | diffthis
+command! -nargs=1 VimGrepFile execute 'vimgrep /\v<args>/j %:p'
+command! -nargs=1 VimGrepDir execute 'vimgrep /\v<args>/j **'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
@@ -604,8 +614,8 @@ map Q gq
 inoremap <C-U> <C-G>u<C-U>
 
 if exists('$MYVIMRC')
-  nnoremap <F1> :<C-u>e $MYVIMRC<CR>
-  nnoremap <S-F1> :<C-u>tabe $MYVIMRC<CR>
+  nnoremap <F1> :<C-u>edit $MYVIMRC<CR>
+  nnoremap <S-F1> :<C-u>tabedit $MYVIMRC<CR>
   execute 'nnoremap <F2> :<C-u>edit '.s:local_vimrc.'<CR>'
   execute 'nnoremap <S-F2> :<C-u>tabedit '.s:local_vimrc.'<CR>'
 endif
