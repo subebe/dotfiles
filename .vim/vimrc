@@ -91,6 +91,26 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
     call dein#add('Shougo/vimproc', {'build': 'make'})
     call dein#add('thinca/vim-singleton', {'if': has('clientserver')})
 
+    " Completion
+    call dein#add('Shougo/neocomplete.vim', {
+          \  'on_i': 1,
+          \  'hook_add': join([
+          \    'let g:neocomplete#enable_at_startup = 1',
+          \    'let g:neocomplete#enable_auto_delimiter = 1',
+          \  ], "\n"),
+          \})
+    call dein#add('Shougo/neosnippet', {
+          \  'depends': 'neocomplete.vim',
+          \  'on_source': 'neocomplete.vim',
+          \  'hook_add': join([
+          \    'imap <expr><Tab> neosnippet#expandable_or_jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"',
+          \  ], "\n"),
+          \})
+    call dein#add('Shougo/neosnippet-snippets', {
+          \  'depends': 'neosnippet',
+          \  'on_source': 'neosnippet'
+          \})
+
     " Interface
     call dein#add('Shougo/neomru.vim', {'on_path': '.*',})
     call dein#add('Shougo/unite.vim', {
