@@ -217,6 +217,15 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
     " commentout
     call dein#add('tyru/caw.vim')
     " call dein#add('Shougo/context_filetype.vim')
+    call dein#add('Shougo/context_filetype.vim', {
+          \  'lazy': 1,
+          \  'hook_add': join([
+          \    'let g:context_filetype#filetypes = {"php": [{"start": "<?", "end": "?>", "filetype": "php"}, {"start": "\\%^", "end": "\\%$", "filetype": "html"}, {"start": "<style.\\{-}>", "end": "<\\/style>", "filetype": "css"}, {"start": "<script.\\{-}>", "end": "<\\/script>", "filetype": "javascript"}]}',
+          \  ], "\n"),
+          \})
+    call dein#add('osyo-manga/vim-precious', {
+          \  'depends': 'context_filetype.vim',
+          \})
 
     " VCS
     call dein#add('lambdalisue/vim-gita', {'on_cmd': 'Gita',})
