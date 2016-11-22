@@ -88,7 +88,7 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
     " Integration
     call dein#add(s:dein_dir)
     " call dein#add(s:dein_dir, {'rtp': ''})
-    call dein#add('Shougo/vimproc', {'build': 'make'})
+    call dein#add('Shougo/vimproc')
     call dein#add('thinca/vim-singleton', {'if': has('clientserver')})
 
     " Completion
@@ -112,9 +112,12 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
           \})
 
     " Interface
-    call dein#add('Shougo/neomru.vim', {'on_path': '.*',})
+    call dein#add('Shougo/neomru.vim', {
+          \  'on_path': '.*',
+          \  'depends': 'unite.vim',
+          \  'on_source': 'unite.vim'
+          \})
     call dein#add('Shougo/unite.vim', {
-          \  'depends': ['neomru.vim', 'unite-dein.vim'],
           \  'on_cmd': ['Unite'],
           \  'hook_add': join([
           \    'nnoremap <Leader>u :<C-u>Unite buffer<CR>',
@@ -208,8 +211,8 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
           \    'vmap <Enter> <Plug>(EasyAlign)'
           \  ], "\n"),
           \})
-    call dein#add('matchit.zip', {'lazy': 1})
-    call dein#add('vimtaku/hl_matchit.vim', {'depends': 'matchit.zip'})
+    " call dein#add('matchit.zip', {'lazy': 1})
+    " call dein#add('vimtaku/hl_matchit.vim', {'depends': 'matchit.zip'})
 
     " Command
     call dein#add('tyru/capture.vim', {'on_cmd': 'Capture'})
