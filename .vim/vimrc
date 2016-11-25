@@ -123,6 +123,7 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
           \    'nnoremap <Leader>u :<C-u>Unite buffer<CR>',
           \    'nnoremap <Leader>U :<C-u>Unite file_mru<CR>',
           \    'nnoremap <Leader>d :<C-u>Unite dein<CR>',
+          \    'nnoremap <Leader>p :<C-u>Unite file_rec:!<CR>',
           \  ], "\n"),
           \})
     call dein#add('Shougo/vimfiler', {
