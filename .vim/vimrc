@@ -90,6 +90,7 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
     " call dein#add(s:dein_dir, {'rtp': ''})
     call dein#add('Shougo/vimproc')
     call dein#add('thinca/vim-singleton', {'if': has('clientserver')})
+    call dein#add('vim-jp/vital.vim', {'on_cmd': 'Vitalize'})
 
     " Completion
     call dein#add('Shougo/neocomplete.vim', {
