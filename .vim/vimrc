@@ -483,6 +483,7 @@ set swapfile
 
 " command line editing
 set history=10000
+set wildmode=full
 set wildmenu
 set undofile
 execute 'set undodir='.s:undo_dir
