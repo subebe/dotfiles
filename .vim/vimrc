@@ -253,21 +253,8 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
     call singleton#enable()
   endif
 
-  if dein#is_sourced('vim-hybrid')
-    augroup MyAugroup
-      autocmd VimEnter * set background=dark
-      autocmd VimEnter * colorscheme hybrid
-    augroup END
-    set background=dark
-    colorscheme hybrid
-  endif
-else
-  set background=dark
-  colorscheme desert
 endif
 filetype plugin indent on
-
-syntax enable
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Options
@@ -641,5 +628,26 @@ if exists('$MYVIMRC')
   execute 'nnoremap <F2> :<C-u>edit '.s:local_vimrc.'<CR>'
   execute 'nnoremap <S-F2> :<C-u>tabedit '.s:local_vimrc.'<CR>'
 endif
+
+" colorscheme
+function! s:find_colorscheme(colorschemes) abort
+  for colorscheme in a:colorschemes
+    let result = split(globpath(&runtimepath, 'colors/'.colorscheme['name'].'.vim'), '\n')
+    if len(result)
+      return colorscheme
+    endif
+  endfor
+  return {'name': 'default', 'background': 'light'}
+endfunction
+
+let s:colorschemes = [
+      \  {'name': 'hybrid', 'background': 'dark'},
+      \  {'name': 'desert', 'background': 'dark'},
+      \]
+let s:colorscheme = s:find_colorscheme(s:colorschemes)
+syntax enable
+execute 'set background='.s:colorscheme['background']
+execute 'colorscheme' s:colorscheme['name']
+
 
 execute 'silent! source' s:local_vimrc
