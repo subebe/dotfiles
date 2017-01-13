@@ -523,12 +523,19 @@ augroup MyAugroup
   autocmd BufNewFile,BufRead *.tpl set filetype=php
 
   " syntax
-  autocmd VimEnter,ColorScheme * if has('multi_byte_ime') || has('xim') | highlight CursorIM guibg=Purple guifg=NONE | endif
+  autocmd VimEnter,ColorScheme * call s:MyHighlight()
 
   " startup
   autocmd VimEnter * set t_vb= t_Co=256
 
 augroup END
+
+function! s:MyHighlight() abort
+  if has('multi_byte_ime') || has('xim')
+    " highlight Cursor guibg=DarkRed guifg=NONE
+    highlight CursorIM guibg=Green guifg=NONE
+  endif
+endfunction
 
 function! s:MyFTPluginQuickfix() abort
   setlocal statusline=%t%{exists('w:quickfix_title')?\ '\ '.w:quickfix_title\ :\ ''}\ %=%l/%L
