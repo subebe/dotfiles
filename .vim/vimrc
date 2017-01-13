@@ -52,9 +52,9 @@ endif
 let mapleader = ','
 
 if has('gui_running')
-  set guioptions-=a guioptions-=i 
+  set guioptions-=a guioptions-=i
   set guioptions-=r guioptions-=L
-  set guioptions-=e guioptions-=m guioptions-=t guioptions-=T guioptions-=g 
+  set guioptions-=e guioptions-=m guioptions-=t guioptions-=T guioptions-=g
   set guioptions+=c
 
   if s:is_windows
@@ -133,8 +133,6 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
           \  'hook_add': join([
           \    'nnoremap <Leader><Leader> :<C-u>VimFilerCurrentDir -explorer -force-quit<CR>',
           \    'nnoremap <Leader>f :<C-u>VimFilerCurrentDir -explorer -no-force-quit<CR>',
-          \  ], "\n"),
-          \  'hook_source': join([
           \    'let g:vimfiler_as_default_explorer = 1',
           \  ], "\n"),
           \  'hook_post_source': join([
@@ -221,7 +219,6 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
 
     " commentout
     call dein#add('tyru/caw.vim')
-    " call dein#add('Shougo/context_filetype.vim')
     call dein#add('Shougo/context_filetype.vim', {
           \  'lazy': 1,
           \  'hook_add': join([
