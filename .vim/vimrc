@@ -431,9 +431,10 @@ set mouse=a
 set printheader=%<%t%h%m%=%N
 
 " messages and info
-set visualbell
+set novisualbell
 set noerrorbells
 set showcmd
+set belloff=all
 set helplang=ja,en
 
 " selecting text
@@ -490,7 +491,6 @@ set viewoptions-=options
 execute 'set viewdir='.s:view_dir
 execute 'set viminfo+=n'.s:viminfo
 
-set t_vb=
 set t_Co=256
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -526,7 +526,7 @@ augroup MyAugroup
   autocmd VimEnter,ColorScheme * call s:MyHighlight()
 
   " startup
-  autocmd VimEnter * set t_vb= t_Co=256
+  autocmd VimEnter * set t_Co=256
 
 augroup END
 
