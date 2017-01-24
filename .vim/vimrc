@@ -491,8 +491,6 @@ set viewoptions-=options
 execute 'set viewdir='.s:view_dir
 execute 'set viminfo+=n'.s:viminfo
 
-set t_Co=256
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AutoCommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -524,9 +522,6 @@ augroup MyAugroup
 
   " syntax
   autocmd VimEnter,ColorScheme * call s:MyHighlight()
-
-  " startup
-  autocmd VimEnter * set t_Co=256
 
 augroup END
 
