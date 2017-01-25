@@ -259,7 +259,7 @@ filetype plugin indent on
 " important
 
 " moving around, searching and patterns
-set whichwrap+=h,l
+set whichwrap+=b,s,h,l,<,>,~,[,]
 set incsearch
 set ignorecase
 set smartcase
@@ -269,10 +269,12 @@ set tags+=tags;
 
 " displaying text
 set scrolloff=5
+set breakindent
+set showbreak=>\ 
 set display+=lastline
 set redrawtime=500
 set list
-set listchars=tab:￫\ ,eol:⏎
+set listchars=tab:￫\ ,eol:⏎,space:･,extends:>,precedes:<
 set number
 set conceallevel=2
 set concealcursor=nc
