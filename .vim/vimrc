@@ -15,26 +15,30 @@ augroup END
 
 if s:is_windows
   set shellslash
-  let s:vimfiles = expand('~/vimfiles')
+  let s:vimfiles_dir = expand('~/vimfiles')
 else
-  let s:vimfiles = expand('~/.vim')
+  let s:vimfiles_dir = expand('~/.vim')
 endif
 
-let s:viminfo     = s:vimfiles.'/viminfo'
-let s:backup_dir  = s:vimfiles.'/backup'
-let s:swap_dir    = s:vimfiles.'/swap'
-let s:undo_dir    = s:vimfiles.'/undo'
-let s:view_dir    = s:vimfiles.'/view'
+let s:vimcache_dir = expand('~/.cache/vim')
 
-let s:local_vimrc = s:vimfiles.'/local.vimrc'
+let s:viminfo      = s:vimcache_dir.'/viminfo'
+let s:backup_dir   = s:vimcache_dir.'/backup'
+let s:swap_dir     = s:vimcache_dir.'/swap'
+let s:undo_dir     = s:vimcache_dir.'/undo'
+let s:view_dir     = s:vimcache_dir.'/view'
 
-let s:dein_dir    = s:vimfiles.'/dein.vim'
+let s:dein_dir     = s:vimcache_dir.'/dein.vim'
+
+let s:local_vimrc  = s:vimfiles_dir.'/local.vimrc'
 
 function! s:make_dir(dir) abort
+  " silent! call mkdir(dir, 'p')
   if !isdirectory(a:dir)
-    call mkdir(a:dir)
+    call mkdir(a:dir, 'p')
   endif
 endfunction
+call s:make_dir(s:vimcache_dir)
 call s:make_dir(s:backup_dir)
 call s:make_dir(s:swap_dir)
 call s:make_dir(s:undo_dir)
@@ -234,7 +238,7 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
     call dein#add('cohama/agit.vim', {'on_cmd': ['Agit', 'AgitFile']})
     call dein#add('airblade/vim-gitgutter', {'on_cmd': 'GitGutter'})
 
-    call dein#local(s:vimfiles.'/bundle', {'lazy': 1}, ['unite-dein.vim'])
+    call dein#local(s:vimfiles_dir.'/bundle', {'lazy': 1}, ['unite-dein.vim'])
 
     call dein#end()
     call dein#save_state()
