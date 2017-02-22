@@ -53,7 +53,7 @@ if !isdirectory(s:dein_dir)
   endif
 endif
 
-let mapleader = ','
+let g:mapleader = ','
 
 if has('gui_running')
   set guioptions-=a guioptions-=i
@@ -489,7 +489,7 @@ set iminsert=0
 set imsearch=0
 
 " multi-byte characters
-set fileencodings=utf8,cp932
+set fileencodings=utf8,cp932,eucjp
 set ambiwidth=double
 
 " various
@@ -590,6 +590,7 @@ nnoremap S <Nop>
 
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
+
 nnoremap <C-n> :<C-u>tabnext<CR>
 nnoremap <C-p> :<C-u>tabprevious<CR>
 
@@ -598,6 +599,7 @@ nnoremap <Space>j o<ESC>
 nnoremap <Space>k O<ESC>
 nnoremap <Space>w :<C-u>write<CR>
 nnoremap <Space>q :<C-u>quit<CR>
+nnoremap <Space>Q :<C-u>quit!<CR>
 nnoremap <Space>bd :<C-u>bdelete<CR>
 map <Space><Space> %
 nnoremap <Space>* *N
@@ -622,17 +624,12 @@ nnoremap -t :<C-u>setlocal expandtab! expandtab?<CR>
 nnoremap -i :<C-u>setlocal ignorecase! ignorecase?<CR>
 nnoremap -h :<C-u>setlocal hlsearch hlsearch?<CR>
 
-nmap + j.
-
-map Q gq
-inoremap <C-U> <C-G>u<C-U>
-
 if exists('$MYVIMRC')
   nnoremap <F1> :<C-u>edit $MYVIMRC<CR>
   nnoremap <S-F1> :<C-u>tabedit $MYVIMRC<CR>
-  execute 'nnoremap <F2> :<C-u>edit '.s:local_vimrc.'<CR>'
-  execute 'nnoremap <S-F2> :<C-u>tabedit '.s:local_vimrc.'<CR>'
 endif
+execute 'nnoremap <F2> :<C-u>edit '.s:local_vimrc.'<CR>'
+execute 'nnoremap <S-F2> :<C-u>tabedit '.s:local_vimrc.'<CR>'
 
 " colorscheme
 function! s:find_colorscheme(colorschemes) abort
