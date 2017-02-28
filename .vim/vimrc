@@ -519,6 +519,7 @@ augroup MyAugroup
   " ftplugin
   autocmd FileType php setlocal tabstop=4 shiftwidth=4 softtabstop=4
   autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
+  autocmd FileType json setlocal conceallevel=0
   autocmd FileType html setlocal tabstop=2 shiftwidth=2 softtabstop=2
   autocmd FileType qf call s:MyFTPluginQuickfix()
   autocmd FileType vimfiler nnoremap <silent><buffer><expr> <C-t> vimfiler#do_action('tabopen')
