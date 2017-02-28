@@ -594,6 +594,22 @@ cnoremap <C-n> <Down>
 nnoremap <C-n> :<C-u>tabnext<CR>
 nnoremap <C-p> :<C-u>tabprevious<CR>
 
+vnoremap . :normal .<CR>
+vnoremap @ :<C-u>execute "'<,'>normal @".nr2char(getchar())<CR>
+
+nnoremap <UP> <C-y><C-y><C-y><C-y><C-y><C-y><C-y><C-y>
+nnoremap <Down> <C-e><C-e><C-e><C-e><C-e><C-e><C-e><C-e>
+nnoremap <Left> zhzhzhzhzhzhzhzh
+nnoremap <Right> zlzlzlzlzlzlzlzl
+nnoremap <S-UP> <C-w>+
+nnoremap <S-Down> <C-w>-
+nnoremap <S-Left> <C-w><
+nnoremap <S-Right> <C-w>>
+nnoremap <C-UP> <C-w>K
+nnoremap <C-Down> <C-w>J
+nnoremap <C-Left> <C-w>H
+nnoremap <C-Right> <C-w>L
+
 noremap <Space> <Nop>
 nnoremap <Space>j o<ESC>
 nnoremap <Space>k O<ESC>
