@@ -668,5 +668,6 @@ syntax enable
 execute 'set background='.s:colorscheme['background']
 execute 'colorscheme' s:colorscheme['name']
 
-
-execute 'silent! source' s:local_vimrc
+if filereadable(s:local_vimrc)
+  execute 'source' s:local_vimrc
+endif
