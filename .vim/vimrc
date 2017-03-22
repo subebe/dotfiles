@@ -215,6 +215,7 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
           \    'vmap <Enter> <Plug>(EasyAlign)'
           \  ], "\n"),
           \})
+    call dein#add('yuttie/comfortable-motion.vim')
     " call dein#add('matchit.zip', {'lazy': 1})
     " call dein#add('vimtaku/hl_matchit.vim', {'depends': 'matchit.zip'})
 
