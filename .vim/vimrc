@@ -20,17 +20,18 @@ else
   let s:vimfiles_dir = expand('~/.vim')
 endif
 
-let s:vimcache_dir = expand('~/.cache/vim')
+let s:vimcache_dir   = expand('~/.cache/vim')
 
-let s:viminfo      = s:vimcache_dir.'/viminfo'
-let s:backup_dir   = s:vimcache_dir.'/backup'
-let s:swap_dir     = s:vimcache_dir.'/swap'
-let s:undo_dir     = s:vimcache_dir.'/undo'
-let s:view_dir     = s:vimcache_dir.'/view'
+let s:viminfo        = s:vimcache_dir.'/viminfo'
+let s:backup_dir     = s:vimcache_dir.'/backup'
+let s:swap_dir       = s:vimcache_dir.'/swap'
+let s:undo_dir       = s:vimcache_dir.'/undo'
+let s:view_dir       = s:vimcache_dir.'/view'
 
-let s:dein_dir     = s:vimcache_dir.'/dein.vim'
+let s:dein_dir       = s:vimcache_dir.'/dein.vim'
+let s:dein_toml      = s:vimfiles_dir.'/rc/dein.toml'
 
-let s:local_vimrc  = s:vimfiles_dir.'/local.vimrc'
+let s:local_vimrc    = s:vimfiles_dir.'/local.vimrc'
 
 function! s:make_dir(dir) abort
   " silent! call mkdir(dir, 'p')
@@ -85,161 +86,7 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
   if dein#load_state(s:dein_dir)
     call dein#begin(expand('~/.cache/dein'))
 
-    " Basic
-    call dein#add('w0ng/vim-hybrid')
-    call dein#add('vim-jp/vimdoc-ja')
-
-    " Integration
-    call dein#add(s:dein_dir)
-    " call dein#add(s:dein_dir, {'rtp': ''})
-    call dein#add('Shougo/vimproc')
-    call dein#add('thinca/vim-singleton', {'if': has('clientserver')})
-    call dein#add('vim-jp/vital.vim', {'on_cmd': 'Vitalize'})
-
-    " Completion
-    call dein#add('Shougo/neocomplete.vim', {
-          \  'on_i': 1,
-          \  'hook_add': join([
-          \    'let g:neocomplete#enable_at_startup = 1',
-          \    'let g:neocomplete#enable_auto_delimiter = 1',
-          \  ], "\n"),
-          \})
-    call dein#add('Shougo/neosnippet', {
-          \  'depends': 'neocomplete.vim',
-          \  'on_source': 'neocomplete.vim',
-          \  'hook_add': join([
-          \    'imap <expr><Tab> neosnippet#expandable_or_jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "\<Tab>"',
-          \  ], "\n"),
-          \})
-    call dein#add('Shougo/neosnippet-snippets', {
-          \  'depends': 'neosnippet',
-          \  'on_source': 'neosnippet'
-          \})
-
-    " Interface
-    call dein#add('Shougo/neomru.vim', {
-          \  'on_path': '.*',
-          \  'depends': 'unite.vim',
-          \  'on_source': 'unite.vim'
-          \})
-    call dein#add('Shougo/unite.vim', {
-          \  'on_cmd': ['Unite'],
-          \  'hook_add': join([
-          \    'nnoremap <Leader>u :<C-u>Unite buffer<CR>',
-          \    'nnoremap <Leader>U :<C-u>Unite file_mru<CR>',
-          \    'nnoremap <Leader>d :<C-u>Unite dein<CR>',
-          \    'nnoremap <Leader>p :<C-u>Unite file_rec:!<CR>',
-          \  ], "\n"),
-          \})
-    call dein#add('Shougo/vimfiler', {
-          \  'depends': 'unite.vim',
-          \  'on_cmd': 'VimFiler',
-          \  'hook_add': join([
-          \    'nnoremap <Leader><Leader> :<C-u>VimFilerCurrentDir -explorer -force-quit<CR>',
-          \    'nnoremap <Leader>f :<C-u>VimFilerCurrentDir -explorer -no-force-quit<CR>',
-          \    'let g:vimfiler_as_default_explorer = 1',
-          \  ], "\n"),
-          \  'hook_post_source': join([
-          \    'call vimfiler#custom#profile("default", "context", {"safe": 0, "auto_cd": 1})',
-          \  ], "\n"),
-          \})
-
-    " Quickfix
-    call dein#add('cohama/vim-hier', {'on_event': 'QuickFixCmdPre'})
-    call dein#add('osyo-manga/shabadou.vim', {'lazy': 1, 'depends': 'vim-quickrun'})
-    call dein#add('thinca/vim-qfreplace', {'on_cmd': 'Qfreplace'})
-    call dein#add('thinca/vim-quickrun', {
-          \  'on_cmd': 'QuickRun',
-          \  'on_map': '<Plug>',
-          \  'hook_add': join([
-          \    'nmap <Leader>r <Plug>(quickrun)',
-          \  ], "\n"),
-          \  'hook_post_source': join([
-          \    'if !exists("g:quickrun_config") | let g:quickrun_config = {} | endif',
-          \    'let g:quickrun_config["_"] = {"runner" : "vimproc", "runner/vimproc/updatetime" : 60}',
-          \  ], "\n"),
-          \})
-    call dein#add('osyo-manga/vim-watchdogs', {
-          \  'on_cmd': 'WatchdogsRun',
-          \  'depends': ['vim-quickrun', 'shabadou.vim', 'vim-hier']
-          \})
-
-    " Edit
-    call dein#add('cohama/lexima.vim', {
-          \  'on_i': 1,
-          \  'hook_add': join([
-          \    'imap <C-h> <BS>',
-          \    'cmap <C-h> <BS>',
-          \  ], "\n"),
-          \})
-    call dein#add('tpope/vim-repeat', {'lazy': 1})
-    call dein#add('tpope/vim-surround', {
-          \  'depends': 'vim-repeat',
-          \  'on_map': [
-          \    ['n', '<Plug>Dsurround', '<Plug>Csurround', '<Plug>CSurround', '<Plug>Ysurround', '<Plug>YSurround', '<Plug>Yssurround', '<Plug>YSsurround'],
-          \    ['x', '<Plug>VSurround', '<Plug>VgSurround'],
-          \  ],
-          \  'hook_add': join([
-          \    'nmap ds  <Plug>Dsurround',
-          \    'nmap cs  <Plug>Csurround',
-          \    'nmap cS  <Plug>CSurround',
-          \    'nmap ys  <Plug>Ysurround',
-          \    'nmap yS  <Plug>YSurround',
-          \    'nmap yss <Plug>Yssurround',
-          \    'nmap ySs <Plug>YSsurround',
-          \    'nmap ySS <Plug>YSsurround',
-          \    'xmap S   <Plug>VSurround',
-          \    'xmap gS  <Plug>VgSurround',
-          \  ], "\n"),
-          \})
-    call dein#add('osyo-manga/vim-anzu', {
-          \  'on_map': '<Plug>',
-          \  'hook_add': join([
-          \    'nmap n <Plug>(anzu-n-with-echo)',
-          \    'nmap N <Plug>(anzu-N-with-echo)',
-          \  ], "\n"),
-          \})
-    call dein#add('kana/vim-operator-user', {'lazy': 1,})
-    call dein#add('kana/vim-operator-replace', {
-          \  'depends': 'vim-operator-user',
-          \  'on_map': '<Plug>',
-          \  'hook_add': join([
-          \    'map _ <Plug>(operator-replace)',
-          \  ], "\n"),
-          \})
-    call dein#add('junegunn/vim-easy-align', {
-          \  'on_map': [
-          \    ['v', '<Plug>(EasyAlign)'],
-          \  ],
-          \  'hook_add': join([
-          \    'vmap <Enter> <Plug>(EasyAlign)'
-          \  ], "\n"),
-          \})
-    call dein#add('yuttie/comfortable-motion.vim')
-    " call dein#add('matchit.zip', {'lazy': 1})
-    " call dein#add('vimtaku/hl_matchit.vim', {'depends': 'matchit.zip'})
-
-    " Command
-    call dein#add('tyru/capture.vim', {'on_cmd': 'Capture'})
-
-    " commentout
-    call dein#add('tyru/caw.vim')
-    call dein#add('Shougo/context_filetype.vim', {
-          \  'lazy': 1,
-          \  'hook_add': join([
-          \    'let g:context_filetype#filetypes = {"php": [{"start": "<?", "end": "?>", "filetype": "php"}, {"start": "\\%^", "end": "\\%$", "filetype": "html"}, {"start": "<style.\\{-}>", "end": "<\\/style>", "filetype": "css"}, {"start": "<script.\\{-}>", "end": "<\\/script>", "filetype": "javascript"}]}',
-          \  ], "\n"),
-          \})
-    call dein#add('osyo-manga/vim-precious', {
-          \  'depends': 'context_filetype.vim',
-          \})
-
-    " VCS
-    call dein#add('lambdalisue/vim-gita', {'on_cmd': 'Gita',})
-    call dein#add('cohama/agit.vim', {'on_cmd': ['Agit', 'AgitFile']})
-    call dein#add('airblade/vim-gitgutter', {'on_cmd': 'GitGutter'})
-
-    call dein#local(s:vimfiles_dir.'/bundle', {'lazy': 1}, ['unite-dein.vim'])
+    call dein#load_toml(s:dein_toml)
 
     call dein#end()
     call dein#save_state()
