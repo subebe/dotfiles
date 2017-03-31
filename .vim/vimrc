@@ -60,7 +60,7 @@ let g:mapleader = ','
 if has('gui_running')
   set guioptions-=a guioptions-=i
   set guioptions-=r guioptions-=L
-  set guioptions-=e guioptions-=m guioptions-=t guioptions-=T guioptions-=g
+  set guioptions-=e guioptions-=m guioptions+=M guioptions-=t guioptions-=T guioptions-=g
   set guioptions+=c
 
   if s:is_windows
@@ -152,9 +152,9 @@ set showtabline=2
 set tabline=%!MyTabLine()
 
 function! MyTabLine()
-  " if !exists("s:tabline")
+  if !exists("s:tabline")
     let s:tabline = s:tab(16, 32, 8)
-  " endif
+  endif
   return s:tabline.gen()
 endfunction
 
