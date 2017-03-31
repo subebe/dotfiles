@@ -30,6 +30,7 @@ let s:view_dir       = s:vimcache_dir.'/view'
 
 let s:dein_dir       = s:vimcache_dir.'/dein.vim'
 let s:dein_toml      = s:vimfiles_dir.'/rc/dein.toml'
+let s:dein_cache_dir = expand('~/.cache/dein')
 
 let s:local_vimrc    = s:vimfiles_dir.'/local.vimrc'
 
@@ -80,11 +81,12 @@ endif
 
 if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || executable('xcopy'))
   let g:dein#install_process_timeout = 600
+  let g:dein#install_progress_type = 'tabline'
   if has('vim_starting')
     execute 'set runtimepath^='.s:dein_dir
   endif
   if dein#load_state(s:dein_dir)
-    call dein#begin(expand('~/.cache/dein'))
+    call dein#begin(s:dein_cache_dir)
 
     call dein#load_toml(s:dein_toml)
 
@@ -495,6 +497,8 @@ if exists('$MYVIMRC')
 endif
 execute 'nnoremap <F2> :<C-u>edit '.s:local_vimrc.'<CR>'
 execute 'nnoremap <S-F2> :<C-u>tabedit '.s:local_vimrc.'<CR>'
+execute 'nnoremap <F3> :<C-u>edit '.s:dein_toml.'<CR>'
+execute 'nnoremap <S-F3> :<C-u>tabedit '.s:dein_toml.'<CR>'
 
 " colorscheme
 function! s:find_colorscheme(colorschemes) abort
