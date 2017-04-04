@@ -167,13 +167,10 @@ depends = 'context_filetype.vim'
 
 # VCS
 [[plugins]]
-repo = 'lambdalisue/vim-gita'
-on_cmd = 'Gita'
-[[plugins]]
-repo = 'cohama/agit.vim'
-on_cmd = ['Agit', 'AgitFile']
-[[plugins]]
-repo = 'airblade/vim-gitgutter'
-on_cmd = 'GitGutter'
+repo = 'lambdalisue/gina.vim'
+on_cmd = 'Gina'
+hook_post_source = '''
+  call gina#custom#command#option('commit', '-v|--verbose')
+'''
 
 
