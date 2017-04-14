@@ -139,7 +139,7 @@ hook_add = '''
 '''
 [[plugins]]
 repo ='junegunn/vim-easy-align'
-'on_map' = [
+on_map = [
   ['v', '<Plug>(EasyAlign)'],
 ]
 hook_add = '''
