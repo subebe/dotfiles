@@ -145,8 +145,6 @@ on_map = [
 hook_add = '''
   vmap <Enter> <Plug>(EasyAlign)
 '''
-[[plugins]]
-repo = 'yuttie/comfortable-motion.vim'
 # [plugins]
 # repo = 'matchit.zip'
 # lazy = 1
