@@ -161,6 +161,7 @@ hook_add = '''
 '''
 [[plugins]]
 repo = 'osyo-manga/vim-precious'
+lazy = 1
 depends = 'context_filetype.vim'
 
 # VCS
