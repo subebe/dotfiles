@@ -393,9 +393,6 @@ function! s:MyFTPluginQuickfix() abort
   setlocal statusline=%t%{exists('w:quickfix_title')?\ '\ '.w:quickfix_title\ :\ ''}\ %=%l/%L
   setlocal nowrap
   setlocal cursorline
-  noremap <buffer> <C-p> <CR><C-w>p
-  noremap <buffer> <C-J> j<CR><C-w>p
-  noremap <buffer> <C-K> k<CR><C-w>p
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -434,9 +431,9 @@ vnoremap x "_x
 nnoremap X "_X
 vnoremap X "_X
 
-nnoremap s <Nop>
-vnoremap s <Nop>
-nnoremap S <Nop>
+" nnoremap s <Nop>
+" vnoremap s <Nop>
+" nnoremap S <Nop>
 " vnoremap S <Nop>
 
 cnoremap <C-p> <Up>
@@ -468,7 +465,7 @@ nnoremap <Space>w :<C-u>write<CR>
 nnoremap <Space>q :<C-u>quit<CR>
 nnoremap <Space>Q :<C-u>quit!<CR>
 nnoremap <Space>bd :<C-u>bdelete<CR>
-map <Space><Space> %
+nnoremap <Space><Space> %
 nnoremap <Space>* *N
 nnoremap <Space>g* g*N
 nnoremap <Space>n :<C-u>tabnext<CR>
@@ -482,6 +479,7 @@ nnoremap -fp :<C-u>setfiletype php <Bar> set filetype?<CR>
 nnoremap -fs :<C-u>setfiletype sql <Bar> set filetype?<CR>
 nnoremap -fv :<C-u>setfiletype vim <Bar> set filetype?<CR>
 nnoremap -fm :<C-u>setfiletype markdown <Bar> set filetype?<CR>
+nnoremap -ft :<C-u>setfiletype text <Bar> set filetype?<CR>
 nnoremap -eu :<C-u>setlocal fileencoding=utf8 fileencoding?<CR>
 nnoremap -es :<C-u>setlocal fileencoding=sjis fileencoding?<CR>
 nnoremap -w :<C-u>setlocal wrap! wrap?<CR>
