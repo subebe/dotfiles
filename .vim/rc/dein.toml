@@ -164,6 +164,11 @@ repo = 'osyo-manga/vim-precious'
 lazy = 1
 depends = 'context_filetype.vim'
 
+# FileType
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
 # VCS
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
