@@ -62,6 +62,9 @@ hook_post_source = '''
 [[plugins]]
 repo = 'tyru/capture.vim'
 on_cmd = 'Capture'
+[[plugins]]
+repo = 'chrisbra/Recover.vim'
+on_event = 'SwapExists'
 
 # Quickfix
 [[plugins]]
