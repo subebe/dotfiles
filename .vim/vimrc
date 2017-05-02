@@ -263,16 +263,16 @@ function! s:tab(size, maxsize, minsize) abort
   endfunction
 
   function! self.labelformat(label, sep, size, maxsize) abort dict
-      let label = a:label
-      let label .= repeat(' ', a:size - strdisplaywidth(a:label.a:sep))
+    let label = a:label
+    let label .= repeat(' ', a:size - strdisplaywidth(a:label.a:sep))
 
-      let i = strchars(label)
-      while strdisplaywidth(label.a:sep) > a:maxsize
-        let label = self.substring(label, 0, i).'> '
-        let i -= 1
-      endwhile
+    let i = strchars(label)
+    while strdisplaywidth(label.a:sep) > a:maxsize
+      let label = self.substring(label, 0, i).'> '
+      let i -= 1
+    endwhile
 
-      return label
+    return label
   endfunction
 
   return self
