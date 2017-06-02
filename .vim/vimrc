@@ -347,6 +347,9 @@ set viewoptions-=options
 execute 'set viewdir='.s:view_dir
 execute 'set viminfo+=n'.s:viminfo
 
+" php
+let g:PHP_vintage_case_default_indent = 1
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AutoCommands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
