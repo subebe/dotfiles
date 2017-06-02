@@ -89,7 +89,25 @@ hook_post_source = '''
 [[plugins]]
 repo = 'osyo-manga/vim-watchdogs'
 on_cmd = 'WatchdogsRun'
+on_ft = 'php'
 depends = ['vim-quickrun', 'shabadou.vim', 'vimproc']
+hook_post_source = '''
+  let g:quickrun_config = {
+\   "watchdogs_checker/_": {
+\     "hook/echo/enable": 1,
+\     "hook/echo/output_success": "No Errors Found."
+\   },
+\   "php/watchdogs_checker": {
+\     "type": "watchdogs_checker/phpcs"
+\   }
+\ }
+  let g:watchdogs_check_BufWritePost_enables = {
+\   'php': 1
+\ }
+  let g:watchdogs_check_BufWritePost_enable_on_wq = 0
+
+  call watchdogs#setup(g:quickrun_config)
+'''
 [[plugins]]
 repo = 'osyo-manga/shabadou.vim'
 lazy = 1
