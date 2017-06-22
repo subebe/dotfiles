@@ -101,9 +101,6 @@ hook_post_source = '''
 \     "type": "watchdogs_checker/phpcs"
 \   }
 \ }
-  let g:watchdogs_check_BufWritePost_enables = {
-\   'php': 1
-\ }
   let g:watchdogs_check_BufWritePost_enable_on_wq = 0
 
   call watchdogs#setup(g:quickrun_config)
