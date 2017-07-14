@@ -52,6 +52,10 @@ on_source = 'unite.vim'
 repo = 'Shougo/vimfiler'
 on_cmd = 'VimFiler'
 hook_add = '''
+  augroup MyAugroup
+    autocmd FileType vimfiler nnoremap <silent><buffer><expr> <C-t> vimfiler#do_action('tabopen')
+  augroup END
+
   nnoremap <Leader><Leader> :<C-u>VimFilerCurrentDir -explorer -force-quit<CR>
   nnoremap <Leader>f :<C-u>VimFilerCurrentDir -explorer -no-force-quit<CR>
   let g:vimfiler_as_default_explorer = 1
