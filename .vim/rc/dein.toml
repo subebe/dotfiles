@@ -10,6 +10,9 @@ repo ='w0ng/vim-hybrid'
 repo ='vim-jp/vimdoc-ja'
 [[plugins]]
 repo = 'Shougo/vimproc'
+hook_add = '''
+  let g:vimproc#download_windows_dll = 1
+'''
 [[plugins]]
 repo = 'thinca/vim-singleton'
 if = 'has("clientserver")'
