@@ -1,6 +1,3 @@
-[[plugins]]
-repo = 'Shougo/dein.vim'
-
 # ColorScheme
 [[plugins]]
 repo ='w0ng/vim-hybrid'

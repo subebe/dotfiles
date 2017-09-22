@@ -87,6 +87,7 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
   endif
   if dein#load_state(s:dein_dir)
     call dein#begin(s:dein_cache_dir)
+    call dein#add(s:dein_dir, {'rtp': ''})
 
     call dein#load_toml(s:dein_toml)
 
@@ -104,6 +105,7 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
     call singleton#enable()
   endif
 
+  silent! execute 'helptags' s:dein_dir . '/doc/'
 endif
 filetype plugin indent on
 
