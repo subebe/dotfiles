@@ -497,7 +497,9 @@ execute 'nnoremap <S-F2> :<C-u>tabedit '.s:local_vimrc.'<CR>'
 execute 'nnoremap <F3> :<C-u>edit '.s:dein_toml.'<CR>'
 execute 'nnoremap <S-F3> :<C-u>tabedit '.s:dein_toml.'<CR>'
 
-" colorscheme
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colorscheme
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! s:find_colorscheme(colorschemes) abort
   for colorscheme in a:colorschemes
     let result = split(globpath(&runtimepath, 'colors/'.colorscheme['name'].'.vim'), '\n')
@@ -508,10 +510,16 @@ function! s:find_colorscheme(colorschemes) abort
   return {'name': 'default', 'background': 'light'}
 endfunction
 
-let s:colorschemes = [
-      \  {'name': 'hybrid', 'background': 'dark'},
-      \  {'name': 'desert', 'background': 'dark'},
-      \]
+if has('gui_running')
+  let s:colorschemes = [
+        \  {'name': 'hybrid', 'background': 'dark'},
+        \  {'name': 'desert', 'background': 'dark'},
+        \]
+else
+  let s:colorschemes = [
+        \  {'name': 'desert', 'background': 'dark'},
+        \]
+endif
 let s:colorscheme = s:find_colorscheme(s:colorschemes)
 syntax enable
 execute 'set background='.s:colorscheme['background']
