@@ -13,6 +13,9 @@ hook_add = '''
 [[plugins]]
 repo = 'thinca/vim-singleton'
 if = 'has("clientserver")'
+hook_source = '''
+  call singleton#enable()
+'''
 [[plugins]]
 repo = 'vim-jp/vital.vim'
 on_cmd = 'Vitalize'

@@ -94,16 +94,15 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
     call dein#end()
     call dein#save_state()
   endif
+
+  call dein#call_hook('source')
+
   if dein#check_install()
     call dein#install()
   endif
   " if dein#check_update()
   "   call dein#update()
   " endif
-
-  if dein#is_sourced('vim-singleton')
-    call singleton#enable()
-  endif
 
   silent! execute 'helptags' s:dein_dir . '/doc/'
 endif
