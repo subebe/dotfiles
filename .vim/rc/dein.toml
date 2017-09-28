@@ -91,6 +91,7 @@ hook_post_source = '''
 '''
 [[plugins]]
 repo = 'w0rp/ale'
+on_cmd = 'ALEEnable'
 hook_add = '''
   if !exists("g:ale_linters") | let g:ale_linters = {} | endif
   let g:ale_linters['php'] = ['php', 'phpcs', 'phpmd']
