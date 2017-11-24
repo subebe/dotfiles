@@ -32,6 +32,7 @@ hook_add = '''
 repo = 'Shougo/neosnippet'
 on_source = 'neocomplete.vim'
 hook_add = '''
+  let g:neosnippet#enable_conceal_markers=0
   imap <expr><Tab> neosnippet#expandable_or_jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<Tab>"
 '''
 [[plugins]]
