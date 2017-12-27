@@ -54,7 +54,7 @@ repo = 'Shougo/neomru.vim'
 on_source = 'unite.vim'
 [[plugins]]
 repo = 'Shougo/vimfiler'
-on_cmd = 'VimFiler'
+on_path = '.*'
 hook_add = '''
   augroup MyAugroup
     autocmd FileType vimfiler nnoremap <silent><buffer><expr> <C-t> vimfiler#do_action('tabopen')
