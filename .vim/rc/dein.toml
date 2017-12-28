@@ -193,6 +193,16 @@ repo = 'lambdalisue/gina.vim'
 on_cmd = 'Gina'
 hook_post_source = '''
   call gina#custom#command#option('commit', '-v|--verbose')
+  call gina#custom#action#alias('branch', 'merge', 'commit:merge')
+  call gina#custom#action#alias('branch', 'merge:no-ff', 'commit:merge:no-ff')
+'''
+hook_add = '''
+  nnoremap <Leader>gs :<C-u>Gina status<CR>
+  nnoremap <Leader>gb :<C-u>Gina branch<CR>
+  nnoremap <Leader>gc :<C-u>Gina commit<CR>
+  nnoremap <Leader>gP :<C-u>Gina push<CR>
+  nnoremap <Leader>gl :<C-u>Gina log<CR>
+  nnoremap <Leader>gL :<C-u>Gina log --graph<CR>
 '''
 
 
