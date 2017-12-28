@@ -27,6 +27,8 @@ let s:backup_dir     = s:vimcache_dir.'/backup'
 let s:swap_dir       = s:vimcache_dir.'/swap'
 let s:undo_dir       = s:vimcache_dir.'/undo'
 let s:view_dir       = s:vimcache_dir.'/view'
+let s:spell_dir      = s:vimcache_dir.'/spell'
+let s:spellfile      = s:spell_dir.'/en.utf-8.add'
 
 let s:dein_dir       = s:vimcache_dir.'/dein.vim'
 let s:dein_toml      = s:vimfiles_dir.'/rc/dein.toml'
@@ -45,6 +47,7 @@ call s:make_dir(s:backup_dir)
 call s:make_dir(s:swap_dir)
 call s:make_dir(s:undo_dir)
 call s:make_dir(s:view_dir)
+call s:make_dir(s:spell_dir)
 
 if !isdirectory(s:dein_dir)
   echomsg 'dein.vim does not exists.'
@@ -137,6 +140,9 @@ set concealcursor=nc
 " syntax, highlighting and spelling
 set hlsearch
 nohlsearch
+set spell
+set spelllang=en,cjk
+execute 'set spellfile='.s:spellfile
 
 " multiple windows
 set laststatus=2
@@ -486,6 +492,7 @@ nnoremap -n :<C-u>setlocal number! number?<CR>
 nnoremap -t :<C-u>setlocal expandtab! expandtab?<CR>
 nnoremap -i :<C-u>setlocal ignorecase! ignorecase?<CR>
 nnoremap -h :<C-u>setlocal hlsearch hlsearch?<CR>
+nnoremap -s :<C-u>setlocal spell! spell?<CR>
 
 if exists('$MYVIMRC')
   nnoremap <F1> :<C-u>edit $MYVIMRC<CR>
