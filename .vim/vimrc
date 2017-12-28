@@ -463,7 +463,7 @@ nnoremap <C-Down> <C-w>J
 nnoremap <C-Left> <C-w>H
 nnoremap <C-Right> <C-w>L
 
-noremap <Space> <Nop>
+nnoremap <Space> <Nop>
 nnoremap <Space>j o<ESC>
 nnoremap <Space>k O<ESC>
 nnoremap <Space>w :<C-u>write<CR>
