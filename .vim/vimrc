@@ -321,6 +321,7 @@ set smartindent
 " folding
 " diff mode
 " mapping
+set notimeout
 " reading and writing files
 set backup
 execute 'set backupdir='.s:backup_dir
