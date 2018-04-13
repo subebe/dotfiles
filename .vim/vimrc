@@ -375,7 +375,7 @@ augroup MyAugroup
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | execute 'normal! g`"' | endif
 
   " quickfix
-  autocmd QuickFixCmdPre vimgrep setlocal wildignore=*.gif,*.png,*.jpg,*.swf,*.flv,*.mp4,*.pdf,*.ttf,*.mp3,*.wav,tags
+  autocmd QuickFixCmdPre vimgrep setlocal wildignore=*.gif,*.png,*.jpg,*.swf,*.flv,*.mp4,*.pdf,*.ttf,*.mp3,*.wav,*.wma,tags
   autocmd QuickFixCmdPost vimgrep setlocal wildignore<
   autocmd QuickFixCmdPost *grep* cwindow
 
