@@ -489,8 +489,10 @@ nnoremap -fs :<C-u>setfiletype sql <Bar> set filetype?<CR>
 nnoremap -fv :<C-u>setfiletype vim <Bar> set filetype?<CR>
 nnoremap -fm :<C-u>setfiletype markdown <Bar> set filetype?<CR>
 nnoremap -ft :<C-u>setfiletype text <Bar> set filetype?<CR>
-nnoremap -eu :<C-u>setlocal fileencoding=utf8 fileencoding?<CR>
-nnoremap -es :<C-u>setlocal fileencoding=sjis fileencoding?<CR>
+nnoremap -Es :<C-u>setlocal fileencoding=sjis fileencoding?<CR>
+nnoremap -Eu :<C-u>setlocal fileencoding=utf8 fileencoding?<CR>
+nnoremap -Fd :<C-u>setlocal fileformat=dos fileformat?<CR>
+nnoremap -Fu :<C-u>setlocal fileformat=unix fileformat?<CR>
 nnoremap -w :<C-u>setlocal wrap! wrap?<CR>
 nnoremap -c :<C-u>setlocal cursorline! cursorline?<CR>
 nnoremap -n :<C-u>setlocal number! number?<CR>
