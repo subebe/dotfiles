@@ -495,10 +495,7 @@ nnoremap -Fd :<C-u>setlocal fileformat=dos fileformat?<CR>
 nnoremap -Fu :<C-u>setlocal fileformat=unix fileformat?<CR>
 nnoremap -w :<C-u>setlocal wrap! wrap?<CR>
 nnoremap -c :<C-u>setlocal cursorline! cursorline?<CR>
-nnoremap -n :<C-u>setlocal number! number?<CR>
 nnoremap -t :<C-u>setlocal expandtab! expandtab?<CR>
-nnoremap -i :<C-u>setlocal ignorecase! ignorecase?<CR>
-nnoremap -h :<C-u>setlocal hlsearch hlsearch?<CR>
 nnoremap -s :<C-u>setlocal spell! spell?<CR>
 
 if exists('$MYVIMRC')
