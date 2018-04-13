@@ -322,6 +322,8 @@ set smartindent
 
 " folding
 " diff mode
+set diffopt+=vertical
+
 " mapping
 set notimeout
 " reading and writing files
