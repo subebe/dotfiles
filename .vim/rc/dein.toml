@@ -217,16 +217,22 @@ hook_post_source = '''
   call gina#custom#command#option('status', '-b|--branch')
   call gina#custom#command#option('status', '-s|--short')
   call gina#custom#command#option('commit', '-v|--verbose')
+  call gina#custom#command#option('log', '--graph')
   call gina#custom#action#alias('branch', 'merge:no-ff', 'commit:merge:no-ff')
 
   call gina#custom#mapping#nmap(
-      \ 'branch', 'dd',
+      \ 'branch', 'D',
       \ ':<C-u>call gina#action#call("branch:delete")<CR>',
       \ {'noremap': 1, 'silent': 1},
       \)
   call gina#custom#mapping#nmap(
       \ 'branch', 'N',
       \ ':<C-u>call gina#action#call("branch:new")<CR>',
+      \ {'noremap': 1, 'silent': 1},
+      \)
+  call gina#custom#mapping#nmap(
+      \ 'branch', 'R',
+      \ ':<C-u>call gina#action#call("branch:move")<CR>',
       \ {'noremap': 1, 'silent': 1},
       \)
   call gina#custom#mapping#nmap(
@@ -249,11 +255,20 @@ hook_post_source = '''
       \ ':<C-u>Gina status<CR>',
       \ {'noremap': 1, 'silent': 1},
       \)
+  call gina#custom#mapping#nmap(
+      \ 'log', '<C-l>',
+      \ ':<C-u>Gina log<CR><C-l>',
+      \ {'noremap': 1, 'silent': 1},
+      \)
+
+  let g:mytabline_right = '%{gina#component#repo#preset()}'
 '''
 hook_add = '''
-  nnoremap <Leader>gs :<C-u>Gina status --opener=vsplit<CR>
+  nnoremap <Leader>gs :<C-u>Gina status --opener=tabedit<CR>
   nnoremap <Leader>gc :<C-u>Gina commit --opener=vsplit<CR>
   nnoremap <Leader>gC :<C-u>Gina commit --amend --opener=vsplit<CR>
-  nnoremap <Leader>gb :<C-u>Gina branch --opener=vsplit<CR>
-  nnoremap <Leader>gl :<C-u>Gina log --graph --opener=vsplit<CR>
+  nnoremap <Leader>gb :<C-u>Gina branch --all --opener=split<CR>
+  nnoremap <Leader>gl :<C-u>Gina log --opener=vsplit<CR>
+  nnoremap <Leader>gL :execute 'Gina log --opener=vsplit -- '.expand('%:p')<CR>
+  nnoremap <Leader>gn :<C-u>Gina log --name-status --opener=vsplit<CR>
 '''
