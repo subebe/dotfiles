@@ -154,6 +154,7 @@ set statusline+=\ \|\ %{&fileformat},%{&fileencoding}%{(&bomb?\"(bom)\":\"\")}
 set statusline+=\ \|\ %Y
 set statusline+=\ \|\ %l/%L,%c
 " set noequalalways
+set previewheight=24
 set splitright
 
 " multiple tab pages
