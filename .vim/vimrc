@@ -328,6 +328,7 @@ set diffopt+=vertical
 " mapping
 set notimeout
 " reading and writing files
+set nofixendofline
 set backup
 execute 'set backupdir='.s:backup_dir
 
