@@ -63,8 +63,8 @@ hook_add = '''
     autocmd FileType vimfiler nnoremap <silent><buffer><expr> <C-t> vimfiler#do_action('tabopen')
   augroup END
 
-  nnoremap <Leader><Leader> :<C-u>VimFilerCurrentDir -explorer -force-quit<CR>
-  nnoremap <Leader>f :<C-u>VimFilerCurrentDir -explorer -no-force-quit<CR>
+  nnoremap <Leader><Leader> :<C-u>VimFilerBufferDir -explorer -force-quit<CR>
+  nnoremap <Leader>f :<C-u>VimFilerBufferDir -explorer -no-force-quit<CR>
   let g:vimfiler_as_default_explorer = 1
 '''
 hook_post_source = '''
