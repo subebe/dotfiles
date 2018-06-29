@@ -41,13 +41,26 @@ on_source = 'neosnippet'
 
 # Util
 [[plugins]]
+repo = 'Shougo/denite.nvim'
+depends = 'unite.vim'
+hook_add = '''
+  nnoremap <Leader>u :<C-u>Denite buffer<CR>
+  nnoremap <Leader>U :<C-u>Denite file_mru<CR>
+  nnoremap <Leader>p :<C-u>DeniteProjectDir file/rec<CR>
+'''
+hook_source = '''
+  call denite#custom#option('_', 'highlight_mode_insert', 'Search')
+'''
+
+
+[[plugins]]
 repo = 'Shougo/unite.vim'
 on_cmd = 'Unite'
 hook_add = '''
-  nnoremap <Leader>u :<C-u>Unite buffer<CR>
-  nnoremap <Leader>U :<C-u>Unite file_mru<CR>
-  nnoremap <Leader>d :<C-u>Unite dein<CR>
-  nnoremap <Leader>p :<C-u>Unite file_rec:!<CR>
+"  nnoremap <Leader>u :<C-u>Unite buffer<CR>
+"  nnoremap <Leader>U :<C-u>Unite file_mru<CR>
+"  nnoremap <Leader>d :<C-u>Unite dein<CR>
+"  nnoremap <Leader>p :<C-u>Unite file_rec:!<CR>
 '''
 [[plugins]]
 repo = 'Shougo/neomru.vim'
