@@ -150,7 +150,7 @@ execute 'set spellfile='.s:spellfile
 set laststatus=2
 set statusline=%F%m%r
 set statusline+=%=
-set statusline+=\ \|\ %{&fileformat},%{&fileencoding}%{(&bomb?\"(bom)\":\"\")}
+set statusline+=\ \|\ %{&fileformat},%{&fileencoding}%{(&bomb?\"(bom)\":\"\")}%{(&endofline?\"\":\",noeol\")}
 set statusline+=\ \|\ %Y
 set statusline+=\ \|\ %l/%L,%c
 " set noequalalways
