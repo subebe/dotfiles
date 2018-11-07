@@ -524,6 +524,18 @@ nnoremap <C-w>, <C-w>:<C-u>TerminalSwitch<CR>
 tnoremap <C-w>, <C-w>:<C-u>TerminalSwitch<CR>
 tnoremap <C-w><ESC> <C-w>N
 
+" emacs key bind
+inoremap <C-a> <C-g>U<Home>
+inoremap <C-e> <C-g>U<End>
+inoremap <C-f> <C-g>U<Right>
+inoremap <C-b> <C-g>U<Left>
+cnoremap <C-a> <C-b>
+cnoremap <C-f> <Right>
+cnoremap <C-b> <Left>
+set cedit=<C-@>
+cnoremap <C-l> <C-d>
+cnoremap <C-d> <Del>
+
 nnoremap - <Nop>
 nnoremap -fh :<C-u>setfiletype html <Bar> set filetype?<CR>
 nnoremap -fj :<C-u>setfiletype javascript <Bar> set filetype?<CR>
