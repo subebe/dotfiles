@@ -227,9 +227,15 @@ on_ft = 'toml'
 [[plugins]]
 repo = 'kannokanno/previm'
 on_cmd = 'PrevimOpen'
+depends = 'open-browser.vim'
 [[plugins]]
 repo = 'tyru/open-browser.vim'
-on_source = 'previm'
+on_map = '<Plug>(openbrowser-'
+hook_add = '''
+  let g:netrw_nogx = 1
+  nmap gx <Plug>(openbrowser-smart-search)
+  vmap gx <Plug>(openbrowser-smart-search)
+'''
 
 # VCS
 [[plugins]]
