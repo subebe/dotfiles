@@ -216,6 +216,9 @@ hook_add = '''
   xmap <Leader>sw <Plug>(easymotion-bd-w)
   omap <Leader>sw <Plug>(easymotion-bd-w)
 '''
+[[plugins]]
+repo = 'mattn/emmet-vim'
+on_ft = ['html', 'php']
 
 # FileType
 [[plugins]]
