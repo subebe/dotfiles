@@ -255,13 +255,8 @@ hook_post_source = '''
       \ {'noremap': 1, 'silent': 1},
       \)
   call gina#custom#mapping#nmap(
-      \ 'status', 'j',
-      \ 'j:<C-u>call gina#action#call("diff:preview")<CR>',
-      \ {'noremap': 1, 'silent': 1},
-      \)
-  call gina#custom#mapping#nmap(
-      \ 'status', 'k',
-      \ 'k:<C-u>call gina#action#call("diff:preview")<CR>',
+      \ 'status', 'dp',
+      \ ':<C-u>call gina#action#call("diff:preview")<CR>',
       \ {'noremap': 1, 'silent': 1},
       \)
   call gina#custom#mapping#nmap(
@@ -283,11 +278,13 @@ hook_post_source = '''
   let g:mytabline_right = '%{gina#component#repo#preset()}'
 '''
 hook_add = '''
-  nnoremap <Leader>gs :<C-u>Gina status --opener=tabedit<CR>
+  nnoremap <Leader>gs :<C-u>Gina status --opener=split<CR>
+  nnoremap <Leader>gS :<C-u>Gina status --opener=tabedit<CR>
   nnoremap <Leader>gc :<C-u>Gina commit --opener=vsplit<CR>
   nnoremap <Leader>gC :<C-u>Gina commit --amend --opener=vsplit<CR>
   nnoremap <Leader>gb :<C-u>Gina branch --all --opener=split<CR>
   nnoremap <Leader>gl :<C-u>Gina log --opener=vsplit<CR>
   nnoremap <Leader>gL :execute 'Gina log --opener=vsplit -- '.expand('%:p')<CR>
   nnoremap <Leader>gn :<C-u>Gina log --name-status --opener=vsplit<CR>
+  nnoremap <Leader>gN :execute 'Gina log --name-status --opener=vsplit -- '.getcwd()<CR>
 '''
