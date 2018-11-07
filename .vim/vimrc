@@ -424,6 +424,48 @@ command! DiffOrig vert new | set buftype=nofile | read ++edit # | 0delete_ | dif
 command! -nargs=1 VimGrepFile execute 'vimgrep /\v<args>/j %:p'
 command! -nargs=1 VimGrepDir execute 'vimgrep /\v<args>/j **'
 
+function! s:terminal(...) abort
+  execute 'terminal ++close '.join(a:000)
+  wincmd J | 20wincmd _
+endfunction
+function! s:terminal_complete(ArgLead, CmdLine, CursorPos) abort
+  let shells = ['cmd', 'powershell', 'bash', 'zsh']
+  return filter(shells, 'executable(v:val)')
+endfunction
+function! s:terminal_switch() abort
+  let tabpagebuflist = tabpagebuflist()
+  let term_list = term_list()
+  for i in term_list
+    if count(tabpagebuflist, i)
+      let winnr = bufwinnr(i)
+      execute winnr.'wincmd w'
+      hide
+      return
+    endif
+  endfor
+
+  if len(term_list)
+    let bufnr = term_list[0]
+    if len(term_list) >= 2
+      let i = 0
+      for v in term_list
+        echo i.': '.bufname(term_list[i])."\n"
+        let i += 1
+      endfor
+      let c = nr2char(getchar())
+      let bufnr = get(term_list, c, term_list[0])
+    endif
+    let showcmd = 'sbuffer +wincmd\ J\|20wincmd\ _ '.bufnr
+    execute showcmd
+  else
+    let shell = get(g:, 'terminal_shell', &shell)
+    call s:terminal(shell)
+  endif
+endfunction
+command! -nargs=* -complete=customlist,s:terminal_complete Terminal call s:terminal(<f-args>)
+command! TerminalSwitch call s:terminal_switch()
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -482,6 +524,13 @@ nnoremap <Space>g* g*N
 nnoremap <Space>n :<C-u>tabnext<CR>
 nnoremap <Space>p :<C-u>tabprevious<CR>
 nnoremap <Space>t :<C-u>tabedit<CR>
+
+" terminal
+tnoremap <S-Insert> <C-w>"*
+tnoremap <C-w>c <C-w>:<C-u>hide<CR>
+nnoremap <C-w>, <C-w>:<C-u>TerminalSwitch<CR>
+tnoremap <C-w>, <C-w>:<C-u>TerminalSwitch<CR>
+tnoremap <C-w><ESC> <C-w>N
 
 nnoremap - <Nop>
 nnoremap -fh :<C-u>setfiletype html <Bar> set filetype?<CR>
