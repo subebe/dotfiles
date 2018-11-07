@@ -68,7 +68,7 @@ if has('gui_running')
 
   if s:is_windows
     set renderoptions=type:directx,renmode:5
-    set guifont=Ricty_Diminished:h13.5:cSHIFTJIS,MS_Gothic:h13
+    set guifont=Ricty_Diminished:h12.5:cSHIFTJIS,MS_Gothic:h13
   elseif s:is_mac
     set guifont=Ricty\ Regular:h17
     set macmeta
