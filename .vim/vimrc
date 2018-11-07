@@ -401,7 +401,7 @@ augroup END
 function! s:MyHighlight() abort
   if has('multi_byte_ime') || has('xim')
     " highlight Cursor guibg=DarkRed guifg=NONE
-    highlight CursorIM guibg=Green guifg=NONE
+    highlight CursorIM guibg=Magenta guifg=NONE
   endif
 endfunction
 
