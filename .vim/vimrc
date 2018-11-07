@@ -516,14 +516,6 @@ nnoremap <Space>j o<ESC>
 nnoremap <Space>k O<ESC>
 nnoremap <Space>w :<C-u>write<CR>
 nnoremap <Space>q :<C-u>quit<CR>
-nnoremap <Space>Q :<C-u>quit!<CR>
-nnoremap <Space>bd :<C-u>bdelete<CR>
-nnoremap <Space><Space> %
-nnoremap <Space>* *N
-nnoremap <Space>g* g*N
-nnoremap <Space>n :<C-u>tabnext<CR>
-nnoremap <Space>p :<C-u>tabprevious<CR>
-nnoremap <Space>t :<C-u>tabedit<CR>
 
 " terminal
 tnoremap <S-Insert> <C-w>"*
