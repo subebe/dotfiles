@@ -155,7 +155,6 @@ set statusline+=\ \|\ %Y
 set statusline+=\ \|\ %l/%L,%c
 " set noequalalways
 set previewheight=24
-set splitright
 
 " multiple tab pages
 set showtabline=2
@@ -370,7 +369,7 @@ let g:PHP_vintage_case_default_indent = 1
 augroup MyAugroup
   " view
   autocmd BufWritePost ?* if expand('%') != '' && &buftype !~ 'nofile' | mkview | endif
-  autocmd BufWinEnter ?* if expand('%') != '' && &buftype !~ 'nofile' | silent loadview | endif
+  autocmd BufWinEnter ?* if expand('%') != '' && &buftype !~ 'nofile' | silent! loadview | endif
 
   " set autochdir
   autocmd BufEnter * execute 'silent! lcd '.expand('%:h')
@@ -520,7 +519,7 @@ nnoremap <Space>q :<C-u>quit<CR>
 " terminal
 tnoremap <S-Insert> <C-w>"*
 tnoremap <C-w>c <C-w>:<C-u>hide<CR>
-nnoremap <C-w>, <C-w>:<C-u>TerminalSwitch<CR>
+nnoremap <C-w>, :<C-u>TerminalSwitch<CR>
 tnoremap <C-w>, <C-w>:<C-u>TerminalSwitch<CR>
 tnoremap <C-w><ESC> <C-w>N
 
