@@ -181,6 +181,11 @@ hook_add = '''
 # depends = 'matchit.zip'
 [[plugins]]
 repo = 'tyru/caw.vim'
+on_map = '<Plug>'
+hook_add = '''
+  nmap gc <Plug>(caw:prefix)
+  xmap gc <Plug>(caw:prefix)
+'''
 [[plugins]]
 repo = 'Shougo/context_filetype.vim'
 lazy = 1
