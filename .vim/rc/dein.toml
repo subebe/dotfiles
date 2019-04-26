@@ -187,16 +187,6 @@ hook_add = '''
   xmap gc <Plug>(caw:prefix)
 '''
 [[plugins]]
-repo = 'Shougo/context_filetype.vim'
-lazy = 1
-hook_add = '''
-  let g:context_filetype#filetypes = {"php": [{"start": "<?", "end": "?>", "filetype": "php"}, {"start": "\\%^", "end": "\\%$", "filetype": "html"}, {"start": "<style.\\{-}>", "end": "<\\/style>", "filetype": "css"}, {"start": "<script.\\{-}>", "end": "<\\/script>", "filetype": "javascript"}]}
-'''
-[[plugins]]
-repo = 'osyo-manga/vim-precious'
-lazy = 1
-depends = 'context_filetype.vim'
-[[plugins]]
 repo = 'easymotion/vim-easymotion'
 on_map = '<Plug>'
 hook_add = '''
