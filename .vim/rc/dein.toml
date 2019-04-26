@@ -198,7 +198,7 @@ lazy = 1
 depends = 'context_filetype.vim'
 [[plugins]]
 repo = 'easymotion/vim-easymotion'
-# on_map = '<Plug>'
+on_map = '<Plug>'
 hook_add = '''
   map <Leader>s <Plug>(easymotion-prefix)
 
