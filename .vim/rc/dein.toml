@@ -219,6 +219,19 @@ hook_add = '''
 [[plugins]]
 repo = 'mattn/emmet-vim'
 on_ft = ['html', 'php']
+[[plugins]]
+repo = 'haya14busa/vim-asterisk'
+on_map = '<Plug>'
+hook_add = '''
+map *   <Plug>(asterisk-*)
+map #   <Plug>(asterisk-#)
+map g*  <Plug>(asterisk-g*)
+map g#  <Plug>(asterisk-g#)
+map z*  <Plug>(asterisk-z*)
+map gz* <Plug>(asterisk-gz*)
+map z#  <Plug>(asterisk-z#)
+map gz# <Plug>(asterisk-gz#)
+'''
 
 # FileType
 [[plugins]]
