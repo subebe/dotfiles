@@ -6,7 +6,7 @@ if &compatible
   set nocompatible
 endif
 
-let s:is_windows = has('win16') || has('win32') || has('win64')
+let s:is_windows = has('win32')
 let s:is_mac = has('mac')
 
 augroup MyAugroup
@@ -37,7 +37,6 @@ let s:dein_cache_dir = expand('~/.cache/dein')
 let s:local_vimrc    = s:vimfiles_dir.'/local.vimrc'
 
 function! s:make_dir(dir) abort
-  " silent! call mkdir(dir, 'p')
   if !isdirectory(a:dir)
     call mkdir(a:dir, 'p')
   endif
@@ -358,6 +357,7 @@ set ambiwidth=double
 " various
 set viewoptions-=options
 execute 'set viewdir='.s:view_dir
+set viminfo='100,<50,s10,h
 execute 'set viminfo+=n'.s:viminfo
 
 " php
@@ -472,25 +472,20 @@ nnoremap <ESC><ESC> :<C-u>nohlsearch<CR><ESC>
 
 nnoremap Y y$
 
-nnoremap <expr> gj &wrap ? 'j' : 'gj'
-nnoremap <expr> gk &wrap ? 'k' : 'gk'
-nnoremap <expr> j &wrap ? 'gj' : 'j'
-nnoremap <expr> k &wrap ? 'gk' : 'k'
-
-vnoremap <expr> gj &wrap ? 'j' : 'gj'
-vnoremap <expr> gk &wrap ? 'k' : 'gk'
-vnoremap <expr> j &wrap ? 'gj' : 'j'
-vnoremap <expr> k &wrap ? 'gk' : 'k'
+noremap gj j
+noremap gk k
+noremap j gj
+noremap k gk
 
 nnoremap x "_x
 vnoremap x "_x
 nnoremap X "_X
 vnoremap X "_X
 
-" nnoremap s <Nop>
-" vnoremap s <Nop>
-" nnoremap S <Nop>
-" vnoremap S <Nop>
+nnoremap s "_s
+vnoremap s "_s
+nnoremap S "_S
+vnoremap S "_S
 
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
@@ -505,10 +500,6 @@ nnoremap <S-UP> <C-w>+
 nnoremap <S-Down> <C-w>-
 nnoremap <S-Left> <C-w><
 nnoremap <S-Right> <C-w>>
-nnoremap <C-UP> <C-w>K
-nnoremap <C-Down> <C-w>J
-nnoremap <C-Left> <C-w>H
-nnoremap <C-Right> <C-w>L
 
 nnoremap <Space> <Nop>
 nnoremap <Space>j o<ESC>
@@ -519,8 +510,8 @@ nnoremap <Space>q :<C-u>quit<CR>
 " terminal
 tnoremap <S-Insert> <C-w>"*
 tnoremap <C-w>c <C-w>:<C-u>hide<CR>
-nnoremap <C-w>, :<C-u>TerminalSwitch<CR>
-tnoremap <C-w>, <C-w>:<C-u>TerminalSwitch<CR>
+nnoremap <C-w><Leader> :<C-u>TerminalSwitch<CR>
+tnoremap <C-w><Leader> <C-w>:<C-u>TerminalSwitch<CR>
 tnoremap <C-w><ESC> <C-w>N
 
 " emacs key bind
