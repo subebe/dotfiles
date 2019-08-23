@@ -187,25 +187,6 @@ hook_add = '''
   xmap gc <Plug>(caw:prefix)
 '''
 [[plugins]]
-repo = 'easymotion/vim-easymotion'
-on_map = '<Plug>'
-hook_add = '''
-  map <Leader>s <Plug>(easymotion-prefix)
-
-  nmap s <Plug>(easymotion-overwin-f2)
-  xmap s <Plug>(easymotion-bd-f2)
-  omap s <Plug>(easymotion-bd-f2)
-  nmap <Leader>sf <Plug>(easymotion-overwin-f)
-  xmap <Leader>sf <Plug>(easymotion-bd-f)
-  omap <Leader>sf <Plug>(easymotion-bd-f)
-  nmap <Leader>sL <Plug>(easymotion-overwin-line)
-  xmap <Leader>sL <Plug>(easymotion-bd-jk)
-  omap <Leader>sL <Plug>(easymotion-bd-jk)
-  nmap <Leader>sw <Plug>(easymotion-overwin-w)
-  xmap <Leader>sw <Plug>(easymotion-bd-w)
-  omap <Leader>sw <Plug>(easymotion-bd-w)
-'''
-[[plugins]]
 repo = 'mattn/emmet-vim'
 on_ft = ['html', 'php']
 [[plugins]]
