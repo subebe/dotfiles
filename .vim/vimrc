@@ -57,7 +57,7 @@ if !isdirectory(s:dein_dir)
   endif
 endif
 
-let g:mapleader = ','
+let g:mapleader = "\<Space>"
 
 if has('gui_running')
   set guioptions-=a guioptions-=i
