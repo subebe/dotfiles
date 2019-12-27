@@ -87,9 +87,6 @@ on_event = 'SwapExists'
 
 # Quickfix
 [[plugins]]
-repo = 'cohama/vim-hier'
-on_event = 'QuickFixCmdPre'
-[[plugins]]
 repo = 'thinca/vim-qfreplace'
 on_cmd = 'Qfreplace'
 ## quickrun
