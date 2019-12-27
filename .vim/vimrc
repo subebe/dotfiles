@@ -423,9 +423,10 @@ command! DiffOrig vert new | set buftype=nofile | read ++edit # | 0delete_ | dif
 command! -nargs=1 VimGrepFile vimgrep /<args>/j %:p
 command! -nargs=1 VimGrepDir vimgrep /<args>/j **
 
+let s:terminal_open_command = 'botright 20new'
 function! s:terminal(...) abort
-  execute 'terminal ++close '.join(a:000)
-  wincmd J | 20wincmd _
+  execute s:terminal_open_command
+  execute 'terminal ++close ++curwin '.join(a:000)
 endfunction
 function! s:terminal_complete(ArgLead, CmdLine, CursorPos) abort
   let shells = ['cmd', 'powershell', 'bash', 'zsh']
@@ -437,8 +438,7 @@ function! s:terminal_switch() abort
   for i in term_list
     if count(tabpagebuflist, i)
       let winnr = bufwinnr(i)
-      execute winnr.'wincmd w'
-      hide
+      execute winnr.'hide'
       return
     endif
   endfor
@@ -454,8 +454,8 @@ function! s:terminal_switch() abort
       let c = nr2char(getchar())
       let bufnr = get(term_list, c, term_list[0])
     endif
-    let showcmd = 'sbuffer +wincmd\ J\|20wincmd\ _ '.bufnr
-    execute showcmd
+    execute s:terminal_open_command
+    execute 'buffer' bufnr
   else
     let shell = get(g:, 'terminal_shell', &shell)
     call s:terminal(shell)
