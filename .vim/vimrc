@@ -420,8 +420,8 @@ command! Wsource if &filetype == 'vim' | write | source % | else | echo 'this is
 command! CdCurrent cd %:p:h
 command! -bang Scratch execute '<bang>' == '!' ? 'tabedit' : 'new' | setlocal buftype=nofile noswapfile
 command! DiffOrig vert new | set buftype=nofile | read ++edit # | 0delete_ | diffthis | wincmd p | diffthis
-command! -nargs=1 VimGrepFile execute 'vimgrep /\v<args>/j %:p'
-command! -nargs=1 VimGrepDir execute 'vimgrep /\v<args>/j **'
+command! -nargs=1 VimGrepFile vimgrep /<args>/j %:p
+command! -nargs=1 VimGrepDir vimgrep /<args>/j **
 
 function! s:terminal(...) abort
   execute 'terminal ++close '.join(a:000)
