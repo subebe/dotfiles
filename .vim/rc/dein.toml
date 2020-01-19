@@ -109,26 +109,19 @@ hook_add = '''
   cmap <C-h> <BS>
 '''
 [[plugins]]
-repo = 'tpope/vim-surround'
-on_map = [
-  ['n', '<Plug>Dsurround', '<Plug>Csurround', '<Plug>CSurround', '<Plug>Ysurround', '<Plug>YSurround', '<Plug>Yssurround', '<Plug>YSsurround'],
-  ['x', '<Plug>VSurround', '<Plug>VgSurround'],
-]
+repo = 'machakann/vim-sandwich'
+# on_map = '<Plug>'
 hook_add = '''
-  nmap ds  <Plug>Dsurround
-  nmap cs  <Plug>Csurround
-  nmap cS  <Plug>CSurround
-  nmap ys  <Plug>Ysurround
-  nmap yS  <Plug>YSurround
-  nmap yss <Plug>Yssurround
-  nmap ySs <Plug>YSsurround
-  nmap ySS <Plug>YSsurround
-  xmap S   <Plug>VSurround
-  xmap gS  <Plug>VgSurround
-''' 
+  runtime macros/sandwich/keymap/surround.vim
+'''
 [[plugins]]
-repo = 'tpope/vim-repeat'
-on_source = ['vim-surround', 'caw.vim']
+repo = 'kana/vim-repeat'
+on_source = ['vim-sandwich', 'caw.vim']
+hook_post_source = '''
+if hasmapto('<Plug>(operator-sandwich-dot)')
+  nmap . <Plug>(operator-sandwich-predot)<Plug>(repeat-.)
+endif
+'''
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
 on_map = '<Plug>'
