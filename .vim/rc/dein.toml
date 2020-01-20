@@ -36,43 +36,109 @@ on_source = 'neosnippet'
 
 # Util
 [[plugins]]
+repo = 'roxma/nvim-yarp'
+hook_add = '''
+  let g:python3_host_prog = 'python'
+'''
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+[[plugins]]
 repo = 'Shougo/denite.nvim'
-depends = 'unite.vim'
+# depends = ['nvim-yarp', 'vim-hug-neovim-rpc']
+# on_cmd = 'Denite'
 hook_add = '''
   nnoremap <Leader>u :<C-u>Denite buffer<CR>
   nnoremap <Leader>U :<C-u>Denite file_mru<CR>
   nnoremap <Leader>p :<C-u>DeniteProjectDir file/rec<CR>
-'''
-hook_source = '''
-  call denite#custom#option('_', 'highlight_mode_insert', 'Search')
-'''
+  nnoremap <Leader>P :<C-u>execute 'DeniteProjectDir' '-input='.expand('<cword>') 'file/rec'<CR>
 
+  augroup MyAugroup
+    autocmd FileType denite call s:denite_settings()
+  augroup END
+  function! s:denite_settings() abort
+    nnoremap <silent><buffer><nowait><expr> <CR> denite#do_map('do_action')
+    nnoremap <silent><buffer><nowait><expr> t denite#do_map('do_action', 'tabopen')
 
-[[plugins]]
-repo = 'Shougo/unite.vim'
-on_cmd = 'Unite'
+    nnoremap <silent><buffer><nowait><expr> i denite#do_map('open_filter_buffer')
+    nnoremap <silent><buffer><nowait><expr> * denite#do_map('toggle_select')
+
+    nnoremap <silent><buffer><nowait><expr> <ESC> denite#do_map('quit')
+    nnoremap <silent><buffer><nowait><expr> j line('.') == line('$') ? 'gg' : 'j'
+    nnoremap <silent><buffer><nowait><expr> k line('.') == 1 ? 'G' : 'k'
+  endfunction
+'''
+# hook_post_source = '''
+# '''
 [[plugins]]
 repo = 'Shougo/neomru.vim'
-on_source = 'unite.vim'
+on_source = 'denite.nvim'
 hook_post_source = '''
   let g:neomru#file_mru_ignore_pattern .= '\|\%(^\%(gina\)://\)'
 '''
 [[plugins]]
-repo = 'Shougo/vimfiler'
-on_path = '.*'
+repo = 'Shougo/defx.nvim'
+# depends = ['nvim-yarp', 'vim-hug-neovim-rpc']
+# on_cmd = 'Defx'
 hook_add = '''
-  augroup MyAugroup
-    autocmd FileType vimfiler nnoremap <silent><buffer><expr> <C-t> vimfiler#do_action('tabopen')
-  augroup END
+  nnoremap <Leader><Leader> :<C-u>Defx -buffer-name=tree<CR>
 
-  nnoremap <Leader><Leader> :<C-u>VimFilerBufferDir -explorer -force-quit<CR>
-  nnoremap <Leader>f :<C-u>VimFilerBufferDir -explorer -no-force-quit<CR>
-  let g:vimfiler_as_default_explorer = 1
-  let g:vimfiler_force_overwrite_statusline = 0
+  call defx#custom#option('_', {
+      \ 'root_marker': ':',
+      \ 'show_ignored_files': 1,
+      \ 'auto_cd': 1,
+      \ })
+  call defx#custom#option('tree', {
+      \ 'split': 'vertical',
+      \ 'direction': 'topleft',
+      \ 'winwidth': 40,
+      \ 'toggle': 1,
+      \ 'columns': 'mark:indent:icon:filename',
+      \ })
+  call defx#custom#option('temp', {
+      \ 'split': 'horizontal',
+      \ 'toggle': 1,
+      \ 'columns': 'mark:indent:icon:filename',
+      \ })
+  call defx#custom#column('filename', {
+      \ 'min_width': 38,
+      \ 'max_width': 38,
+      \ })
+  augroup MyAugroup
+    autocmd FileType defx call s:defx_settings()
+  augroup END
+  function! s:defx_settings() abort
+    nnoremap <silent><buffer><nowait><expr> <CR> defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop', 'quit'])
+    nnoremap <silent><buffer><nowait><expr> t defx#do_action('open', 'tab split')
+    nnoremap <silent><buffer><nowait><expr> s defx#do_action('open', 'split')
+    nnoremap <silent><buffer><nowait><expr> v defx#do_action('open', 'vsplit')
+
+    nnoremap <silent><buffer><nowait><expr> ! defx#do_action('execute_command')
+    nnoremap <silent><buffer><nowait><expr> x defx#do_action('execute_system')
+    nnoremap <silent><buffer><nowait><expr> yy defx#do_action('yank_path')
+
+    nnoremap <silent><buffer><nowait><expr> - defx#do_action('cd', ['..'])
+    nnoremap <silent><buffer><nowait><expr> + defx#do_action('open_directory')
+    nnoremap <silent><buffer><nowait><expr> \ defx#do_action('cd', ['/'])
+    nnoremap <silent><buffer><nowait><expr> ~ defx#do_action('cd')
+
+    nnoremap <silent><buffer><nowait><expr> * defx#do_action('toggle_select')
+    xnoremap <silent><buffer><nowait><expr> * defx#do_action('toggle_select_visual')
+    nnoremap <silent><buffer><nowait><expr> c defx#do_action('copy')
+    nnoremap <silent><buffer><nowait><expr> m defx#do_action('move')
+    nnoremap <silent><buffer><nowait><expr> d defx#do_action('remove')
+    nnoremap <silent><buffer><nowait><expr> p defx#do_action('paste')
+    nnoremap <silent><buffer><nowait><expr> r defx#do_action('rename')
+    nnoremap <silent><buffer><nowait><expr> % defx#do_action('new_multiple_files')
+
+    nnoremap <silent><buffer><nowait><expr> . defx#do_action('toggle_ignored_files')
+    nnoremap <silent><buffer><nowait><expr> <ESC> defx#do_action('quit')
+    nnoremap <silent><buffer><nowait><expr> j line('.') == line('$') ? 'gg' : 'j'
+    nnoremap <silent><buffer><nowait><expr> k line('.') == 1 ? 'G' : 'k'
+    nnoremap <silent><buffer><nowait> <Tab> :<C-u>Defx -buffer-name=temp<CR>
+  endfunction
 '''
-hook_post_source = '''
-  call vimfiler#custom#profile("default", "context", {"safe": 0, "auto_cd": 1})
-'''
+# hook_post_source = '''
+# '''
 [[plugins]]
 repo = 'tyru/capture.vim'
 on_cmd = 'Capture'
