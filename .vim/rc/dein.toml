@@ -87,11 +87,14 @@ hook_post_source = '''
 '''
 [[plugins]]
 repo = 'Shougo/defx.nvim'
-# depends = ['nvim-yarp', 'vim-hug-neovim-rpc']
-# on_cmd = 'Defx'
+depends = ['nvim-yarp', 'vim-hug-neovim-rpc']
+on_source = ['denite.nvim']
+on_cmd = 'Defx'
 hook_add = '''
   nnoremap <Leader><Leader> :<C-u>Defx -buffer-name=tree<CR>
-
+  nnoremap <Tab> :<C-u>Defx -buffer-name=tree<CR>
+'''
+hook_post_source = '''
   call defx#custom#option('_', {
       \ 'root_marker': ':',
       \ 'show_ignored_files': 1,
@@ -113,23 +116,35 @@ hook_add = '''
       \ 'min_width': 38,
       \ 'max_width': 38,
       \ })
+
   augroup MyAugroup
     autocmd FileType defx call s:defx_settings()
+
+    " autocmd VimEnter * silent! autocmd! FileExplorer *
+    " autocmd BufEnter * if isdirectory(expand('%:p')) || expand('%:t') ==# '~' | execute 'Defx' |  endif
   augroup END
+
+  let g:defx_shortcuts = get(g:, 'defx_shortcuts', {})
   function! s:defx_settings() abort
+    for key in keys(g:defx_shortcuts)
+        execute 'nnoremap <silent><buffer><nowait><expr> _' . key . ' defx#do_action("cd", ["'.g:defx_shortcuts[key].'"])'
+    endfor
+
     nnoremap <silent><buffer><nowait><expr> <CR> defx#is_directory() ? defx#do_action('open_or_close_tree') : defx#do_action('multi', ['drop', 'quit'])
-    nnoremap <silent><buffer><nowait><expr> t defx#do_action('open', 'tab split')
-    nnoremap <silent><buffer><nowait><expr> s defx#do_action('open', 'split')
-    nnoremap <silent><buffer><nowait><expr> v defx#do_action('open', 'vsplit')
+    nnoremap <silent><buffer><nowait><expr> l defx#is_directory() ? defx#do_action('open') : defx#do_action('multi', ['drop', 'quit'])
+    nnoremap <silent><buffer><nowait><expr> t defx#do_action('multi', [['drop', 'tab split'], 'quit'])
+    nnoremap <silent><buffer><nowait><expr> s defx#do_action('multi', [['drop', 'split'], 'quit'])
+    nnoremap <silent><buffer><nowait><expr> v defx#do_action('multi', [['drop', 'rightbelow vsplit'], 'quit'])
 
     nnoremap <silent><buffer><nowait><expr> ! defx#do_action('execute_command')
     nnoremap <silent><buffer><nowait><expr> x defx#do_action('execute_system')
     nnoremap <silent><buffer><nowait><expr> yy defx#do_action('yank_path')
+    nnoremap <silent><buffer><nowait><expr> <C-l> defx#do_action('redraw')
 
-    nnoremap <silent><buffer><nowait><expr> - defx#do_action('cd', ['..'])
-    nnoremap <silent><buffer><nowait><expr> + defx#do_action('open_directory')
+    nnoremap <silent><buffer><nowait><expr> h defx#do_action('cd', ['..'])
     nnoremap <silent><buffer><nowait><expr> \ defx#do_action('cd', ['/'])
     nnoremap <silent><buffer><nowait><expr> ~ defx#do_action('cd')
+    nnoremap <silent><buffer><nowait><expr> ? defx#do_action('search')
 
     nnoremap <silent><buffer><nowait><expr> * defx#do_action('toggle_select')
     xnoremap <silent><buffer><nowait><expr> * defx#do_action('toggle_select_visual')
@@ -141,14 +156,13 @@ hook_add = '''
     nnoremap <silent><buffer><nowait><expr> % defx#do_action('new_multiple_files')
 
     nnoremap <silent><buffer><nowait><expr> . defx#do_action('toggle_ignored_files')
-    nnoremap <silent><buffer><nowait><expr> <ESC> defx#do_action('quit')
-    nnoremap <silent><buffer><nowait><expr> j line('.') == line('$') ? 'gg' : 'j'
-    nnoremap <silent><buffer><nowait><expr> k line('.') == 1 ? 'G' : 'k'
-    nnoremap <silent><buffer><nowait> <Tab> :<C-u>Defx -buffer-name=temp<CR>
+    nnoremap <silent><buffer><nowait><expr> q defx#do_action('quit')
+    nnoremap <silent><buffer><nowait><expr> j line('.') ==# line('$') ? 'gg' : 'j'
+    nnoremap <silent><buffer><nowait><expr> k line('.') ==# 1 ? 'G' : 'k'
+    nnoremap <silent><buffer><nowait> <C-w>s :<C-u>Defx -buffer-name=temp<CR>
+    nnoremap <silent><buffer><nowait> <C-w><C-s> :<C-u>Defx -buffer-name=temp<CR>
   endfunction
 '''
-# hook_post_source = '''
-# '''
 [[plugins]]
 repo = 'tyru/capture.vim'
 on_cmd = 'Capture'
