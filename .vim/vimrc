@@ -94,6 +94,7 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
     call dein#add(s:dein_dir, {'rtp': ''})
 
     call dein#load_toml(s:dein_toml)
+    call dein#local(s:vimfiles_dir.'/bundle', {}, ['tabwrap.vim'])
 
     call dein#end()
     call dein#save_state()
@@ -157,134 +158,6 @@ set previewheight=24
 
 " multiple tab pages
 set showtabline=2
-set tabline=%!MyTabLine()
-
-function! MyTabLine()
-  if !exists("s:tabline")
-    let s:tabline = s:tab(16, 32, 8)
-  endif
-  return s:tabline.gen()
-endfunction
-
-function! s:tab(size, maxsize, minsize) abort
-  let self = {}
-
-  let self.size = a:size
-  let self.maxsize = a:maxsize
-  let self.minsize = a:minsize
-
-  function! self.gen() abort dict
-    let left = self.left()
-    let right = self.right()
-    let leftsize = strdisplaywidth(left)
-    let rightsize = strdisplaywidth(right)
-
-    let width = &columns
-    let middlesize = width - leftsize - rightsize
-    let middle = self.middle(middlesize)
-    return left.middle.'%=%<'.right
-  endfunction
-
-  function! self.left() abort dict
-    return ' '
-  endfunction
-  function! self.right() abort dict
-    return ' '
-  endfunction
-
-  function! self.label(n) abort dict
-    let buflist = tabpagebuflist(a:n)
-    let curbuf = buflist[tabpagewinnr(a:n) - 1]
-    let bufcount = len(buflist) > 1 ? len(buflist) : ''
-
-    let tabmod = len(filter(copy(buflist), 'getbufvar(v:val, "&modified")')) ? '(+)' : ''
-    let tabmod = getbufvar(curbuf, '&modified') ? '+' : tabmod
-
-    let fname = fnamemodify(bufname(curbuf), ':t')
-    let quickfix = getbufvar(curbuf, '&buftype') !~ 'quickfix' ? '' : '[Quickfix]'
-    let nofile = getbufvar(curbuf, '&buftype') !~ 'nofile' ? '' : '[下書き]'
-
-    let name = '[無題]'
-    let name = len(quickfix) ? quickfix : name
-    let name = len(nofile) ? nofile : name
-    let name = len(fname) ? fname : name
-
-    let label = ' '.a:n.tabmod.':'.bufcount.' '.name.' '
-    return label
-  endfunction
-
-  function! self.middle(middlesize) abort dict
-    let sep = '|'
-    let labels = []
-    for tabnr in range(1, tabpagenr('$'))
-      let label = self.label(tabnr)
-      let label = self.labelformat(label, sep, self.size, self.maxsize)
-      call add(labels, label)
-    endfor
-
-    let maxsize = self.maxsize
-    while a:middlesize < self.labelssize(labels, sep) && maxsize > self.size
-      let maxsize = maxsize - 1
-      let i = 0
-      while i < len(labels)
-        if maxsize < strdisplaywidth(labels[i].sep)
-          let labels[i] = self.labelformat(labels[i], sep, self.size, maxsize)
-        endif
-        let i = i + 1
-      endwhile
-    endwhile
-
-    if a:middlesize < self.labelssize(labels, sep)
-      let persize = a:middlesize / tabpagenr('$')
-      let persize = max([persize, self.minsize])
-      let i = 0
-      while i < len(labels)
-        let labels[i] = self.labelformat(labels[i], sep, self.size, persize)
-        let i = i + 1
-      endwhile
-    endif
-
-    let i = 0
-    let strlabels = ''
-    while i < len(labels)
-      let tabn = i + 1
-      let hl = tabn is tabpagenr() ? '%#TabLineSel#' : '%#TabLine#'
-      let hl .= '%'.tabn.'T'
-      let strlabels .= hl.labels[i].'%#TabLineFill#'.sep
-      let i = i + 1
-    endwhile
-
-    return strlabels
-  endfunction
-
-  function! self.labelssize(labels, sep) abort dict
-    let sum = 0
-    for label in a:labels
-      let sum = sum + strdisplaywidth(label.a:sep)
-    endfor
-    return sum
-  endfunction
-
-  function! self.substring(src, start, end) abort dict
-    let splitlabel = split(a:src, '\zs')
-    return join(splitlabel[a:start : a:end], '')
-  endfunction
-
-  function! self.labelformat(label, sep, size, maxsize) abort dict
-    let label = a:label
-    let label .= repeat(' ', a:size - strdisplaywidth(a:label.a:sep))
-
-    let i = strchars(label)
-    while strdisplaywidth(label.a:sep) > a:maxsize
-      let label = self.substring(label, 0, i).'> '
-      let i -= 1
-    endwhile
-
-    return label
-  endfunction
-
-  return self
-endfunction
 
 " terminal
 " using the mouse
