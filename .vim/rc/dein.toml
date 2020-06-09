@@ -17,31 +17,44 @@ on_cmd = 'Vitalize'
 
 # Completion
 [[plugins]]
-repo = 'Shougo/neocomplete.vim'
-on_i = 1
-hook_add = '''
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#enable_auto_delimiter = 1
-'''
-[[plugins]]
-repo = 'Shougo/neosnippet'
-on_source = 'neocomplete.vim'
-hook_add = '''
-  let g:neosnippet#enable_conceal_markers=0
-  imap <expr><Tab> neosnippet#expandable_or_jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<Tab>"
-'''
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-on_source = 'neosnippet'
-
-# Util
-[[plugins]]
 repo = 'roxma/nvim-yarp'
+lazy = 1
 hook_add = '''
   let g:python3_host_prog = 'python'
 '''
 [[plugins]]
 repo = 'roxma/vim-hug-neovim-rpc'
+lazy = 1
+
+[[plugins]]
+repo = 'prabirshrestha/async.vim'
+lazy = 1
+
+# [[plugins]]
+# repo = 'prabirshrestha/asyncomplete.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+on_i = 1
+depends = ['nvim-yarp', 'vim-hug-neovim-rpc']
+hook_add = '''
+  let g:neosnippet#enable_conceal_markers=0
+  imap <expr><Tab> neosnippet#expandable_or_jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<Tab>"
+'''
+lazy = 1
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+on_source = 'neosnippet'
+lazy = 1
+
+
+# Util
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+hook_add = '''
+  let g:neomru#file_mru_ignore_pattern .= '\|\%(^\%(gina\)://\)'
+  let g:neomru#file_mru_ignore_pattern .= '\|\%(^\%(//\)\)'
+'''
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 depends = ['nvim-yarp', 'vim-hug-neovim-rpc']
@@ -78,12 +91,6 @@ hook_post_source = '''
     nnoremap <silent><buffer><nowait><expr> j line('.') ==# line('$') ? 'gg' : 'j'
     nnoremap <silent><buffer><nowait><expr> k line('.') ==# 1 ? 'G' : 'k'
   endfunction
-'''
-[[plugins]]
-repo = 'Shougo/neomru.vim'
-on_source = 'denite.nvim'
-hook_post_source = '''
-  let g:neomru#file_mru_ignore_pattern .= '\|\%(^\%(gina\)://\)'
 '''
 [[plugins]]
 repo = 'Shougo/defx.nvim'
