@@ -110,6 +110,9 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
   " endif
 
   silent! execute 'helptags' s:dein_dir . '/doc/'
+  augroup MyAugroup
+    autocmd VimEnter * call dein#call_hook('post_source')
+  augroup END
 endif
 filetype plugin indent on
 
