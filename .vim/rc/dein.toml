@@ -271,6 +271,8 @@ hook_add = '''
 repo = 'lambdalisue/gina.vim'
 on_cmd = 'Gina'
 hook_post_source = '''
+  let g:gina#process#command = "git --no-pager -c core.editor= -c color.status=always"
+
   call gina#custom#command#option('status', '-b|--branch')
   call gina#custom#command#option('status', '-s|--short')
   call gina#custom#command#option('commit', '-v|--verbose')
@@ -312,12 +314,9 @@ hook_post_source = '''
       \ ':<C-u>Gina log<CR><C-l>',
       \ {'noremap': 1, 'silent': 1},
       \)
-
-  let g:mytabline_right = '%{gina#component#repo#preset()}'
 '''
 hook_add = '''
-  nnoremap <Leader>gs :<C-u>Gina status --opener=split<CR>
-  nnoremap <Leader>gS :<C-u>Gina status --opener=tabedit<CR>
+  nnoremap <Leader>gs :<C-u>Gina status --opener=tabedit<CR>
   nnoremap <Leader>gc :<C-u>Gina commit --opener=vsplit<CR>
   nnoremap <Leader>gC :<C-u>Gina commit --amend --opener=vsplit<CR>
   nnoremap <Leader>gb :<C-u>Gina branch --all --opener=split<CR>
