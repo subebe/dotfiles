@@ -34,6 +34,25 @@ lazy = 1
 # repo = 'prabirshrestha/asyncomplete.vim'
 
 [[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+on_ft = ['php']
+lazy = 1
+depends = 'async.vim'
+hook_add = '''
+  let g:lsp_diagnostics_float_cursor = 1
+  augroup MyAugroup
+    autocmd User lsp_buffer_enabled setlocal omnifunc=lsp#complete 
+  augroup END
+'''
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+on_source = 'vim-lsp'
+lazy = 1
+hook_add = '''
+  let g:lsp_settings_servers_dir = expand('~/.cache/vim-lsp-settings/servers')
+'''
+
+[[plugins]]
 repo = 'Shougo/neosnippet'
 on_i = 1
 depends = ['nvim-yarp', 'vim-hug-neovim-rpc']
@@ -47,6 +66,16 @@ repo = 'Shougo/neosnippet-snippets'
 on_source = 'neosnippet'
 lazy = 1
 
+[[plugins]]
+repo = 'thomasfaingnaert/vim-lsp-snippets'
+depends = 'vim-lsp'
+lazy = 1
+
+[[plugins]]
+repo = 'thomasfaingnaert/vim-lsp-neosnippet'
+depends = ['vim-lsp-snippets', 'neosnippet']
+on_source = 'vim-lsp'
+lazy = 1
 
 # Util
 [[plugins]]
