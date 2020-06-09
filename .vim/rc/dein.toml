@@ -142,29 +142,11 @@ hook_add = '''
 [[plugins]]
 repo = 'tyru/capture.vim'
 on_cmd = 'Capture'
-[[plugins]]
-repo = 'chrisbra/Recover.vim'
-on_event = 'SwapExists'
 
 # Quickfix
 [[plugins]]
 repo = 'thinca/vim-qfreplace'
 on_cmd = 'Qfreplace'
-[[plugins]]
-repo = 'w0rp/ale'
-on_cmd = 'ALEEnable'
-hook_add = '''
-  let g:ale_sign_column_always = 1
-  let g:ale_fix_on_save = 1
-
-  if !exists("g:ale_linters") | let g:ale_linters = {} | endif
-  let g:ale_linters['php'] = ['php']
-  let g:ale_php_phpcs_standard = " %s"
-  let g:ale_echo_msg_format = "%linter%: %s"
-
-  if !exists("g:ale_fixers") | let g:ale_fixers = {} | endif
-  let g:ale_fixers['javascript'] = ['prettier']
-'''
 
 # Edit
 [[plugins]]
