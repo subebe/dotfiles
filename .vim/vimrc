@@ -292,6 +292,7 @@ endif
 command! Wsource if &filetype == 'vim' | write | source % | else | echo 'this is not vimfile.' | endif
 command! CdCurrent cd %:p:h
 command! -bang Scratch execute '<bang>' == '!' ? 'tabedit' : 'new' | setlocal buftype=nofile noswapfile
+command! -bang SwapDir execute '<bang>' == '!' ? 'tabedit' : 'edit' &directory
 command! DiffOrig vert new | set buftype=nofile | read ++edit # | 0delete_ | diffthis | wincmd p | diffthis
 command! -nargs=1 VimGrepFile vimgrep /<args>/j %:p
 command! -nargs=1 VimGrepDir vimgrep /<args>/j **
