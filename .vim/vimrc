@@ -67,9 +67,9 @@ if has('gui_running')
 
   if s:is_windows
     set renderoptions=type:directx,renmode:5
-    set guifont=Ricty_Diminished:h12.5:cSHIFTJIS,MS_Gothic:h13
+    set guifont=Ricty_Diminished:h11.5:cSHIFTJIS,MS_Gothic:h13
   elseif s:is_mac
-    set guifont=Ricty\ Regular:h17
+    set guifont=Ricty\ Regular:h16
     set macmeta
     set transparency=10
   endif
@@ -145,7 +145,7 @@ set concealcursor=nc
 " syntax, highlighting and spelling
 set hlsearch
 nohlsearch
-set spell
+set nospell
 set spelllang=en,cjk
 execute 'set spellfile='.s:spellfile
 
@@ -189,8 +189,8 @@ set nrformats=hex
 
 " tabs and indenting
 set tabstop=4 " tab width
-set shiftwidth=2 " auto indent width
-set softtabstop=2 " tabkey space
+set shiftwidth=4 " auto indent width
+set softtabstop=4 " tabkey space
 set expandtab " softtab
 set autoindent
 set smartindent
@@ -254,7 +254,7 @@ augroup MyAugroup
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | execute 'normal! g`"' | endif
 
   " quickfix
-  autocmd QuickFixCmdPre vimgrep setlocal wildignore=*.gif,*.png,*.jpg,*.swf,*.flv,*.mp4,*.pdf,*.ttf,*.mp3,*.wav,*.wma,tags
+  autocmd QuickFixCmdPre vimgrep setlocal wildignore=*.gif,*.png,*.jpg,*.swf,*.flv,*.mp4,*.pdf,*.ttf,*.woff,*.mp3,*.wav,*.wma,tags,*/node_modules/*,*/vendor/*
   autocmd QuickFixCmdPost vimgrep setlocal wildignore<
   autocmd QuickFixCmdPost *grep* cwindow
 
@@ -299,6 +299,7 @@ command! -bang SwapDir execute '<bang>' == '!' ? 'tabedit' : 'edit' &directory
 command! DiffOrig vert new | set buftype=nofile | read ++edit # | 0delete_ | diffthis | wincmd p | diffthis
 command! -nargs=1 VimGrepFile vimgrep /<args>/j %:p
 command! -nargs=1 VimGrepDir vimgrep /<args>/j **
+command! HighlightInfo execute 'highlight' synIDattr(synID(line('.'), col('.'), 1), 'name') | execute 'highlight' synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
 
 let s:terminal_open_command = 'botright 20new'
 function! s:terminal(...) abort
@@ -306,7 +307,7 @@ function! s:terminal(...) abort
   execute 'terminal ++close ++curwin '.join(a:000)
 endfunction
 function! s:terminal_complete(ArgLead, CmdLine, CursorPos) abort
-  let shells = ['cmd', 'powershell', 'bash', 'zsh']
+  let shells = ['cmd', 'powershell', 'bash', 'zsh', 'wsl']
   return filter(shells, 'executable(v:val)')
 endfunction
 function! s:terminal_switch() abort
@@ -362,7 +363,7 @@ vnoremap X "_X
 nnoremap s "_s
 vnoremap s "_s
 nnoremap S "_S
-vnoremap S "_S
+" vnoremap S "_S
 
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
@@ -385,17 +386,24 @@ nnoremap <Space>w :<C-u>write<CR>
 nnoremap <Space>q :<C-u>quit<CR>
 
 " terminal
+" <C-@>
 tnoremap <S-Insert> <C-w>"*
 tnoremap <C-w>c <C-w>:<C-u>hide<CR>
 nnoremap <C-w><Leader> :<C-u>TerminalSwitch<CR>
 tnoremap <C-w><Leader> <C-w>:<C-u>TerminalSwitch<CR>
 tnoremap <C-w><ESC> <C-w>N
 
+" Window
+nnoremap <C-w>N :<C-u>vertical new<CR>
+nnoremap <C-w>gn :<C-u>new <Bar> setlocal buftype=nofile noswapfile<CR>
+nnoremap <C-w>gN :<C-u>vertical new <Bar> setlocal buftype=nofile noswapfile<CR>
+
 " emacs key bind
 inoremap <C-a> <C-g>U<Home>
 inoremap <C-e> <C-g>U<End>
 inoremap <C-f> <C-g>U<Right>
 inoremap <C-b> <C-g>U<Left>
+inoremap <C-d> <Del>
 cnoremap <C-a> <C-b>
 cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
@@ -408,6 +416,7 @@ nnoremap -fh :<C-u>setfiletype html <Bar> set filetype?<CR>
 nnoremap -fj :<C-u>setfiletype javascript <Bar> set filetype?<CR>
 nnoremap -fp :<C-u>setfiletype php <Bar> set filetype?<CR>
 nnoremap -fs :<C-u>setfiletype sql <Bar> set filetype?<CR>
+nnoremap -fc :<C-u>setfiletype cs <Bar> set filetype?<CR>
 nnoremap -fv :<C-u>setfiletype vim <Bar> set filetype?<CR>
 nnoremap -fm :<C-u>setfiletype markdown <Bar> set filetype?<CR>
 nnoremap -ft :<C-u>setfiletype text <Bar> set filetype?<CR>
