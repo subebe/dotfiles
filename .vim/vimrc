@@ -94,7 +94,6 @@ if isdirectory(s:dein_dir) && executable('git') && (executable('rsync') || execu
     call dein#add(s:dein_dir, {'rtp': ''})
 
     call dein#load_toml(s:dein_toml)
-    call dein#local(s:vimfiles_dir.'/bundle', {}, ['tabwrap.vim'])
 
     call dein#end()
     call dein#save_state()

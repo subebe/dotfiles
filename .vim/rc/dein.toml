@@ -1,5 +1,7 @@
 # Basic
 [[plugins]]
+repo = 'subebe/tabwrap.vim'
+[[plugins]]
 repo ='vim-jp/vimdoc-ja'
 [[plugins]]
 repo = 'thinca/vim-singleton'
