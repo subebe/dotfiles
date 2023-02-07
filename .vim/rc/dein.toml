@@ -259,13 +259,6 @@ if hasmapto('<Plug>(operator-sandwich-dot)')
 endif
 '''
 [[plugins]]
-repo = 'osyo-manga/vim-anzu'
-on_map = '<Plug>'
-hook_add = '''
-  nmap n <Plug>(anzu-n-with-echo)
-  nmap N <Plug>(anzu-N-with-echo)
-'''
-[[plugins]]
 repo = 'kana/vim-operator-user'
 lazy = 1
 [[plugins]]

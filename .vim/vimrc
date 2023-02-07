@@ -173,6 +173,7 @@ set printheader=%<%t%h%m%=%N
 " messages and info
 set novisualbell
 set noerrorbells
+set shortmess-=S
 set showcmd
 set belloff=all
 set helplang=ja,en
