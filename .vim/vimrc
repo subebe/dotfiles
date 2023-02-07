@@ -373,6 +373,9 @@ nnoremap <C-p> :<C-u>tabprevious<CR>
 vnoremap . :normal .<CR>
 vnoremap @ :<C-u>execute "'<,'>normal @".nr2char(getchar())<CR>
 
+vnoremap <C-j> :move '>+1<CR>gv
+vnoremap <C-k> :move '<-2<CR>gv
+
 nnoremap <S-UP> <C-w>+
 nnoremap <S-Down> <C-w>-
 nnoremap <S-Left> <C-w><
@@ -383,6 +386,8 @@ nnoremap <Space>j o<ESC>
 nnoremap <Space>k O<ESC>
 nnoremap <Space>w :<C-u>write<CR>
 nnoremap <Space>q :<C-u>quit<CR>
+nnoremap <Space>y :<C-u>%yank<CR>
+nnoremap <Space>d :<C-u>%delete<CR>
 
 " terminal
 " <C-@>
@@ -410,6 +415,32 @@ set cedit=<C-@>
 cnoremap <C-l> <C-d>
 cnoremap <C-d> <Del>
 
+" tab
+nnoremap <C-t> <Nop>
+nnoremap <C-t><C-t> gt
+nnoremap <C-t>t gt
+nnoremap <C-t>T gT
+nnoremap <C-t><C-l> <Cmd>tabnext<CR>
+nnoremap <C-t>l <Cmd>tabnext<CR>
+nnoremap <C-t><C-h> <Cmd>tabprevious<CR>
+nnoremap <C-t>h <Cmd>tabprevious<CR>
+nnoremap <C-t>H <Cmd>tabfirst<CR>
+nnoremap <C-t>L <Cmd>tablast<CR>
+
+nnoremap <C-t><C-p> g<Tab><CR>
+nnoremap <C-t>p g<Tab><CR>
+
+nnoremap <C-t><C-s> <Cmd>tab split<CR>
+nnoremap <C-t>s <Cmd>tab split<CR>
+nnoremap <C-t><C-n> <Cmd>tabedit<CR>
+nnoremap <C-t>n <Cmd>tabnew<CR>
+nnoremap <C-t>c <Cmd>tabclose<CR>
+
+nnoremap <C-t><C-m> <Cmd>execute 'tabmove +'.v:count1<CR>
+nnoremap <C-t>m <Cmd>execute 'tabmove +'.v:count1<CR>
+nnoremap <C-t>M <Cmd>execute 'tabmove -'.v:count1<CR>
+
+" options
 nnoremap - <Nop>
 nnoremap -fh :<C-u>setfiletype html <Bar> set filetype?<CR>
 nnoremap -fj :<C-u>setfiletype javascript <Bar> set filetype?<CR>
