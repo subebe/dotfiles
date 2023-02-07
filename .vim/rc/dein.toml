@@ -163,7 +163,6 @@ hook_post_source = '''
       \ })
   call defx#custom#column('filename', {
       \ 'min_width': 38,
-      \ 'max_width': 38,
       \ })
 
   augroup MyAugroup
