@@ -213,6 +213,7 @@ set swapfile
 " command line editing
 set history=10000
 set wildmode=full
+set wildignore=*.gif,*.png,*.jpg,*.swf,*.flv,*.mp4,*.pdf,*.ttf,*.woff,*.mp3,*.wav,*.wma,tags,*/node_modules/*,*/vendor/*
 set wildmenu
 set undofile
 execute 'set undodir='.s:undo_dir
@@ -254,8 +255,6 @@ augroup MyAugroup
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | execute 'normal! g`"' | endif
 
   " quickfix
-  autocmd QuickFixCmdPre vimgrep setlocal wildignore=*.gif,*.png,*.jpg,*.swf,*.flv,*.mp4,*.pdf,*.ttf,*.woff,*.mp3,*.wav,*.wma,tags,*/node_modules/*,*/vendor/*
-  autocmd QuickFixCmdPost vimgrep setlocal wildignore<
   autocmd QuickFixCmdPost *grep* cwindow
 
   " ftplugin
